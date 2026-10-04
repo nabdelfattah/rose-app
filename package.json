@@ -2,7 +2,9 @@
   "name": "@rose-app/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "nx run-many -t serve -p shell dashboard ecommerce"
+  },
   "private": true,
   "devDependencies": {
     "@angular-architects/native-federation": "^22.2.2",

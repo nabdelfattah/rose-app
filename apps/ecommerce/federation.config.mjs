@@ -6,7 +6,8 @@ export default withNativeFederation({
 
 
   exposes: {
-    './Component': './apps/ecommerce/src/app/app.ts',
+    './routes': './apps/ecommerce/src/app/app.routes.ts',
+    // './Component': './apps/ecommerce/src/app/app.ts',
   },
 
   shared: fromPackageJson({ singleton: true, strictVersion: true, requiredVersion: 'auto', build: 'package' })
