@@ -1,0 +1,130 @@
+{
+  "name": "ecommerce",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/ecommerce/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-architects/native-federation:build",
+      "defaultConfiguration": "production",
+      "options": {
+        "cacheExternalArtifacts": true,
+        "tsConfig": "apps/ecommerce/tsconfig.federation.json",
+        "ssr": true
+      },
+      "configurations": {
+        "production": {
+          "target": "ecommerce:esbuild:production"
+        },
+        "development": {
+          "target": "ecommerce:esbuild:development",
+          "dev": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {
+        "target": "ecommerce:serve-original:development",
+        "tsConfig": "apps/ecommerce/tsconfig.federation.json",
+        "rebuildDelay": 500,
+        "cacheExternalArtifacts": true,
+        "dev": true,
+        "devServer": true,
+        "port": 0
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "watch": false
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "ecommerce:build",
+        "staticFilePath": "dist/apps/ecommerce/browser",
+        "spa": true
+      }
+    },
+    "esbuild": {
+      "executor": "@angular/build:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/ecommerce",
+        "browser": "apps/ecommerce/src/main.ts",
+        "tsConfig": "apps/ecommerce/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/ecommerce/public"
+          }
+        ],
+        "styles": [
+          "apps/ecommerce/src/styles.css"
+        ],
+        "server": "apps/ecommerce/src/main.server.ts",
+        "ssr": {
+          "entry": "apps/ecommerce/src/server.ts"
+        },
+        "outputMode": "server",
+        "polyfills": [
+          "es-module-shims"
+        ],
+        "security": {
+          "allowedHosts": [
+            "localhost"
+          ]
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      }
+    },
+    "serve-original": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4201
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "ecommerce:esbuild:production"
+        },
+        "development": {
+          "buildTarget": "ecommerce:esbuild:development"
+        }
+      }
+    }
+  }
+}
