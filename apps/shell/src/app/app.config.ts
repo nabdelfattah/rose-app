@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  isDevMode,
   provideBrowserGlobalErrorListeners,
 } from "@angular/core";
 import { provideRouter } from "@angular/router";
@@ -10,6 +11,9 @@ import {
 } from "@angular/platform-browser";
 import { provideOptimus } from "@openng/optimus-ui/config";
 import Aura from "@openng/optimus-ui-themes/aura";
+import { provideStoreDevtools } from "@ngrx/store-devtools";
+import { provideEffects } from "@ngrx/effects";
+import { provideStore } from "@ngrx/store";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,5 +25,8 @@ export const appConfig: ApplicationConfig = {
         preset: Aura,
       },
     }),
+    provideStore(),
+    provideEffects(),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };
