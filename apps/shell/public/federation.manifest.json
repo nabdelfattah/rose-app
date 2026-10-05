@@ -1,0 +1,4 @@
+{
+  "dashboard": "http://localhost:4202/remoteEntry.json",
+  "ecommerce": "http://localhost:4201/remoteEntry.json"
+}
