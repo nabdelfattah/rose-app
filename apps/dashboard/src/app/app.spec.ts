@@ -1,20 +1,27 @@
-import { TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { provideRouter, RouterOutlet } from "@angular/router";
+import { By } from "@angular/platform-browser";
 import { App } from "./app";
-import { NxWelcome } from "./nx-welcome";
 
 describe("App", () => {
+  let fixture: ComponentFixture<App>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App, NxWelcome],
+      imports: [App],
+      providers: [provideRouter([])],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
   });
 
-  // it('should render title', async () => {
-  //   const fixture = TestBed.createComponent(App);
-  //   await fixture.whenStable();
-  //   const compiled = fixture.nativeElement as HTMLElement;
-  //   expect(compiled.querySelector('h1')?.textContent).toContain(
-  //     'Welcome dashboard'
-  //   );
-  // });
+  it("should create the app", () => {
+    expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it("should render the router outlet", () => {
+    const outlet = fixture.debugElement.query(By.directive(RouterOutlet));
+    expect(outlet).toBeTruthy();
+  });
 });
