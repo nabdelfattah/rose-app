@@ -1,0 +1,16 @@
+@theme {
+  --color-primary: #e11d48;
+  --color-primary-hover: #be123c;
+  --color-surface: #ffffff;
+  --color-text: #1f2937;
+  --radius-control: 0.5rem;
+  --font-sans: "Inter", sans-serif;
+}
+@theme {
+  --color-primary: #e11d48;
+  --color-primary-hover: #be123c;
+  --color-surface: #ffffff;
+  --color-text: #1f2937;
+  --radius-control: 0.5rem;
+  --font-sans: "Inter", sans-serif;
+}
