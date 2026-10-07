@@ -1,5 +1,7 @@
-<button
-  class="bg-maroon-600 hover:bg-maroon-700 text-white rounded-control px-4 py-2"
->
-  <ng-content />
-</button>
+<ng-content />
+@if (loading()) {
+<span
+  class="size-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+  aria-hidden="true"
+></span>
+}
