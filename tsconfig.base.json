@@ -15,8 +15,7 @@
     "skipDefaultLibCheck": true,
     "strict": false,
     "paths": {
-      "@rose-app/design-system": ["./libs/shared/design-system/src/index.ts"],
-      "@rose-app/ui": ["libs/shared/ui/src/index.ts"]
+      "@rose-app/ui": ["./libs/shared/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
