@@ -1,2 +1,8 @@
-<p>auth-layout works!</p>
-<router-outlet />
+<div class="grid sm:grid-cols-1 md:grid-cols-2 items-center justify-center h-screen ">
+    <div class="flex flex-column justify-center">
+        <router-outlet />
+    </div>
+    <div class="cover hidden md:flex max-h-screen">
+        <img src="../../../../auth-cover.webp" alt="auth-cover" class="max-h-full  max-w-full">
+    </div>
+</div>
