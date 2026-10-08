@@ -18,24 +18,42 @@ type Variant =
 type Size = "sm" | "md" | "lg" | "full";
 
 const BASE =
-  "inline-flex items-center justify-center gap-2.5 rounded-[10px] text-base font-normal cursor-pointer " +
-  "disabled:cursor-not-allowed disabled:bg-zinc-200 disabled:text-zinc-400 disabled:border-zinc-200 " +
-  "aria-disabled:pointer-events-none aria-disabled:bg-zinc-200 aria-disabled:text-zinc-400 aria-disabled:border-zinc-200";
+  "inline-flex items-center justify-center gap-2.5 rounded-[10px] text-base font-semibold! cursor-pointer transition duration-300 " +
+  "disabled:cursor-not-allowed " +
+  "aria-disabled:pointer-events-none";
 
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-maroon-600 hover:bg-maroon-700 text-white",
-  secondary: "bg-maroon-50 hover:bg-maroon-100 text-maroon-600",
-  outline: "border border-maroon-600 text-maroon-600 hover:bg-maroon-50",
-  subtle: "bg-zinc-50 border border-zinc-400 hover:bg-zinc-100 text-zinc-800",
-  ghost: "text-zinc-800 hover:bg-zinc-100",
-  destructive: "bg-red-600 hover:bg-red-700 text-white",
+  primary:
+    "bg-maroon-600 hover:bg-maroon-700 text-white " +
+    "disabled:bg-zinc-300 disabled:text-zinc-500 " +
+    "aria-disabled:bg-zinc-300 aria-disabled:text-zinc-500",
+  secondary:
+    "bg-maroon-50 hover:bg-maroon-100 text-maroon-600 " +
+    "disabled:bg-zinc-300 disabled:text-zinc-500 " +
+    "aria-disabled:bg-zinc-300 aria-disabled:text-zinc-500",
+  outline:
+    "border border-maroon-600 text-maroon-600 hover:bg-maroon-50 " +
+    "disabled:bg-zinc-100 disabled:text-zinc-400 disabled:border-zinc-300 " +
+    "aria-disabled:bg-zinc-100 aria-disabled:text-zinc-400 aria-disabled:border-zinc-300",
+  subtle:
+    "bg-zinc-50 border border-zinc-400 hover:bg-zinc-100 text-zinc-800 " +
+    "disabled:bg-zinc-100 disabled:text-zinc-400 disabled:border-zinc-300 " +
+    "aria-disabled:bg-zinc-100 aria-disabled:text-zinc-400 aria-disabled:border-zinc-300",
+  ghost:
+    "text-zinc-800 hover:bg-zinc-100 " +
+    "disabled:bg-zinc-100 disabled:text-zinc-400 " +
+    "aria-disabled:bg-zinc-100 aria-disabled:text-zinc-400",
+  destructive:
+    "bg-red-600 hover:bg-red-800 text-white " +
+    "disabled:bg-zinc-300 disabled:text-zinc-500 " +
+    "aria-disabled:bg-zinc-300 aria-disabled:text-zinc-500",
 };
 
 const SIZES: Record<Size, string> = {
-  sm: "h-9 px-3",
-  md: "h-11 px-4",
-  lg: "h-12 px-6",
-  full: "h-12 px-6 w-full",
+  sm: "h-9 px-2.5", // px-[10px]
+  md: "h-11 px-5", //px-[20px]
+  lg: "h-[70px] px-7.5", // px-[30px]
+  full: "h-11 px-5 w-full",
 };
 
 /**
