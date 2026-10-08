@@ -1,4 +1,4 @@
 {
-  "dashboard": "https://rose-app-dashboard.vercel.app/remoteEntry.json",
-  "ecommerce": "https://rose-app-qq6o.vercel.app/remoteEntry.json"
+  "dashboard": "http://localhost:4202/remoteEntry.json",
+  "ecommerce": "http://localhost:4201/remoteEntry.json"
 }

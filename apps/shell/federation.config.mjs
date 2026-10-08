@@ -19,6 +19,8 @@ export default withNativeFederation({
     'rxjs/webSocket',
     // remove this line if you install optimus chart
     '@openng/optimus-ui/chart',
+    // خلي كل app يضم نسخة من المكتبة داخل الـ bundle بتاعه
+    '@rose-app/ui',
     // Add further packages you don't need at runtime
   ],
 
