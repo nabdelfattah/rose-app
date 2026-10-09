@@ -1,0 +1,57 @@
+<div class="flex flex-col gap-2">
+  <label class="dark:text-zinc-50" [for]="id()"> {{ label() }} </label>
+  <div class="relative">
+    <input
+      #input
+      [type]="type()"
+      [placeholder]="placeholder()"
+      [value]="value()"
+      [formControl]="control()"
+      [id]="id()"
+      class="border border-zinc-300 dark:border-zinc-600 dark:text-zinc-50 dark:bg-zinc-700 dark:placeholder:text-zinc-400 focus:border-maroon-600 dark:focus:border-pink-400 p-4 w-full block rounded-[10px] outline-0 placeholder:text-zinc-400"
+      [class]="{
+        'border-red-500': control().hasError('required') && control().touched,
+        'border-zinc-300': !(control().hasError('required') && control().touched),
+        'dark:border-zinc-600': !(control().hasError('required') && control().touched),
+      }"
+    />
+    @if (helperText()) {
+    <p class="mt-1 text-sm text-zinc-500">{{ helperText() }}</p>
+    } @if (type() === 'password') {
+    <button
+      type="button"
+      (click)="toggleType()"
+      class="absolute bottom-0 right-3 -translate-y-1/2 cursor-pointer"
+    >
+      @if (showPassword()) {
+      <svg lucideEye></svg>
+      } @else {
+      <svg lucideEyeOff></svg>
+      }
+    </button>
+    }
+  </div>
+  @if (control().errors && control().touched) {
+  @if(control().hasError('required')){
+  <p class="error text-red-600">Your {{ label() }} is required</p>
+  } @if(control().hasError("email")){
+  <p class="error text-red-600">Please Enter Valid Email</p>
+  } @if( control().hasError("pattern")&& control().touched){ 
+        @if(type() ==='tel'){
+            <p class="error text-red-600">Accept Egyption Numbers Only</p>
+            }@else {
+            <ul>
+                <li class="error text-red-600 text-[14px] list-disc">
+                Password must be at least 8 characters
+                </li>
+                <li class="error text-red-600 text-[14px] list-disc my-1.5">
+                Password must include at least one uppercase letter
+                </li>
+                <li class="error text-red-600 text-[14px] list-disc">
+                Password must include at least one special character
+                </li>
+            </ul>
+  }
+ } 
+}
+</div>

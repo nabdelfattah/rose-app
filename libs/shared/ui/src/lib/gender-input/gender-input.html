@@ -1,0 +1,22 @@
+<div class="flex flex-col gap-2">
+  <label [for]="id()" class="dark:text-zinc-50"> {{ label() }} </label>
+
+  <select
+    [id]="id()"
+    [formControl]="control()"
+    class="border border-zinc-300 dark:border-zinc-600 dark:text-zinc-50 dark:bg-zinc-700 dark:placeholder:text-zinc-400 focus:border-maroon-600 dark:focus:border-pink-400 placeholder:text-zinc-400 p-4 rounded-[10px] outline-0"
+    [class]="{
+        'border-red-500': control().hasError('required') && control().touched,
+        'border-zinc-300': !(control().hasError('required') && control().touched),
+        'dark:border-zinc-600': !(control().hasError('required') && control().touched),
+      }"
+  >
+    <option value="" disabled>{{ placeholder() }}</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+
+  @if (control().hasError('required') && control().touched) {
+  <p class="text-sm text-red-600">Please select your gender.</p>
+  }
+</div>
