@@ -44,4 +44,6 @@ Thumbs.db
 .claude/worktrees
 .claude/settings.local.json
 
-.angular/cache
+.angular
+
+__screenshots__/

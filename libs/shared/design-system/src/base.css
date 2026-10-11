@@ -1,0 +1,44 @@
+/* base.css  —  DEFAULT LOOK OF PLAIN HTML ELEMENTS */
+/* Rule: only style tags here (html, body, a, ...). No component classes. */
+
+@layer base {
+  /* Tell the browser which theme is active, so scrollbars, date pickers
+     and native inputs also become light or dark. */
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-white);
+    color: var(--color-zinc-900);
+    -webkit-font-smoothing: antialiased; /*خلّي حواف الحروف أكثر نعومة وأقل سماكة.*/
+    -moz-osx-font-smoothing: grayscale; /* يحسن تنعيم الخط في Firefox/macOS */
+  }
+  .dark body {
+    background-color: var(--color-zinc-950);
+    color: var(--color-zinc-50);
+  }
+
+  /* One focus style for keyboard users everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--color-maroon-600);
+    outline-offset: 2px;
+  }
+  .dark :focus-visible {
+    outline-color: var(--color-maroon-400);
+  }
+
+  /* Text selection. */
+  ::selection {
+    background-color: var(--color-maroon-100);
+    color: var(--color-zinc-900);
+  }
+  .dark ::selection {
+    background-color: var(--color-maroon-700);
+    color: var(--color-zinc-50);
+  }
+}
