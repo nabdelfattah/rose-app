@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
+import { ThemeButtonComponent } from "@rose-app/ui";
 
 @Component({
   selector: "app-auth-layout",
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ThemeButtonComponent],
   templateUrl: "./auth-layout.html",
   styleUrl: "./auth-layout.css",
 })

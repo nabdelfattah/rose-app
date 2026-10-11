@@ -1,0 +1,7 @@
+<button (click)="toggle()" appButton size="sm">
+    @if(_themeService.isDark()){
+        <svg lucideSun></svg>
+    }@else {
+        <svg lucideMoon></svg>
+    }
+</button>
