@@ -2,26 +2,20 @@
   <h1 class="h1 mb-10">Login</h1>
   <form [formGroup]="loginForm" (ngSubmit)="submitHandler()">
     <div class="flex flex-col gap-4">
-      <app-field
-        controlName="username"
+      <app-input
+        id="username"
         label="Username"
-        placeholder="user123"
         type="text"
-        [errorMessages]="{
-          required: 'Your username is required',
-          minlength: 'Must be at least 3 characters',
-        }"
+        placeholder="example"
+        [control]="loginForm.controls.username"
       />
-      <app-field
-        controlName="password"
+
+      <app-input
+        id="password"
         label="Password"
-        placeholder="********"
         type="password"
-        [errorMessages]="{
-          required: 'Your password is required',
-          pattern:
-            'Must contain at least 8 chars, 1 uppercase, 1 lowercase, 1 number, and 1 special',
-        }"
+        placeholder="********"
+        [control]="loginForm.controls.password"
       />
     </div>
 
@@ -29,17 +23,21 @@
     <div class="flex justify-end mt-2.5 mb-10">
       <app-link link="/forget-password">Forgot your password?</app-link>
     </div>
-    <!-- toast -->
-    @if (displayToast()) {
-    <app-toast (toastEvent)="displayToast.set($event)" [message]="errMsg()" />
-    }
 
     <!-- submit button -->
-    <app-button label="login" type="submit"></app-button>
+    <button
+      appButton
+      type="submit"
+      [loading]="isLoading()"
+      size="md"
+      variant="primary"
+    >
+      Login
+    </button>
     <div class="mt-9 text-center">
       <p class="font-geist font-medium text-sm">
-        Don’t have an account?
-        <app-link link="/register">Create yours</app-link>
+        Don’t have an account yet?
+        <app-link link="/register">Create one now!</app-link>
       </p>
     </div>
   </form>

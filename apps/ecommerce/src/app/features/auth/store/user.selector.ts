@@ -1,30 +1,46 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { UserState } from "../models/user-state";
 
-const selectUserState = createFeatureSelector<UserState>("user");
+export const selectUserState = createFeatureSelector<UserState>("user");
 
-const selectID = createSelector(selectUserState, (state) => state.id);
-const selectRole = createSelector(selectUserState, (state) => state.role);
-const selectEmail = createSelector(selectUserState, (state) => state.email);
-const selectVerifiedEmail = createSelector(
+export const selectLoading = createSelector(
+  selectUserState,
+  (state) => state.isLoading,
+);
+export const selectID = createSelector(selectUserState, (state) => state.id);
+export const selectRole = createSelector(
+  selectUserState,
+  (state) => state.role,
+);
+export const selectEmail = createSelector(
+  selectUserState,
+  (state) => state.email,
+);
+export const selectVerifiedEmail = createSelector(
   selectUserState,
   (state) => state.emailVerified,
 );
-const selectuserName = createSelector(
+export const selectuserName = createSelector(
   selectUserState,
   (state) => state.username,
 );
-const selectFirstName = createSelector(
+export const selectFirstName = createSelector(
   selectUserState,
   (state) => state.firstName,
 );
-const selectLastName = createSelector(
+export const selectLastName = createSelector(
   selectUserState,
   (state) => state.lastName,
 );
-const selectPhone = createSelector(selectUserState, (state) => state.phone);
-const selectVerifiedPhone = createSelector(
+export const selectPhone = createSelector(
+  selectUserState,
+  (state) => state.phone,
+);
+export const selectVerifiedPhone = createSelector(
   selectUserState,
   (state) => state.phoneVerified,
 );
-const selectGender = createSelector(selectUserState, (state) => state.gender);
+export const selectGender = createSelector(
+  selectUserState,
+  (state) => state.gender,
+);

@@ -11,4 +11,5 @@ export interface UserState {
   phoneVerified: boolean | null;
   token: string;
   profilePhoto?: string;
+  isLoading: boolean;
 }

@@ -27,7 +27,6 @@ export class Register implements OnInit {
   ngOnInit() {
     // ngOnInit also runs during SSR; only dispatch in the browser so we don't register twice
     if (!isPlatformBrowser(this.platformId)) return;
-    console.log("hi");
     this.store.dispatch(userActions.register({ payload: this.payload }));
   }
 }

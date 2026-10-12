@@ -7,6 +7,7 @@ import { MessageService } from "@openng/optimus-ui/api";
 import { Home } from "./features/home/home";
 import { MainLayout } from "./layout/main-layout/main-layout";
 import { AuthLayout } from "./layout/auth-layout/auth-layout";
+import { EcommerceRoot } from "./layout/ecommerce-root/ecommerce-root";
 import { authGuard } from "./core/guards/auth-guard";
 import { guestGuard } from "./core/guards/guest-guard";
 import { headerInterceptor } from "./core/interceptors/header-interceptor";
@@ -14,10 +15,11 @@ import { errorInterceptor } from "./core/interceptors/error-interceptor";
 import { userReducer } from "./features/auth/store/user.reducer";
 import * as userEffects from "./features/auth/store/user.effects";
 
-// every provider from ecommerce needs to live here to work both inside the shell and ecommerce.
 export const appRoutes: Route[] = [
   {
     path: "",
+    component: EcommerceRoot,
+    // every provider from ecommerce needs to live here to work both inside the shell and ecommerce.
     providers: [
       provideHttpClient(
         withInterceptors([errorInterceptor, headerInterceptor]),

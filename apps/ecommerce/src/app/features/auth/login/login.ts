@@ -1,71 +1,37 @@
-import { Component, inject, signal } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
-import { AuthService } from "@nabdelfattah/ngx-iam-auth";
-import { MessageService } from "@openng/optimus-ui/api";
-import { Router } from "@angular/router";
-import { TOKEN_KEY, USER_KEY } from "../../../core/constants/storage-keys";
-
-// at least 8 chars, 1 uppercase, 1 lowercase, 1 number and 1 special char
-const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/;
+import { Component, inject } from "@angular/core";
+import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import { passwordPattern } from "../utils/patterns";
+import { Store } from "@ngrx/store";
+import { userActions } from "../store/user.actions";
+import { Button, Input, Link } from "@rose-app/ui";
+import { selectLoading } from "../store/user.selector";
 
 @Component({
   selector: "app-login",
-  imports: [],
+  imports: [ReactiveFormsModule, Link, Button, Input],
   templateUrl: "./login.html",
   styleUrl: "./login.css",
 })
 export class Login {
   private readonly fb = inject(FormBuilder);
-  private readonly authService = inject(AuthService);
-  private readonly messageService = inject(MessageService);
-  private readonly router = inject(Router);
+  private readonly store = inject(Store);
 
-  errMsg = signal("Something Went Wrong!");
+  isLoading = this.store.selectSignal(selectLoading);
 
-  displayToast = signal(false);
   loginForm = this.fb.nonNullable.group({
     username: ["", [Validators.required, Validators.minLength(3)]],
-    password: ["", [Validators.required, Validators.pattern(passwordPattern)]],
+    password: ["", [Validators.required]],
   });
 
   submitHandler() {
     if (this.loginForm.valid) {
-      // send request to backend
-      this.authService.login(this.loginForm.getRawValue()).subscribe({
-        next: (res) => {
-          this.messageService.add({
-            severity: "success",
-            detail: "You logged in successfully!",
-          });
-          // store token and user data
-          localStorage.setItem(TOKEN_KEY, res.token);
-          localStorage.setItem(
-            USER_KEY,
-            JSON.stringify({
-              username: res.username,
-              email: res.email,
-              phone: res.phone,
-              firstName: res.firstName,
-              lastName: res.lastName,
-              profilePhoto: res.profilePhoto,
-              role: res.role,
-            }),
-          );
-
-          // redirect to home
-          this.router.navigate(["/"]);
-        },
-        error: (err) => {
-          this.errMsg.set(err.error?.message ?? "Something Went Wrong!");
-          this.displayToast.set(true);
-        },
-      });
+      // send request to backend, display toast, set token and redirect to home
+      this.store.dispatch(
+        userActions.login({ payload: this.loginForm.getRawValue() }),
+      );
     } else {
       // show all problematic fields
       this.loginForm.markAllAsTouched();
-      // display toast
-      this.errMsg.set("Form Fields are not valid.");
-      this.displayToast.set(true);
     }
   }
 }
