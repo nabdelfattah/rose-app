@@ -1,0 +1,78 @@
+{
+  "auth": {
+    "login": {
+      "email": "Email",
+      "password": "Password",
+      "forgot-password": "Forgot Your Password?",
+      "login":"Login",
+      "create-account": "Don’t have an account yet?",
+      "create-link":"Create one now!"
+    },
+    "register":{
+      "title":"Create Account",
+      "email": "Email",
+      "next": "Next",
+      "have-account": "Already have an account?",
+      "login-link":"Login",
+      "help":"Need help?",
+      "contact":"Contact us",
+      "otp":{
+        "otp-title":"Enter the OTP Code",
+        "sent-otp":"We have sent a 6-digit code to",
+        "edit":"Edit",
+        "send-new":"Send a new code",
+        "verify":"Verify Code"
+      },
+      "about":{
+        "about-title": "Tell us more about you",
+        "desc":"A few details to get started",
+        "firstname":"First Name",
+        "lastname":"Last Name",
+        "username":"Username",
+        "phone":"Phone",
+        "gender":"Gender",
+        "select-gender":"Select Gender",
+        "male":"Male",
+        "female":"Female"
+      },
+      "password":{
+        "password-title":"Create a strong password",
+        "desc":"Choose a secure password to protect your account",
+        "password":"Password",
+        "confirm-password":"Confirm Password"
+      }
+    },
+    "forgot-password":{
+      "forgot-title":"Forgot Password",
+      "desc":"Worry not, we’ll send you instructions to help you reset it.",
+      "email":"Email",
+      "next":"Next",
+      "create-account": "Don’t have an account yet?",
+      "create-link":"Create one now!",
+      "help":"Need help?",
+      "contact-link":"Contact us",
+      "reset":{
+        "title":"Password Reset Sent",
+        "reset-link":"We have sent a password reset link to:",
+        "desc":"If an account exists for this email address, we've sent password reset instructions. If you don't receive the email within a few minutes, check your spam or junk folder.",
+        "check-p":"If you don’t see the email within a few minutes, check your spam or junk folder."
+      },
+      "create-password":{
+        "title":"Create a new password",
+        "desc":"Set a strong password to secure your account.",
+        "password":"Password",
+        "confirm-password":"Confirm Password",
+        "reset-password":"Reset Password"
+      }
+    }
+  },
+   "validation": {
+    "required": "Your {{field}} is required",
+    "email": "Please enter a valid email",
+    "egyptian-phone": "Accept Egyptian numbers only",
+    "password-length": "Password must be at least 8 characters",
+    "password-uppercase": "Password must include at least one uppercase letter",
+    "password-special": "Password must include at least one special character"
+  }
+  
+}
