@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuthLayout } from './auth-layout';
+import { TranslateService } from '@ngx-translate/core';
 
 describe('AuthLayout', () => {
   let component: AuthLayout;
@@ -7,7 +8,15 @@ describe('AuthLayout', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AuthLayout]
+      imports: [AuthLayout],
+      providers: [
+    {
+      provide: TranslateService,
+      useValue: {
+        use: vi.fn(),
+      },
+    },
+],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AuthLayout);

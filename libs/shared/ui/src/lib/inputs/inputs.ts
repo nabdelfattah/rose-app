@@ -2,11 +2,12 @@ import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, inject, input, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import {FormControl, ReactiveFormsModule} from "@angular/forms"
 import { LucideEye, LucideEyeOff } from '@lucide/angular';
+import { TranslatePipe } from '@ngx-translate/core';
 import intlTelInput from 'intl-tel-input';
 
 @Component({
   selector: 'app-input',
-  imports: [ReactiveFormsModule, LucideEye, LucideEyeOff],
+  imports: [ReactiveFormsModule, LucideEye, LucideEyeOff, TranslatePipe],
   templateUrl: './inputs.html',
 })
 export class Input implements AfterViewInit{

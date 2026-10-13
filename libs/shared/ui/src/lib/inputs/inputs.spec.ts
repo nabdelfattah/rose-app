@@ -1,23 +1,52 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { FormControl } from '@angular/forms';
-import { Input } from './inputs';
-import { PLATFORM_ID } from '@angular/core';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { describe, it, expect, beforeEach } from "vitest";
+import { FormControl } from "@angular/forms";
+import { TranslateLoader, provideTranslateService } from "@ngx-translate/core";
+import { Observable, of } from "rxjs";
+import { Input } from "./inputs";
 
-describe('Input', () => {
+class MockTranslateLoader implements TranslateLoader {
+  getTranslation(): Observable<any> {
+    return of({
+      "auth.login.email": "Email",
+      "auth.login.password": "Password",
+
+      validation: {
+        required: "Your {{field}} is required",
+        email: "Please Enter Valid Email",
+        "egyptian-phone": "Accept Egyption Numbers Only",
+        "password-length": "Password must be at least 8 characters",
+        "password-uppercase":
+          "Password must include at least one uppercase letter",
+        "password-special":
+          "Password must include at least one special character",
+      },
+    });
+  }
+}
+
+describe("Input", () => {
   let component: Input;
   let fixture: ComponentFixture<Input>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Input],
+      imports: [
+        Input,
+        provideTranslateService({
+          loader: {
+            provide: TranslateLoader,
+            useClass: MockTranslateLoader,
+          },
+        }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Input);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('label', 'Email');
-    fixture.componentRef.setInput('id', 'email');
-    fixture.componentRef.setInput('control', new FormControl(''));
+    fixture.componentRef.setInput("label", "Email");
+    fixture.componentRef.setInput("id", "email");
+    fixture.componentRef.setInput("control", new FormControl(""));
     fixture.detectChanges();
   });
 
@@ -163,28 +192,25 @@ describe('Input', () => {
     control.setErrors({ pattern: true });
     control.markAsTouched();
     fixture.detectChanges();
-    const errors: NodeListOf<HTMLElement> = fixture.nativeElement.querySelectorAll('.error');
+
+    const errors: NodeListOf<HTMLElement> = fixture.nativeElement.querySelectorAll(".error");
+    const errorTexts = Array.from(errors).map(
+      (error) => error.textContent ?? "",);
     expect(
-      Array.from(errors).some((error) =>
-        error.textContent?.includes(
-          'Password must be at least 8 characters',
-        ),
+      errorTexts.some((text) =>
+        text.includes("Password must be at least 8 characters"),
       ),
     ).toBe(true);
 
     expect(
-      Array.from(errors).some((error) =>
-        error.textContent?.includes(
-          'Password must include at least one uppercase letter',
-        ),
+      errorTexts.some((text) =>
+        text.includes("Password must include at least one uppercase letter"),
       ),
     ).toBe(true);
 
     expect(
-      Array.from(errors).some((error) =>
-        error.textContent?.includes(
-          'Password must include at least one special character',
-        ),
+      errorTexts.some((text) =>
+        text.includes("Password must include at least one special character"),
       ),
     ).toBe(true);
   });
