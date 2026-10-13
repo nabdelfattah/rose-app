@@ -1,22 +1,21 @@
 <div class="flex flex-col gap-2">
-  <label [for]="id()" class="dark:text-zinc-50"> {{ label() }} </label>
+  <label [for]="id()" class="text-zinc-800"> {{ label() | translate}} </label>
 
   <select
     [id]="id()"
     [formControl]="control()"
-    class="border border-zinc-300 dark:border-zinc-600 dark:text-zinc-50 dark:bg-zinc-700 dark:placeholder:text-zinc-400 focus:border-maroon-600 dark:focus:border-pink-400 placeholder:text-zinc-400 p-4 rounded-[10px] outline-0"
+    class="border border-zinc-400 text-zinc-800 bg-white focus:border-maroon-600 dark:focus:border-pink-400 placeholder:text-zinc-400 p-4 rounded-[10px] outline-0"
     [class]="{
         'border-red-500': control().hasError('required') && control().touched,
-        'border-zinc-300': !(control().hasError('required') && control().touched),
-        'dark:border-zinc-600': !(control().hasError('required') && control().touched),
+        'border-zinc-400': !(control().hasError('required') && control().touched),
       }"
   >
-    <option value="" disabled>{{ placeholder() }}</option>
-    <option value="male">Male</option>
-    <option value="female">Female</option>
+    <option value="" disabled>{{ placeholder() | translate }}</option>
+    <option value="male">{{'auth.register.about.male' | translate}}</option>
+    <option value="female">{{'auth.register.about.female' | translate}}</option>
   </select>
 
   @if (control().hasError('required') && control().touched) {
-  <p class="text-sm text-red-600">Please select your gender.</p>
+  <p class="text-sm text-red-600">{{ 'validation.required' | translate: { field: (label() | translate) } }}</p>
   }
 </div>

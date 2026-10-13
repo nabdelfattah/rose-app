@@ -2,6 +2,8 @@
 /* Rule: this file only holds VALUES. No element styling here. */
 
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant rtl (&:where([dir="rtl"], [dir="rtl"] *));
+@custom-variant ltr (&:where([dir="ltr"], [dir="ltr"] *));
 
 @theme static {
   --color-*: initial; /* Remove Tailwind's default colors so only my colors can be used. */
