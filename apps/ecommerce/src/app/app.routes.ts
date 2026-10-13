@@ -1,6 +1,6 @@
 import { Route } from "@angular/router";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
-import { provideIamAuth } from "@nabdelfattah/ngx-iam-auth";
+import { AuthService, provideIamAuth } from "@nabdelfattah/ngx-iam-auth";
 import { provideState } from "@ngrx/store";
 import { provideEffects } from "@ngrx/effects";
 import { MessageService } from "@openng/optimus-ui/api";
@@ -27,6 +27,8 @@ export const appRoutes: Route[] = [
       provideIamAuth({
         baseUrl: "https://rose-app.elevate-bootcamp.cloud/api/",
       }),
+      // Providing AuthService here creates it in this route's injector, so it uses the HttpClient + interceptors above.
+      AuthService,
       provideState({ name: "user", reducer: userReducer }),
       provideEffects(userEffects),
       MessageService,
