@@ -11,6 +11,7 @@ export const userActions = createActionGroup({
     Register: props<{ payload: RegisterPayload }>(),
     "Register Successfully": props<{ user: Omit<UserState, "isLoading"> }>(),
     "Register Failed": props<{ error: string }>(),
+    "Restore Session": props<{ user: Omit<UserState, "isLoading"> }>(),
     Logout: emptyProps(),
   },
 });

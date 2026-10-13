@@ -1,10 +1,10 @@
 import { HttpErrorResponse, HttpInterceptorFn } from "@angular/common/http";
-import { inject, PLATFORM_ID } from "@angular/core";
-import { isPlatformBrowser } from "@angular/common";
+import { inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { MessageService } from "@openng/optimus-ui/api";
+import { Store } from "@ngrx/store";
 import { catchError, throwError } from "rxjs";
-import { TOKEN_KEY, USER_KEY } from "../constants/storage-keys";
+import { userActions } from "../../features/auth/store/user.actions";
 
 const AUTH_PATHS = [
   "/login",
@@ -17,16 +17,15 @@ const AUTH_PATHS = [
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const messageService = inject(MessageService);
   const router = inject(Router);
-  const isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  const store = inject(Store);
   const isAuthPage = AUTH_PATHS.some((path) => router.url.startsWith(path));
 
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
       // if unauthorized (token expired) log the user out and redirect to /login
-      if (err.status === 401 && isBrowser) {
-        localStorage.removeItem(TOKEN_KEY);
-        localStorage.removeItem(USER_KEY);
-        if (!isAuthPage) router.navigate(["/login"]);
+      // (skipped on auth pages: a wrong password can also return 401)
+      if (err.status === 401 && !isAuthPage) {
+        store.dispatch(userActions.logout());
       }
 
       messageService.add({

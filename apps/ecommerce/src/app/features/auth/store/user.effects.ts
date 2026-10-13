@@ -1,9 +1,9 @@
 import { inject } from "@angular/core";
 import { AuthService } from "@nabdelfattah/ngx-iam-auth";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, of, switchMap, tap } from "rxjs";
+import { catchError, EMPTY, map, of, switchMap, tap } from "rxjs";
 import { userActions } from "./user.actions";
-import { TOKEN_KEY, USER_KEY } from "../../../core/constants/storage-keys";
+import { Session } from "../../../core/services/session";
 import { MessageService } from "@openng/optimus-ui/api";
 import { Router } from "@angular/router";
 
@@ -62,12 +62,12 @@ export const loginRedirect = createEffect(
     actions$ = inject(Actions),
     router = inject(Router),
     messageService = inject(MessageService),
+    session = inject(Session),
   ) =>
     actions$.pipe(
       ofType(userActions.loginSuccessfully),
       tap(({ user }) => {
-        localStorage.setItem(TOKEN_KEY, user.token);
-        localStorage.setItem(USER_KEY, JSON.stringify(user));
+        session.save(user);
         messageService.add({
           severity: "success",
           detail: "Logged in successfully!",
@@ -80,14 +80,26 @@ export const loginRedirect = createEffect(
 
 // clear the saved session and send the user to login
 export const logout = createEffect(
-  (actions$ = inject(Actions), router = inject(Router)) =>
+  (
+    actions$ = inject(Actions),
+    router = inject(Router),
+    session = inject(Session),
+  ) =>
     actions$.pipe(
       ofType(userActions.logout),
       tap(() => {
-        localStorage.removeItem(TOKEN_KEY);
-        localStorage.removeItem(USER_KEY);
+        session.clear();
         router.navigate(["/login"]);
       }),
     ),
   { functional: true, dispatch: false },
+);
+
+// restore the saved user once when ecommerce loads, so a refresh doesn't empty the store
+export const restoreSession = createEffect(
+  (session = inject(Session)) => {
+    const user = session.getUser();
+    return user ? of(userActions.restoreSession({ user })) : EMPTY;
+  },
+  { functional: true },
 );

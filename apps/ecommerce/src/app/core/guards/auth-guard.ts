@@ -1,16 +1,17 @@
 import { inject, PLATFORM_ID } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import { CanActivateFn, Router } from "@angular/router";
-import { TOKEN_KEY } from "../constants/storage-keys";
+import { Session } from "../services/session";
 
 export const authGuard: CanActivateFn = () => {
   const router = inject(Router);
+  const platform = inject(PLATFORM_ID);
+  const session = inject(Session);
 
-  // session storage doesn't exist on the server, let the browser decide
-  if (!isPlatformBrowser(inject(PLATFORM_ID))) return true;
+  // cookies aren't read on the serve
+  if (!isPlatformBrowser(platform)) return true;
 
-  // TODO: get it from session storage
-  if (localStorage.getItem(TOKEN_KEY)) {
+  if (session.hasToken()) {
     return true;
   }
   // stop the current routing and navigate the user to /login

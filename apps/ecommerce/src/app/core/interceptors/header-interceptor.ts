@@ -1,13 +1,11 @@
 import { HttpInterceptorFn } from "@angular/common/http";
-import { inject, PLATFORM_ID } from "@angular/core";
-import { isPlatformBrowser } from "@angular/common";
-import { TOKEN_KEY } from "../constants/storage-keys";
+import { inject } from "@angular/core";
+import { Session } from "../services/session";
 
 export const headerInterceptor: HttpInterceptorFn = (req, next) => {
-  if (!isPlatformBrowser(inject(PLATFORM_ID))) return next(req);
+  const session = inject(Session);
 
-  // TODO: cookie
-  const token = localStorage.getItem(TOKEN_KEY);
+  const token = session.getToken(); // returns "" on the server, so no header is added there
   if (token) {
     req = req.clone({
       setHeaders: { Authorization: `Bearer ${token}` },

@@ -1,9 +1,8 @@
 import { createReducer, on } from "@ngrx/store";
 import { UserState } from "../models/user-state";
 import { userActions } from "./user.actions";
-import { USER_KEY } from "../../../core/constants/storage-keys";
 
-// the logged-out state, used by logout
+// the logged-out state
 export const emptyUserState: UserState = {
   id: "",
   username: "",
@@ -20,21 +19,8 @@ export const emptyUserState: UserState = {
   isLoading: false,
 };
 
-// start from the saved user (if any) so a refresh doesn't empty the store
-function loadUserFromStorage(): UserState {
-  // localStorage doesn't exist on the server
-  if (typeof localStorage === "undefined") return emptyUserState;
-  try {
-    const saved = localStorage.getItem(USER_KEY);
-    return saved
-      ? { ...emptyUserState, ...JSON.parse(saved), isLoading: false }
-      : emptyUserState;
-  } catch {
-    return emptyUserState; // of broken JSON => treat as logged out
-  }
-}
-
-export const initialUserState: UserState = loadUserFromStorage();
+// the saved user (if any) is restored by the restoreSession effect
+export const initialUserState: UserState = emptyUserState;
 
 export const userReducer = createReducer(
   initialUserState,
@@ -44,7 +30,7 @@ export const userReducer = createReducer(
     ...user,
     isLoading: false,
   })),
-  on(userActions.loginFailed, (state) => ({ ...state, isLoading: false })),
+  on(userActions.registerFailed, (state) => ({ ...state, isLoading: false })),
 
   on(userActions.login, (state) => ({ ...state, isLoading: true })),
   on(userActions.loginSuccessfully, (state, { user }) => ({
@@ -53,6 +39,8 @@ export const userReducer = createReducer(
     isLoading: false,
   })),
   on(userActions.loginFailed, (state) => ({ ...state, isLoading: false })),
+
+  on(userActions.restoreSession, (state, { user }) => ({ ...state, ...user })),
 
   on(userActions.logout, () => emptyUserState),
 );
