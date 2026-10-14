@@ -223,7 +223,7 @@ describe("Register", () => {
         lastName: "Ali",
         username: "ahmed123",
         phone: "01012345678",
-        gender: "MALE",
+        gender: "male",
         password: "Test@12345",
         rePassword: "Test@12345",
       });
