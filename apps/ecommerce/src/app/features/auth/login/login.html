@@ -1,8 +1,9 @@
 <div class="lg:w-113 min-w-80 p-5">
-  <app-auth-heading>Welcome</app-auth-heading>
-  <h1 class="h1 mb-10">Login</h1>
+  <div class="flex justify-center pb-4 border-b border-zinc-200">
+    <app-auth-heading>Welcome back!</app-auth-heading>
+  </div>
   <form [formGroup]="loginForm" (ngSubmit)="submitHandler()">
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4 py-6">
       <app-input
         id="username"
         label="Username"
@@ -30,7 +31,7 @@
       appButton
       type="submit"
       [loading]="isLoading()"
-      size="md"
+      size="full"
       variant="primary"
     >
       Login

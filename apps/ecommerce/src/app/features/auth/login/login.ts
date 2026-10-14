@@ -10,7 +10,6 @@ import { selectLoading } from "../store/user.selector";
   selector: "app-login",
   imports: [ReactiveFormsModule, Link, Button, Input, AuthHeading],
   templateUrl: "./login.html",
-  styleUrl: "./login.css",
 })
 export class Login {
   private readonly fb = inject(FormBuilder);

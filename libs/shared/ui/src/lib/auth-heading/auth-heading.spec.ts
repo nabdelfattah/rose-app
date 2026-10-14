@@ -25,9 +25,9 @@ describe('AuthHeading', () => {
     expect(fixture.debugElement.children[0].componentInstance).toBeInstanceOf(AuthHeading);
   });
 
-  it('should render the projected text inside an h1', () => {
-    const h1: HTMLHeadingElement = fixture.nativeElement.querySelector('h1');
+  it('should render the projected text inside a p', () => {
+    const heading: HTMLParagraphElement = fixture.nativeElement.querySelector('p');
 
-    expect(h1.textContent?.trim()).toBe('Login');
+    expect(heading.textContent?.trim()).toBe('Login');
   });
 });
