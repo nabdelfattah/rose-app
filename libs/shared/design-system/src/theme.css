@@ -1,6 +1,16 @@
 /* theme.css  —  DESIGN TOKENS (colors, fonts, sizes) */
 /* Rule: this file only holds VALUES. No element styling here. */
 
+@font-face {
+  font-family: "Edwardian Script ITC";
+  src:
+    local("Edwardian Script ITC"),
+    url("/fonts/edwardian-script.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant rtl (&:where([dir="rtl"], [dir="rtl"] *));
 @custom-variant ltr (&:where([dir="ltr"], [dir="ltr"] *));
@@ -135,6 +145,9 @@
   --font-weight-semibold: 600; /* Semi-Bold  -> font-semibold */
   --font-weight-bold: 700; /* Bold           -> font-bold     */
   --font-weight-extrabold: 800; /* Extrabold -> font-extrabold     */
+
+  --font-script:
+    "Edwardian Script ITC", cursive; /* -> font-script (Latin only, use for headings/logo) */
 }
 
 /* One variable that holds the current font. It changes with <html lang="">. */

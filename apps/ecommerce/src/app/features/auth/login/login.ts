@@ -3,12 +3,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { passwordPattern } from "../utils/patterns";
 import { Store } from "@ngrx/store";
 import { userActions } from "../store/user.actions";
-import { Button, Input, Link } from "@rose-app/ui";
+import { Button, Input, Link, AuthHeading } from "@rose-app/ui";
 import { selectLoading } from "../store/user.selector";
 
 @Component({
   selector: "app-login",
-  imports: [ReactiveFormsModule, Link, Button, Input],
+  imports: [ReactiveFormsModule, Link, Button, Input, AuthHeading],
   templateUrl: "./login.html",
   styleUrl: "./login.css",
 })

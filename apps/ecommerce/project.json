@@ -68,6 +68,11 @@
           {
             "glob": "**/*",
             "input": "apps/ecommerce/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/shared/design-system/fonts",
+            "output": "fonts"
           }
         ],
         "styles": [
