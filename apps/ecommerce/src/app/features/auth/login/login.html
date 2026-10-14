@@ -1,6 +1,6 @@
 <div class="lg:w-113 min-w-80 p-5">
-  <div class="flex justify-end">
-    <app-lang-button />
+  <div class="flex items-center justify-end gap-3 mb-4">
+    <app-lang-button /> <app-theme-button />
   </div>
   <div class="flex justify-center mb-10">
     <img src="/images/Ornaments.svg" alt="Ornaments" />
@@ -29,9 +29,9 @@
 
     <!-- forget pass link -->
     <div class="flex justify-end mt-2.5 mb-10">
-      <app-link link="/forget-password">{{
-        "auth.login.forgot-password" | translate
-      }}</app-link>
+      <app-link link="/forget-password"
+        >{{ "auth.login.forgot-password" | translate }}</app-link
+      >
     </div>
 
     <!-- submit button -->
@@ -47,9 +47,9 @@
     <div class="mt-9 text-center">
       <p class="font-geist font-medium text-zinc-800 text-sm">
         {{ "auth.login.create-account" | translate }}
-        <app-link link="/register">{{
-          "auth.login.create-link" | translate
-        }}</app-link>
+        <app-link link="/register"
+          >{{ "auth.login.create-link" | translate }}</app-link
+        >
       </p>
     </div>
   </form>
