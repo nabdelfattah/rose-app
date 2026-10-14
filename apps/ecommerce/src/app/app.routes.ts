@@ -4,6 +4,9 @@ import { AuthService, provideIamAuth } from "@nabdelfattah/ngx-iam-auth";
 import { provideState } from "@ngrx/store";
 import { provideEffects } from "@ngrx/effects";
 import { MessageService } from "@openng/optimus-ui/api";
+import { provideTranslateService } from "@ngx-translate/core";
+import { provideTranslateHttpLoader } from "@ngx-translate/http-loader";
+import { LanguageService } from "@rose-app/ui";
 import { Home } from "./features/home/home";
 import { MainLayout } from "./layout/main-layout/main-layout";
 import { AuthLayout } from "./layout/auth-layout/auth-layout";
@@ -32,6 +35,17 @@ export const appRoutes: Route[] = [
       provideState({ name: "user", reducer: userReducer }),
       provideEffects(userEffects),
       MessageService,
+      // Translation
+      provideTranslateService({
+        loader: provideTranslateHttpLoader({
+          prefix: "/i18n/",
+          suffix: ".json",
+        }),
+        fallbackLang: "en",
+        lang: "en",
+      }),
+      // LanguageService is here as it uses TranslateService
+      LanguageService,
     ],
     children: [
       {
