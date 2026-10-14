@@ -1,1 +1,198 @@
-<p>register works!</p>
+<section class="flex flex-col gap-6 items-center">
+  <div
+    class="top-image flex flex-col items-center gap-4 lg:w-[80%] w-full border-b border-zinc-200 pb-2"
+  >
+    <img src="/images/Ornaments.svg" alt="separator" />
+    <p class="pinyon text-maroon-700 text-3xl lg:text-[40px]">
+      Become Part Of Out Family
+    </p>
+  </div>
+  <!-- Stepper -->
+  @if(currentStep() !== 1){
+    <div class="stepper w-full">
+      <app-stepper [currentStep]="currentStep()"></app-stepper>
+    </div>
+  }
+  <!-- Steps -->
+  @if (currentStep() === 1) {
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="nextStep()"
+    class="lg:w-[80%] w-full flex flex-col gap-6"
+  >
+    <app-input
+      label="auth.register.email"
+      id="email"
+      placeholder="user@example.com"
+      [control]="registerForm.controls.email"
+    ></app-input>
+    <button
+      type="submit"
+      appButton
+      size="full"
+      [loading]="isLoading()"
+      class="flex gap-2.5 items-center justify-center"
+    >
+      <span>{{'auth.register.next' | translate}}</span>
+      <svg class="rtl:rotate-180" lucideMoveRight></svg>
+    </button>
+    <p class="text-center text-zinc-800 pt-1 border-t border-zinc-200">
+      {{'auth.register.have-account' | translate}}<app-link routerLink="/login"
+        ><span class="text-maroon-700"
+          >{{'auth.register.login-link' | translate}}</span
+        ></app-link
+      >
+    </p>
+  </form>
+  }
+  @if (currentStep() === 2) {
+  <div>
+    <div class="head self-start flex flex-col gap-2.5 mb-4">
+      <h2 class="text-zinc-800 text-3xl">
+        {{'auth.register.title' | translate}}
+      </h2>
+      <h3 class="text-[20px] text-maroon-700">
+        {{'auth.register.otp.otp-title'|translate}}
+      </h3>
+      <p class="text-zinc-800">
+        {{'auth.register.otp.sent-otp'|translate}} {{email()}}
+        <app-link [routerLink]="['/register']"
+          ><span class="text-[#1447E6]"
+            >{{'auth.register.otp.edit'|translate}}</span
+          ></app-link
+        >
+      </p>
+    </div>
+    <div class="card flex flex-col items-center gap-4">
+      <p-inputotp [length]="6" (onChange)="onOtpChange($event)" />
+      <span class="text-zinc-800 self-end"
+        >{{'auth.register.otp.send-new'|translate}}</span
+      >
+    </div>
+    <button (click)="nextStep()" [loading]="isLoading()" appButton size="full">
+      {{'auth.register.otp.verify'|translate}}
+    </button>
+    <p class="help text-center text-zinc-800 pt-1 mt-4 border-t border-zinc-200">
+      {{'auth.register.help'|translate}}<span class="text-maroon-800"
+        >{{'auth.register.contact'|translate}}</span
+      >
+    </p>
+  </div>
+  } @if (currentStep() === 3) {
+  <form [formGroup]="registerForm" (ngSubmit)="nextStep()" class="lg:w-[80%] w-full flex flex-col gap-6">
+    <div class="name flex flex-col lg:flex-row gap-3">
+      <div class="firstName lg:w-1/2">
+        <app-input
+          [type]="'text'"
+          id="firstName"
+          label="auth.register.about.firstname"
+          placeholder="Zoe"
+          [control]="registerForm.controls.firstName"
+        ></app-input>
+      </div>
+      <div class="lastName lg:w-1/2">
+        <app-input
+          [type]="'text'"
+          id="lastName"
+          label="auth.register.about.lastname"
+          placeholder="Jonathan"
+          [control]="registerForm.controls.lastName"
+        ></app-input>
+      </div>
+    </div>
+    <div class="userName">
+      <app-input
+        [type]="'text'"
+        id="userName"
+        label="auth.register.about.username"
+        placeholder="zoe123"
+        [control]="registerForm.controls.username"
+      ></app-input>
+    </div>
+    <div class="phone">
+      <app-input
+        [type]="'tel'"
+        id="phone"
+        label="auth.register.about.phone"
+        placeholder="1012345678"
+        [control]="registerForm.controls.phone"
+      ></app-input>
+    </div>
+    <div class="gender">
+      <app-gender-input
+        id="gender"
+        [control]="registerForm.controls.gender"
+      ></app-gender-input>
+    </div>
+
+    <button
+      type="submit"
+      appButton
+      size="full"
+      [loading]="isLoading()"
+      class="flex gap-2.5 items-center justify-center"
+    >
+      <span>{{'auth.register.next' | translate}}</span>
+      <svg class="rtl:rotate-180" lucideMoveRight></svg>
+    </button>
+    <p class="help text-center text-zinc-800 pt-1 border-t border-zinc-200">
+      {{'auth.register.help'|translate}}<span class="text-maroon-700"
+        >{{'auth.register.contact'|translate}}</span
+      >
+    </p>
+  </form>
+  } @if (currentStep() === 4) {
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="submit()"
+    class="lg:w-[80%] w-full flex flex-col gap-6"
+  >
+  <div class="head self-start flex flex-col gap-4 mb-4">
+      <h2 class="text-zinc-800 text-3xl">
+        {{'auth.register.title' | translate}}
+      </h2>
+      <p class="text-[20px] text-zinc-800">
+        {{'auth.register.password.desc'|translate}}
+      </p>
+    </div>
+    <div class="flex flex-col gap-4">
+      <app-input
+      type="password"
+      label="auth.register.password.password"
+      id="password"
+      placeholder="********"
+      [control]="registerForm.controls.password"
+    ></app-input>
+      <app-input
+      type="password"
+      label="auth.register.password.confirm-password"
+      id="confirmPassword"
+      placeholder="********"
+      [control]="registerForm.controls.rePassword"
+    ></app-input>
+    @if (registerForm.hasError("mismatch") && registerForm.controls.rePassword.errors) {
+        <p class="error text-red-600">{{"validation.match"|translate}}</p>
+    }
+    </div>
+    <button
+      type="submit"
+      appButton
+      size="full"
+      [disabled]="isLoading()"
+      [loading]="isLoading()"
+      class="flex gap-2.5 items-center justify-center"
+    >
+      <span>{{'auth.register.next' | translate}}</span>
+      <svg class="rtl:rotate-180" lucideMoveRight></svg>
+    </button>
+    <p class="help text-center text-zinc-800 pt-1 border-t border-zinc-200">
+      {{'auth.register.help'|translate}}<span class="text-maroon-800"
+        >{{'auth.register.contact'|translate}}</span
+      >
+    </p>
+  </form>
+  }
+  <div class="bottom-image">
+    <img src="/images/Ornaments.svg" class="rotate-180" alt="separator" />
+  </div>
+</section>

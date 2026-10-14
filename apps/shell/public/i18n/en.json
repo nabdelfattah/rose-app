@@ -72,7 +72,8 @@
     "egyptian-phone": "Accept Egyptian numbers only",
     "password-length": "Password must be at least 8 characters",
     "password-uppercase": "Password must include at least one uppercase letter",
-    "password-special": "Password must include at least one special character"
+    "password-special": "Password must include at least one special character",
+    "match":"Confrirm Password Does Not Match"
   }
   
 }

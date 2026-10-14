@@ -32,6 +32,70 @@ export const registerUser = createEffect(
   { functional: true },
 );
 
+// Verify Email
+export const verifyUserEmail = createEffect(
+  (actions$ = inject(Actions), authService = inject(AuthService)) =>
+    actions$.pipe(
+      ofType(userActions.verifyEmail),
+      switchMap(({ payload }) =>
+        authService.verifyEmail(payload).pipe(
+          switchMap((response) =>
+            response.status
+              ? of(userActions.verifyEmailSuccessfully())
+              : of(
+                  userActions.verifyEmailFailed({
+                    error: response.message || 'Failed to send verification code',
+                  }),
+                ),
+          ),
+          catchError((err) =>
+            of(
+              userActions.verifyEmailFailed({
+                error:
+                  err?.error?.message ??
+                  err?.message ??
+                  'Failed to send verification code',
+              }),
+            ),
+          ),
+        ),
+      ),
+    ),
+  { functional: true },
+);
+// Confirm Email
+export const confirmUserEmail = createEffect(
+  (actions$ = inject(Actions), authService = inject(AuthService)) =>
+    actions$.pipe(
+      ofType(userActions.confirmEmail),
+      switchMap(({ payload }) =>
+        authService.confirmEmail(payload).pipe(
+          switchMap((response) =>
+            response.status
+              ? of(userActions.confirmEmailSuccessfully())
+              : of(
+                  userActions.confirmEmailFailed({
+                    error: response.message || 'Invalid verification code',
+                  }),
+                ),
+          ),
+          catchError((err) =>
+            of(
+              userActions.confirmEmailFailed({
+                error:
+                  err?.error?.message ??
+                  err?.message ??
+                  'Failed to verify code',
+              }),
+            ),
+          ),
+        ),
+      ),
+    ),
+  { functional: true },
+);
+
+
 // send the request
 export const logUserIn = createEffect(
   (actions$ = inject(Actions), authService = inject(AuthService)) => {

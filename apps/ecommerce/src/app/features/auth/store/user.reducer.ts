@@ -31,7 +31,25 @@ export const userReducer = createReducer(
     isLoading: false,
   })),
   on(userActions.registerFailed, (state) => ({ ...state, isLoading: false })),
+  on(userActions.verifyEmail, (state) => ({ ...state, isLoading: true })),
+  on(userActions.verifyEmailSuccessfully, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+  on(userActions.verifyEmailFailed, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
 
+  on(userActions.confirmEmail, (state) => ({ ...state, isLoading: true })),
+  on(userActions.confirmEmailSuccessfully, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+  on(userActions.confirmEmailFailed, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
   on(userActions.login, (state) => ({ ...state, isLoading: true })),
   on(userActions.loginSuccessfully, (state, { user }) => ({
     ...state,

@@ -14,6 +14,8 @@ import Aura from "@openng/optimus-ui-themes/aura";
 import { provideStoreDevtools } from "@ngrx/store-devtools";
 import { provideEffects } from "@ngrx/effects";
 import { provideStore } from "@ngrx/store";
+import { provideTranslateService } from "@ngx-translate/core";
+import { provideTranslateHttpLoader } from "@ngx-translate/http-loader";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,5 +31,13 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideEffects(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideTranslateService({
+      loader:provideTranslateHttpLoader({
+        prefix:"/i18n/",
+        suffix: ".json",
+      }),
+      fallbackLang:"en",
+      lang:"en"
+    }),
   ],
 };

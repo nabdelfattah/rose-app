@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideTranslateService({
       loader:provideTranslateHttpLoader({
-        prefix:"/i18n/",
+        prefix:"http://localhost:4200/i18n/",
         suffix: ".json",
       }),
       fallbackLang:"en",

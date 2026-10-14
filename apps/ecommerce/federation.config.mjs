@@ -16,8 +16,11 @@ export default withNativeFederation({
     .patch(['@angular/core'], { includeSecondaries: { keepAll: true } })
     // Share every @openng/optimus-ui entry point in all apps so the shell and
     // remotes resolve to one copy (fix NG0912 worning and a lost theme config).
-    .patch(['@openng/optimus-ui'], { includeSecondaries: { keepAll: true } }),
-
+    .patch(['@angular/forms'], { includeSecondaries: { keepAll: true }})
+    .patch(['@openng/optimus-ui'], { includeSecondaries: { keepAll: true } })
+    .patch(['@ngx-translate/core'], {includeSecondaries: { keepAll: true }
+  })
+    ,
   skip: [
     'rxjs/ajax',
     'rxjs/fetch',

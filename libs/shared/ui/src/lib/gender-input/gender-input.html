@@ -11,8 +11,8 @@
       }"
   >
     <option value="" disabled>{{ placeholder() | translate }}</option>
-    <option value="male">{{'auth.register.about.male' | translate}}</option>
-    <option value="female">{{'auth.register.about.female' | translate}}</option>
+    <option value="MALE">{{'auth.register.about.male' | translate}}</option>
+    <option value="FEMALE">{{'auth.register.about.female' | translate}}</option>
   </select>
 
   @if (control().hasError('required') && control().touched) {
