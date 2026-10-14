@@ -9,6 +9,8 @@ import intlTelInput from 'intl-tel-input';
   selector: 'app-input',
   imports: [ReactiveFormsModule, LucideEye, LucideEyeOff, TranslatePipe],
   templateUrl: './inputs.html',
+  // the id belongs to the inner <input> only, so <label for> can target it
+  host: { '[attr.id]': 'null' },
 })
 export class Input implements AfterViewInit{
     private platformId = inject(PLATFORM_ID);
