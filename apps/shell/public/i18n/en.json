@@ -47,7 +47,7 @@
       }
     },
     "forgot-password":{
-      "forgot-title":"Forgot Password",
+      "forgot-title":"Forgot Password?",
       "desc":"Worry not, we’ll send you instructions to help you reset it.",
       "email":"Email",
       "next":"Next",
