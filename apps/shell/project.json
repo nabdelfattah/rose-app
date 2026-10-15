@@ -66,6 +66,16 @@
           {
             "glob": "**/*",
             "input": "apps/shell/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/shared/design-system/fonts",
+            "output": "fonts"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/ecommerce/public/i18n",
+            "output": "i18n"
           }
         ],
         "styles": ["apps/shell/src/styles.css"],

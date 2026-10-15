@@ -48,6 +48,7 @@
     "@angular/router": "~22.2.0",
     "@angular/ssr": "~22.2.0",
     "@lucide/angular": "^1.52.0",
+    "@nabdelfattah/ngx-iam-auth": "^0.0.3",
     "@ngrx/effects": "^22.0.1",
     "@ngrx/store": "^22.0.1",
     "@ngrx/store-devtools": "^22.0.1",
@@ -60,6 +61,7 @@
     "es-module-shims": "^2.8.0",
     "express": "^4.21.2",
     "intl-tel-input": "^29.5.3",
+    "ngx-cookie-service": "^22.0.0",
     "postcss": "^8.5.28",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.3.3"

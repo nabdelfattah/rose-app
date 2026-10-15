@@ -1,3 +1,4 @@
+import { Component } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { describe, it, expect, beforeEach } from "vitest";
 import { FormControl } from "@angular/forms";
@@ -31,13 +32,14 @@ describe("Input", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        Input,
+      imports: [Input],
+      providers: [
         provideTranslateService({
           loader: {
             provide: TranslateLoader,
             useClass: MockTranslateLoader,
           },
+          fallbackLang: "en",
         }),
       ],
     }).compileComponents();
@@ -50,152 +52,166 @@ describe("Input", () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 
-  it('should accept the provided label', () => {
-    expect(component.label()).toBe('Email');
+  it("should accept the provided label", () => {
+    expect(component.label()).toBe("Email");
   });
 
-  it('should have text as the default type', () => {
-    expect(component.type()).toBe('text');
+  it("should have text as the default type", () => {
+    expect(component.type()).toBe("text");
   });
 
-  it('should have an empty placeholder by default', () => {
-    expect(component.placeholder()).toBe('');
+  it("should have an empty placeholder by default", () => {
+    expect(component.placeholder()).toBe("");
   });
 
-  it('should have an empty helperText by default', () => {
-    expect(component.helperText()).toBe('');
+  it("should have an empty helperText by default", () => {
+    expect(component.helperText()).toBe("");
   });
 
-  it('should have false as the default showPassword state', () => {
+  it("should have false as the default showPassword state", () => {
     expect(component.showPassword()).toBe(false);
   });
 
-  it('should accept the provided FormControl', () => {
-    const control = new FormControl('test@example.com');
-    fixture.componentRef.setInput('control', control);
+  it("should accept the provided FormControl", () => {
+    const control = new FormControl("test@example.com");
+    fixture.componentRef.setInput("control", control);
     expect(component.control()).toBe(control);
   });
 
   // Template
-  it('should display the label', () => {
-    const label: HTMLLabelElement = fixture.nativeElement.querySelector('label');
-    expect(label.textContent).toContain('Email');
-    expect(label.htmlFor).toBe('email');
+  it("should display the label", () => {
+    const label: HTMLLabelElement =
+      fixture.nativeElement.querySelector("label");
+    expect(label.textContent).toContain("Email");
+    expect(label.htmlFor).toBe("email");
   });
 
-  it('should display the input with the provided id', () => {
-    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
-    expect(input.id).toBe('email');
+  it("should display the input with the provided id", () => {
+    const input: HTMLInputElement =
+      fixture.nativeElement.querySelector("input");
+    expect(input.id).toBe("email");
   });
 
-  it('should display the provided placeholder', () => {
-    fixture.componentRef.setInput('placeholder', 'Enter your email');
+  it("should display the provided placeholder", () => {
+    fixture.componentRef.setInput("placeholder", "Enter your email");
     fixture.detectChanges();
-    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
-    expect(input.placeholder).toBe('Enter your email');
+    const input: HTMLInputElement =
+      fixture.nativeElement.querySelector("input");
+    expect(input.placeholder).toBe("Enter your email");
   });
 
-  it('should display the helper text when provided', () => {
-    fixture.componentRef.setInput('helperText','Enter your email address',
-    );
+  it("should display the helper text when provided", () => {
+    fixture.componentRef.setInput("helperText", "Enter your email address");
     fixture.detectChanges();
-    const helper: HTMLElement = fixture.nativeElement.querySelector('p');
-    expect(helper.textContent).toContain('Enter your email address');
+    const helper: HTMLElement = fixture.nativeElement.querySelector("p");
+    expect(helper.textContent).toContain("Enter your email address");
   });
 
-  it('should bind the input value to the FormControl', () => {
-    const control = new FormControl('test@example.com');
-    fixture.componentRef.setInput('control', control);
+  it("should bind the input value to the FormControl", () => {
+    const control = new FormControl("test@example.com");
+    fixture.componentRef.setInput("control", control);
     fixture.detectChanges();
-    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
-    expect(input.value).toBe('test@example.com');
+    const input: HTMLInputElement =
+      fixture.nativeElement.querySelector("input");
+    expect(input.value).toBe("test@example.com");
   });
 
-  it('should display the password toggle button for password type', () => {
-    fixture.componentRef.setInput('type', 'password');
+  it("should display the password toggle button for password type", () => {
+    fixture.componentRef.setInput("type", "password");
     fixture.detectChanges();
-    const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    const button: HTMLButtonElement =
+      fixture.nativeElement.querySelector("button");
     expect(button).not.toBeNull();
-    expect(button.type).toBe('button');
+    expect(button.type).toBe("button");
   });
 
-  it('should not display the password toggle button for text type', () => {
-    fixture.componentRef.setInput('type', 'text');
+  it("should not display the password toggle button for text type", () => {
+    fixture.componentRef.setInput("type", "text");
     fixture.detectChanges();
-    const button: HTMLButtonElement | null = fixture.nativeElement.querySelector('button');
+    const button: HTMLButtonElement | null =
+      fixture.nativeElement.querySelector("button");
     expect(button).toBeNull();
   });
 
-  it('should change the input type to text when clicking the password toggle', () => {
-    fixture.componentRef.setInput('type', 'password');
+  it("should change the input type to text when clicking the password toggle", () => {
+    fixture.componentRef.setInput("type", "password");
     fixture.detectChanges();
-    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
-    const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    const input: HTMLInputElement =
+      fixture.nativeElement.querySelector("input");
+    const button: HTMLButtonElement =
+      fixture.nativeElement.querySelector("button");
     button.click();
     fixture.detectChanges();
-    expect(input.type).toBe('text');
+    expect(input.type).toBe("text");
     expect(component.showPassword()).toBe(true);
   });
 
-  it('should change the input type back to password when clicking again', () => {
-    fixture.componentRef.setInput('type', 'password');
+  it("should change the input type back to password when clicking again", () => {
+    fixture.componentRef.setInput("type", "password");
     fixture.detectChanges();
-    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
-    const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    const input: HTMLInputElement =
+      fixture.nativeElement.querySelector("input");
+    const button: HTMLButtonElement =
+      fixture.nativeElement.querySelector("button");
     button.click();
     button.click();
     fixture.detectChanges();
-    expect(input.type).toBe('password');
+    expect(input.type).toBe("password");
     expect(component.showPassword()).toBe(false);
   });
 
-  it('should display required error when the control is touched and empty', () => {
+  it("should display required error when the control is touched and empty", () => {
     const control = component.control();
     control.setErrors({ required: true });
     control.markAsTouched();
     fixture.detectChanges();
-    const error: HTMLElement | null = fixture.nativeElement.querySelector('.error');
+    const error: HTMLElement | null =
+      fixture.nativeElement.querySelector(".error");
     expect(error).not.toBeNull();
-    expect(error?.textContent).toContain('Your Email is required');
+    expect(error?.textContent).toContain("Your Email is required");
   });
 
-  it('should display email error when the email is invalid and touched', () => {
+  it("should display email error when the email is invalid and touched", () => {
     const control = component.control();
     control.setErrors({ email: true });
     control.markAsTouched();
     fixture.detectChanges();
-    const errors: NodeListOf<HTMLElement> = fixture.nativeElement.querySelectorAll('.error');
+    const errors: NodeListOf<HTMLElement> =
+      fixture.nativeElement.querySelectorAll(".error");
     expect(
       Array.from(errors).some((error) =>
-        error.textContent?.includes('Please Enter Valid Email'),
+        error.textContent?.includes("Please Enter Valid Email"),
       ),
     ).toBe(true);
   });
 
-  it('should not display validation errors when the control is untouched', () => {
+  it("should not display validation errors when the control is untouched", () => {
     const control = component.control();
     control.setErrors({ required: true });
     control.markAsUntouched();
     fixture.detectChanges();
-    const error: HTMLElement | null = fixture.nativeElement.querySelector('.error');
+    const error: HTMLElement | null =
+      fixture.nativeElement.querySelector(".error");
     expect(error).toBeNull();
   });
 
-  it('should display password pattern errors when the password is invalid and touched', () => {
-    fixture.componentRef.setInput('label', 'Password');
-    fixture.componentRef.setInput('type', 'password');
+  it("should display password pattern errors when the password is invalid and touched", () => {
+    fixture.componentRef.setInput("label", "Password");
+    fixture.componentRef.setInput("type", "password");
     const control = component.control();
     control.setErrors({ pattern: true });
     control.markAsTouched();
     fixture.detectChanges();
 
-    const errors: NodeListOf<HTMLElement> = fixture.nativeElement.querySelectorAll(".error");
+    const errors: NodeListOf<HTMLElement> =
+      fixture.nativeElement.querySelectorAll(".error");
     const errorTexts = Array.from(errors).map(
-      (error) => error.textContent ?? "",);
+      (error) => error.textContent ?? "",
+    );
     expect(
       errorTexts.some((text) =>
         text.includes("Password must be at least 8 characters"),
@@ -215,16 +231,17 @@ describe("Input", () => {
     ).toBe(true);
   });
 
-  it('should display the phone pattern error for tel type', () => {
-    fixture.componentRef.setInput('type', 'tel');
+  it("should display the phone pattern error for tel type", () => {
+    fixture.componentRef.setInput("type", "tel");
     const control = component.control();
     control.setErrors({ pattern: true });
     control.markAsTouched();
     fixture.detectChanges();
-    const errors: NodeListOf<HTMLElement> = fixture.nativeElement.querySelectorAll('.error');
+    const errors: NodeListOf<HTMLElement> =
+      fixture.nativeElement.querySelectorAll(".error");
     expect(
       Array.from(errors).some((error) =>
-        error.textContent?.includes('Accept Egyption Numbers Only'),
+        error.textContent?.includes("Accept Egyption Numbers Only"),
       ),
     ).toBe(true);
   });

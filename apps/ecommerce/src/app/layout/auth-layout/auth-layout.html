@@ -1,16 +1,14 @@
-<div class="grid sm:grid-cols-1 md:grid-cols-2 gap-10 items-center h-screen">
-  <div class="flex flex-col gap-2.5 justify-center w-[80%] mx-auto">
-    <div class="auth-header flex items-center gap-2.5 self-end">
-      <app-theme-button></app-theme-button>
-      <app-lang-button></app-lang-button>
-    </div>
-      <router-outlet />
+<div
+  class="grid lg:grid-cols-2 items-center justify-center lg:h-dvh w-full flex-wrap"
+>
+  <div class="flex items-center justify-center h-full w-full">
+    <router-outlet />
   </div>
-  <div class="cover hidden md:flex max-h-screen">
+  <div class="hidden md:flex max-h-screen">
     <img
-      src="../../../../auth-cover.webp"
+      src="/images/auth-cover.webp"
       alt="auth-cover"
-      class="max-h-full max-w-full"
+      class="max-h-full max-w-full object-cover object-center"
     />
   </div>
 </div>

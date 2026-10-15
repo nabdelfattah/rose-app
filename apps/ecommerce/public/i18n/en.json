@@ -1,9 +1,12 @@
 {
   "auth": {
     "login": {
+      "title": "Welcome back!",
       "email": "Email",
+      "username": "Username",
+      "username-placeholder": "example",
       "password": "Password",
-      "forgot-password": "Forgot Your Password?",
+      "forgot-password": "Forgot your password?",
       "login":"Login",
       "create-account": "Don’t have an account yet?",
       "create-link":"Create one now!"

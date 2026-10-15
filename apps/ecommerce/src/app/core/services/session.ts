@@ -1,0 +1,44 @@
+import { inject, Injectable } from "@angular/core";
+import { CookieService } from "ngx-cookie-service";
+import { UserState } from "../../features/auth/models/user-state";
+import { TOKEN_KEY, USER_KEY } from "../constants/storage-keys";
+
+type SavedUser = Omit<UserState, "isLoading">;
+
+// Keeps the logged-in session in cookies.
+// No expiry date => session cookies, the browser removes them when it closes.
+// path "/" => readable from every route (and from both the shell and ecommerce ports).
+const COOKIE_OPTIONS = { path: "/", sameSite: "Strict" as const };
+
+@Injectable({ providedIn: "root" })
+export class Session {
+  private readonly cookies = inject(CookieService);
+
+  getToken(): string {
+    return this.cookies.get(TOKEN_KEY);
+  }
+
+  hasToken(): boolean {
+    return this.cookies.check(TOKEN_KEY);
+  }
+
+  getUser(): SavedUser | null {
+    const saved = this.cookies.get(USER_KEY);
+    if (!saved) return null;
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return null; // broken JSON => treat as logged out
+    }
+  }
+
+  save(user: SavedUser) {
+    this.cookies.set(TOKEN_KEY, user.token, COOKIE_OPTIONS);
+    this.cookies.set(USER_KEY, JSON.stringify(user), COOKIE_OPTIONS);
+  }
+
+  clear() {
+    this.cookies.delete(TOKEN_KEY, "/");
+    this.cookies.delete(USER_KEY, "/");
+  }
+}
