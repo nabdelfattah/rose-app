@@ -1,7 +1,10 @@
 {
   "auth": {
     "login": {
+      "title": "مرحبًا بعودتك!",
       "email": "البريد الإلكتروني",
+      "username": "اسم المستخدم",
+      "username-placeholder": "مثال",
       "password": "كلمة المرور",
       "forgot-password": "هل نسيت كلمة المرور؟",
       "login": "تسجيل الدخول",

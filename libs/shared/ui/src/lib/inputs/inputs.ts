@@ -19,7 +19,9 @@ import { LanguageService } from "../../../../language/language.service";
   selector: "app-input",
   standalone: true,
   imports: [ReactiveFormsModule, LucideEye, LucideEyeOff, TranslatePipe],
-  templateUrl: "./inputs.html",
+  templateUrl: './inputs.html',
+  // the id belongs to the inner <input> only, so <label for> can target it
+  host: { '[attr.id]': 'null' },
 })
 export class Input implements AfterViewInit {
   private platformId = inject(PLATFORM_ID);

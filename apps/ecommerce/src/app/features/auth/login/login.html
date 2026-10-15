@@ -1,18 +1,26 @@
 <div class="lg:w-113 min-w-80 p-5">
-  <h1 class="h1 mb-10">Login</h1>
+  <div class="flex items-center justify-end gap-3 mb-4">
+    <app-lang-button /> <app-theme-button />
+  </div>
+  <div class="flex justify-center mb-10">
+    <img src="/images/Ornaments.svg" alt="Ornaments" />
+  </div>
+  <div class="flex justify-center pb-4 border-b border-zinc-200">
+    <app-auth-heading>{{ "auth.login.title" | translate }}</app-auth-heading>
+  </div>
   <form [formGroup]="loginForm" (ngSubmit)="submitHandler()">
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4 py-6">
       <app-input
         id="username"
-        label="Username"
+        label="auth.login.username"
         type="text"
-        placeholder="example"
+        placeholder="auth.login.username-placeholder"
         [control]="loginForm.controls.username"
       />
 
       <app-input
         id="password"
-        label="Password"
+        label="auth.login.password"
         type="password"
         placeholder="********"
         [control]="loginForm.controls.password"
@@ -21,7 +29,9 @@
 
     <!-- forget pass link -->
     <div class="flex justify-end mt-2.5 mb-10">
-      <app-link link="/forget-password">Forgot your password?</app-link>
+      <app-link link="/forget-password"
+        >{{ "auth.login.forgot-password" | translate }}</app-link
+      >
     </div>
 
     <!-- submit button -->
@@ -29,16 +39,21 @@
       appButton
       type="submit"
       [loading]="isLoading()"
-      size="md"
+      size="full"
       variant="primary"
     >
-      Login
+      {{ "auth.login.login" | translate }}
     </button>
     <div class="mt-9 text-center">
-      <p class="font-geist font-medium text-sm">
-        Don’t have an account yet?
-        <app-link link="/register">Create one now!</app-link>
+      <p class="font-geist font-medium text-zinc-800 text-sm">
+        {{ "auth.login.create-account" | translate }}
+        <app-link link="/register"
+          >{{ "auth.login.create-link" | translate }}</app-link
+        >
       </p>
     </div>
   </form>
+  <div class="flex justify-center mt-[33px]">
+    <img src="/images/Ornaments.svg" alt="Ornaments" class="rotate-180" />
+  </div>
 </div>

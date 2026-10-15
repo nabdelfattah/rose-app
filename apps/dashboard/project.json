@@ -65,6 +65,11 @@
           {
             "glob": "**/*",
             "input": "apps/dashboard/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/shared/design-system/fonts",
+            "output": "fonts"
           }
         ],
         "styles": ["apps/dashboard/src/styles.css"],

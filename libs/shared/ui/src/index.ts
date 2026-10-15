@@ -1,3 +1,4 @@
+export * from "./lib/auth-heading/auth-heading";
 export * from "./lib/button/button";
 export * from "./lib/inputs/inputs";
 export * from "./lib/gender-input/gender-input";
