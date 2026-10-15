@@ -10,6 +10,7 @@ import { selectLoading } from "../store/user.selector";
 import { confirmPassword } from "../utils/utils";
 import { Button, Input, LangButton, ThemeButtonComponent } from "@rose-app/ui";
 import { TranslatePipe } from "@ngx-translate/core";
+import { passwordPattern } from "../utils/patterns";
 
 @Component({
   selector: 'app-reset-password',
@@ -32,7 +33,7 @@ export class ResetPassword {
     {
       password: new FormControl("", {
         nonNullable: true,
-        validators: [Validators.required, Validators.minLength(8)],
+        validators: [Validators.required, Validators.pattern(passwordPattern)],
       }),
       rePassword: new FormControl("", {
         nonNullable: true,
