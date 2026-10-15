@@ -1,14 +1,16 @@
-<div
-  class="grid lg:grid-cols-2 items-center justify-center lg:h-dvh w-full flex-wrap"
->
-  <div class="flex items-center justify-center h-full w-full">
+<div class="grid sm:grid-cols-1 md:grid-cols-2 gap-10 items-center min-h-screen">
+  
+  <div class="flex flex-col gap-2.5 justify-center w-[80%] mx-auto py-4">
+    
     <router-outlet />
   </div>
-  <div class="hidden md:flex max-h-screen">
+
+  <div class="hidden md:block sticky top-0 self-start h-screen w-full overflow-hidden">
     <img
       src="/images/auth-cover.webp"
       alt="auth-cover"
-      class="max-h-full max-w-full object-cover object-center"
+      class="w-full h-full object-cover"
     />
   </div>
+
 </div>

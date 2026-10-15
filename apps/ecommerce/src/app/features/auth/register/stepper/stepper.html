@@ -1,0 +1,29 @@
+<div class="flex w-full items-center">
+  @for (step of steps(); track step; let last = $last) {
+    <div
+      class="relative flex flex-1 items-center justify-center"
+    >
+     @if(!last){
+      <div
+          class="absolute inset-s-1/2 inset-e-[-50%] top-1/2 h-0.5 -translate-y-1/2"
+          [class]="{
+            'bg-maroon-700': step < currentStep(),
+            'bg-maroon-50': step >= currentStep()
+          }"
+        ></div>
+     }
+
+      <div
+        class="relative z-10 flex size-6.25 shrink-0 items-center justify-center rounded-full text-[14px]"
+        [class.bg-maroon-700]="step <= currentStep()"
+        [class.text-white]="step <= currentStep()"
+        [class.bg-maroon-50]="step > currentStep()"
+        [class.text-maroon-700]="step > currentStep()"
+        [class.ring-[3px]]="step === currentStep()"
+        [class.ring-maroon-50]="step === currentStep()"
+      >
+        {{ step }}
+      </div>
+    </div>
+  }
+</div>

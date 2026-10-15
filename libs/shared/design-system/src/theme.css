@@ -10,6 +10,14 @@
   font-style: normal;
   font-display: swap;
 }
+.iti__selected-country-primary .iti__flag {
+  border-radius: 50%;
+  overflow: hidden;
+}
+.iti__selected-dial-code,
+.iti__selected-dial-code {
+  color: var(--color-zinc-800);
+}
 
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant rtl (&:where([dir="rtl"], [dir="rtl"] *));
@@ -158,6 +166,11 @@
 :root[lang="ar"] {
   /* Arabic */
   --font-primary: "Tajawal", ui-sans-serif, system-ui, sans-serif;
+}
+.pinyon{
+  font-family: "Pinyon Script", cursive;
+  font-weight: 400;
+  font-style: normal;
 }
 @theme inline {
   /* inline = خلي الـ utility مرتبطة بالـ variable نفسها، وليس بقيمتها الحالية → لذلك تتبع تغيّر اللغة */
