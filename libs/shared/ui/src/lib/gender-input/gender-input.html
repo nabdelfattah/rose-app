@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-2">
+<!-- <div class="flex flex-col gap-2">
   <label [for]="id()" class="text-zinc-800"> {{ label() | translate}} </label>
 
   <select
@@ -17,5 +17,60 @@
 
   @if (control().hasError('required') && control().touched) {
   <p class="text-sm text-red-600">{{ 'validation.required' | translate: { field: (label() | translate) } }}</p>
+  }
+</div> -->
+
+<div class="relative flex flex-col gap-2">
+  <label [for]="id()" class="text-zinc-800"> {{ label() | translate }} </label>
+
+  <button
+    type="button"
+    [id]="id()"
+    (click)="isOpen.update(v => !v)"
+    class="flex w-full items-center justify-between rounded-[10px] border bg-zinc-50 p-4 text-start outline-none focus:border-maroon-700"
+    [class.border-red-500]="control().invalid && control().touched"
+    [class.border-zinc-400]="!(control().invalid && control().touched)"
+  >
+    <span>
+      @if (control().value === 'MALE') { {{ 'auth.register.about.male' |
+      translate }} } @else if (control().value === 'FEMALE') { {{
+      'auth.register.about.female' | translate }} } @else {
+      <span class="text-zinc-400"> {{ placeholder() | translate }} </span>
+      }
+    </span>
+
+    <span class="text-zinc-800">
+      @if(isOpen()){
+      <svg lucideChevronUp></svg>
+      }@else{
+      <svg lucideChevronDown></svg>
+      }
+    </span>
+  </button>
+
+  @if (isOpen()) {
+  <div
+    class="absolute top-full z-50 mt-1 w-full rounded-[10px] border border-zinc-800 bg-zinc-50 p-1 shadow-lg"
+  >
+    <button
+      type="button"
+      (click)="selectGender('MALE')"
+      class="w-full rounded-md p-3 text-start hover:bg-maroon-700 hover:text-white text-zinc-800"
+    >
+      {{ 'auth.register.about.male' | translate }}
+    </button>
+
+    <button
+      type="button"
+      (click)="selectGender('FEMALE')"
+      class="w-full rounded-md p-3 text-start hover:bg-maroon-700 hover:text-white text-zinc-800"
+    >
+      {{ 'auth.register.about.female' | translate }}
+    </button>
+  </div>
+  } @if (control().hasError('required') && control().touched) {
+  <p class="text-sm text-red-600">
+    {{ 'validation.required' | translate: { field: (label() | translate) } }}
+  </p>
   }
 </div>

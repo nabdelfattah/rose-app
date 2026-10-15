@@ -1,10 +1,14 @@
 <section class="flex flex-col gap-6 items-center">
+  <div class="auth-header flex items-center gap-2.5 self-end">
+      <app-theme-button></app-theme-button>
+      <app-lang-button></app-lang-button>
+    </div>
   <div
     class="top-image flex flex-col items-center gap-4 lg:w-[80%] w-full border-b border-zinc-200 pb-2"
   >
     <img src="/images/Ornaments.svg" alt="separator" />
-    <p class="pinyon text-maroon-700 text-3xl lg:text-[40px]">
-      Become Part Of Out Family
+    <p class="pinyon text-maroon-700 text-[20px] md:text-[28px]  lg:text-[32px] xl:text-[40px]">
+      {{"auth.register.welcome"|translate}}
     </p>
   </div>
   <!-- Stepper -->

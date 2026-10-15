@@ -21,7 +21,7 @@ import { RegisterPayload } from "../models/payloads";
 import { selectLoading } from "../store/user.selector";
 import { confirmPassword } from "../utils/utils";
 import { passwordPattern } from "../utils/patterns";
-import { Button, GenderInput, Input, Link } from "@rose-app/ui";
+import { Button, GenderInput, Input, LangButton, Link, ThemeButtonComponent } from "@rose-app/ui";
 import { LucideMoveRight } from "@lucide/angular";
 import { TranslatePipe } from "@ngx-translate/core";
 import { Router, RouterLink } from "@angular/router";
@@ -43,6 +43,8 @@ import { Stepper } from "./stepper/stepper";
     FormsModule,
     GenderInput,
     Stepper,
+    ThemeButtonComponent,
+    LangButton
   ],
   templateUrl: "./register.html",
   styleUrl: "./register.css",
