@@ -95,6 +95,65 @@ export const confirmUserEmail = createEffect(
   { functional: true },
 );
 
+// Forgot Password
+export const forgetUserPassword = createEffect(
+  (actions$ = inject(Actions), authService = inject(AuthService)) =>
+    actions$.pipe(
+      ofType(userActions.forgetPassword),
+      switchMap(({ payload }) =>
+        authService.forgetPassword(payload).pipe(
+          map((response) =>
+            response.status
+              ? userActions.forgetPasswordSuccessfully()
+              : userActions.forgetPasswordFailed({
+                  error: response.message || "Failed to send reset link",
+                }),
+          ),
+          catchError((err) =>
+            of(
+              userActions.forgetPasswordFailed({
+                error:
+                  err?.error?.message ??
+                  err?.message ??
+                  "Failed to send reset link",
+              }),
+            ),
+          ),
+        ),
+      ),
+    ),
+  { functional: true },
+);
+
+// Reset Password
+export const resetUserPassword = createEffect(
+  (actions$ = inject(Actions), authService = inject(AuthService)) =>
+    actions$.pipe(
+      ofType(userActions.resetPassword),
+      switchMap(({ payload }) =>
+        authService.resetPassword(payload).pipe(
+          map((response) =>
+            response.status
+              ? userActions.resetPasswordSuccessfully()
+              : userActions.resetPasswordFailed({
+                  error: response.message || "Failed to reset password",
+                }),
+          ),
+          catchError((err) =>
+            of(
+              userActions.resetPasswordFailed({
+                error:
+                  err?.error?.message ??
+                  err?.message ??
+                  "Failed to reset password",
+              }),
+            ),
+          ),
+        ),
+      ),
+    ),
+  { functional: true },
+);
 
 // send the request
 export const logUserIn = createEffect(

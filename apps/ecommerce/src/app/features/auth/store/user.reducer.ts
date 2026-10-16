@@ -24,6 +24,7 @@ export const initialUserState: UserState = emptyUserState;
 
 export const userReducer = createReducer(
   initialUserState,
+  //Register
   on(userActions.register, (state) => ({ ...state, isLoading: true })),
   on(userActions.registerSuccessfully, (state, { user }) => ({
     ...state,
@@ -50,6 +51,38 @@ export const userReducer = createReducer(
     ...state,
     isLoading: false,
   })),
+  // Forgot Password
+  on(userActions.forgetPassword, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
+
+  on(userActions.forgetPasswordSuccessfully, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+
+  on(userActions.forgetPasswordFailed, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+
+  // Reset Password
+  on(userActions.resetPassword, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
+
+  on(userActions.resetPasswordSuccessfully, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+
+  on(userActions.resetPasswordFailed, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+  //Login
   on(userActions.login, (state) => ({ ...state, isLoading: true })),
   on(userActions.loginSuccessfully, (state, { user }) => ({
     ...state,
