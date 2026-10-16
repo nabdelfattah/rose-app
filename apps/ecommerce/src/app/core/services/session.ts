@@ -7,8 +7,10 @@ type SavedUser = Omit<UserState, "isLoading">;
 
 // Keeps the logged-in session in cookies.
 // No expiry date => session cookies, the browser removes them when it closes.
+// "Remember me" => the cookies live for REMEMBER_ME_DAYS instead.
 // path "/" => readable from every route (and from both the shell and ecommerce ports).
 const COOKIE_OPTIONS = { path: "/", sameSite: "Strict" as const };
+const REMEMBER_ME_DAYS = 90;
 
 @Injectable({ providedIn: "root" })
 export class Session {
@@ -32,9 +34,12 @@ export class Session {
     }
   }
 
-  save(user: SavedUser) {
-    this.cookies.set(TOKEN_KEY, user.token, COOKIE_OPTIONS);
-    this.cookies.set(USER_KEY, JSON.stringify(user), COOKIE_OPTIONS);
+  save(user: SavedUser, rememberMe = false) {
+    const options = rememberMe
+      ? { ...COOKIE_OPTIONS, expires: REMEMBER_ME_DAYS }
+      : COOKIE_OPTIONS;
+    this.cookies.set(TOKEN_KEY, user.token, options);
+    this.cookies.set(USER_KEY, JSON.stringify(user), options);
   }
 
   clear() {

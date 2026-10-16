@@ -37,14 +37,14 @@ export class Login {
   loginForm = this.fb.nonNullable.group({
     username: ["", [Validators.required, Validators.minLength(3)]],
     password: ["", [Validators.required]],
+    rememberMe: [false], // checked => keep the session cookies for 90 days instead of until the browser closes
   });
 
   submitHandler() {
     if (this.loginForm.valid) {
       // send request to backend, display toast, set token and redirect to home
-      this.store.dispatch(
-        userActions.login({ payload: this.loginForm.getRawValue() }),
-      );
+      const { rememberMe, ...payload } = this.loginForm.getRawValue();
+      this.store.dispatch(userActions.login({ payload, rememberMe }));
     } else {
       // show all problematic fields
       this.loginForm.markAllAsTouched();

@@ -20,8 +20,20 @@
     />
   </div>
 
-  <!-- forget pass link -->
-  <div class="flex justify-end mt-2.5 mb-10">
+  <!-- remember me + forget pass link -->
+  <div class="flex items-center justify-between gap-4 mt-2.5 mb-10">
+    <label
+      for="rememberMe"
+      class="flex items-center gap-2 cursor-pointer select-none font-geist font-medium text-sm text-zinc-800"
+    >
+      <input
+        id="rememberMe"
+        type="checkbox"
+        [formControl]="loginForm.controls.rememberMe"
+        class="size-4 shrink-0 cursor-pointer rounded accent-maroon-700"
+      />
+      {{ "auth.login.remember-me" | translate }}
+    </label>
     <app-link link="/forget-password"
       >{{ "auth.login.forgot-password" | translate }}</app-link
     >
