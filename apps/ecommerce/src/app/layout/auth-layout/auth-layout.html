@@ -7,11 +7,23 @@
         <app-lang-button /> <app-theme-button />
       </div>
       <div class="flex justify-center mb-10">
+        @if(isDark()){
+        <img src="/images/Ornaments-dark.svg" alt="Ornaments" />
+        } @else {
         <img src="/images/Ornaments.svg" alt="Ornaments" />
+        }
       </div>
       <router-outlet />
       <div class="flex justify-center mt-[33px]">
+        @if(isDark()){
+        <img
+          src="/images/Ornaments-dark.svg"
+          alt="Ornaments"
+          class="rotate-180"
+        />
+        } @else {
         <img src="/images/Ornaments.svg" alt="Ornaments" class="rotate-180" />
+        }
       </div>
     </div>
   </div>
