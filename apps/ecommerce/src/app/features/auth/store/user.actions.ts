@@ -4,6 +4,8 @@ import {
   RegisterPayload,
   VerifyEmailPayload,
   ConfirmEmailPayload,
+  ForgetPasswordPayload,
+  ResetPasswordPayload,
 } from "../models/payloads";
 import { UserState } from "../models/user-state";
 
@@ -21,6 +23,12 @@ export const userActions = createActionGroup({
     "Confirm Email Successfully": emptyProps(),
     "Confirm Email Failed": props<{ error: string }>(),
     "Register Successfully": props<{ user: Omit<UserState, "isLoading"> }>(),
+    "Forget Password": props<{ payload: ForgetPasswordPayload }>(),
+    "Forget Password Successfully": emptyProps(),
+    "Forget Password Failed": props<{ error: string }>(),
+    "Reset Password": props<{ payload: ResetPasswordPayload }>(),
+    "Reset Password Successfully": emptyProps(),
+    "Reset Password Failed": props<{ error: string }>(),
     "Register Failed": props<{ error: string }>(),
     "Restore Session": props<{ user: Omit<UserState, "isLoading"> }>(),
     Logout: emptyProps(),
