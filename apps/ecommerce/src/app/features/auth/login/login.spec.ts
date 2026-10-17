@@ -63,6 +63,7 @@ describe("Login", () => {
       expect(component.loginForm.getRawValue()).toEqual({
         username: "",
         password: "",
+        rememberMe: false,
       });
       expect(component.loginForm.valid).toBe(false);
     });
@@ -90,20 +91,49 @@ describe("Login", () => {
     });
 
     it("should be valid when username and password are provided", () => {
-      component.loginForm.setValue({ username: "nada", password: "secret" });
+      component.loginForm.patchValue({ username: "nada", password: "secret" });
       expect(component.loginForm.valid).toBe(true);
+    });
+
+    it("should toggle rememberMe when the checkbox is clicked", () => {
+      const checkbox: HTMLInputElement =
+        fixture.nativeElement.querySelector("#rememberMe");
+
+      checkbox.click();
+      expect(component.loginForm.controls.rememberMe.value).toBe(true);
+
+      checkbox.click();
+      expect(component.loginForm.controls.rememberMe.value).toBe(false);
     });
   });
 
   describe("submitHandler", () => {
     it("should dispatch the login action with the form value when valid", () => {
-      component.loginForm.setValue({ username: "nada", password: "secret" });
+      component.loginForm.patchValue({ username: "nada", password: "secret" });
 
       component.submitHandler();
 
       expect(store.dispatch).toHaveBeenCalledExactlyOnceWith(
         userActions.login({
           payload: { username: "nada", password: "secret" },
+          rememberMe: false,
+        }),
+      );
+    });
+
+    it("should pass rememberMe separately from the login payload", () => {
+      component.loginForm.setValue({
+        username: "nada",
+        password: "secret",
+        rememberMe: true,
+      });
+
+      component.submitHandler();
+
+      expect(store.dispatch).toHaveBeenCalledExactlyOnceWith(
+        userActions.login({
+          payload: { username: "nada", password: "secret" },
+          rememberMe: true,
         }),
       );
     });

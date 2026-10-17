@@ -7,6 +7,7 @@
       "username-placeholder": "example",
       "password": "Password",
       "forgot-password": "Forgot your password?",
+      "remember-me": "Remember me",
       "login":"Login",
       "create-account": "Don’t have an account yet?",
       "create-link":"Create one now!"

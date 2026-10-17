@@ -12,8 +12,11 @@ import { UserState } from "../models/user-state";
 export const userActions = createActionGroup({
   source: "User",
   events: {
-    Login: props<{ payload: LoginPayload }>(),
-    "Login Successfully": props<{ user: Omit<UserState, "isLoading"> }>(),
+    Login: props<{ payload: LoginPayload; rememberMe: boolean }>(),
+    "Login Successfully": props<{
+      user: Omit<UserState, "isLoading">;
+      rememberMe: boolean;
+    }>(),
     "Login Failed": props<{ error: string }>(),
     Register: props<{ payload: RegisterPayload }>(),
     "Verify Email": props<{ payload: VerifyEmailPayload }>(),

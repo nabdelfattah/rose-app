@@ -160,10 +160,10 @@ export const logUserIn = createEffect(
   (actions$ = inject(Actions), authService = inject(AuthService)) => {
     return actions$.pipe(
       ofType(userActions.login),
-      switchMap(({ payload }) =>
+      switchMap(({ payload, rememberMe }) =>
         authService.login(payload).pipe(
           map((user) => {
-            return userActions.loginSuccessfully({ user });
+            return userActions.loginSuccessfully({ user, rememberMe });
           }),
           catchError((err) =>
             of(
@@ -189,8 +189,8 @@ export const loginRedirect = createEffect(
   ) =>
     actions$.pipe(
       ofType(userActions.loginSuccessfully),
-      tap(({ user }) => {
-        session.save(user);
+      tap(({ user, rememberMe }) => {
+        session.save(user, rememberMe);
         messageService.add({
           severity: "success",
           detail: "Logged in successfully!",

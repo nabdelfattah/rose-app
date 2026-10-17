@@ -1,16 +1,42 @@
-<div class="grid sm:grid-cols-1 md:grid-cols-2 gap-10 items-center min-h-screen">
-  
-  <div class="flex flex-col gap-2.5 justify-center w-[80%] mx-auto py-4">
-    
-    <router-outlet />
+<div
+  class="grid sm:grid-cols-1 md:grid-cols-2 gap-10 items-center min-h-screen"
+>
+  <div
+    class="flex flex-col gap-2.5 justify-center items-center w-[80%] mx-auto py-4"
+  >
+    <div class="lg:w-113 min-w-80 p-5">
+      <div class="flex items-center justify-between gap-3 mb-4">
+        <app-lang-button /> <app-theme-button />
+      </div>
+      <div class="flex justify-center mb-10">
+        @if(isDark()){
+        <img src="/images/Ornaments-dark.svg" alt="Ornaments" />
+        } @else {
+        <img src="/images/Ornaments.svg" alt="Ornaments" />
+        }
+      </div>
+      <router-outlet />
+      <div class="flex justify-center mt-[33px]">
+        @if(isDark()){
+        <img
+          src="/images/Ornaments-dark.svg"
+          alt="Ornaments"
+          class="rotate-180"
+        />
+        } @else {
+        <img src="/images/Ornaments.svg" alt="Ornaments" class="rotate-180" />
+        }
+      </div>
+    </div>
   </div>
 
-  <div class="hidden md:block sticky top-0 self-start h-screen w-full overflow-hidden">
+  <div
+    class="hidden md:block sticky top-0 self-start h-screen w-full overflow-hidden"
+  >
     <img
       src="/images/auth-cover.webp"
       alt="auth-cover"
       class="w-full h-full object-cover"
     />
   </div>
-
 </div>
