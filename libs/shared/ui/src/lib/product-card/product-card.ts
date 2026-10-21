@@ -17,12 +17,8 @@ interface ProductBadge {
   templateUrl: './product-card.html',
 })
 export class ProductCardComponent {
-  // Product data from API
-  product = input.required<Product>();
 
-  // Events for parent component
-  addToCart = output<Product>();
-  toggleWishlist = output<Product>();
+  product = input.required<Product>();
 
    stars = [1, 2, 3, 4, 5];
    readonly isOutOfStock = computed(() => Number(this.product().stock) <= 0);
@@ -108,16 +104,4 @@ export class ProductCardComponent {
       ? price
       : null;
   });
-
-  onAddToCart(): void {
-    if (this.isOutOfStock()) {
-      return;
-    }
-
-    this.addToCart.emit(this.product());
-  }
-
-  onToggleWishlist(): void {
-    this.toggleWishlist.emit(this.product());
-  }
 }
