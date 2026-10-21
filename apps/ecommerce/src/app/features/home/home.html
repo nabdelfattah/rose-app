@@ -6,4 +6,31 @@
   <p-button label="Submit" /> optimus ui library works! (instead of paid
   primeNg)
   <h1 class="text-3xl font-bold underline">Hello Tailwind</h1>
+  <section class="most-popular">
+    <div class="container mx-auto flex flex-col gap-10">
+      <div class="header w-full flex justify-between items-center">
+        <app-section-title>Most Popular</app-section-title>
+        <div class="tabs flex gap-6">
+          @for (tab of tabs; track tab) {
+          <button
+            class="cursor-pointer"
+            (click)="selected.set(tab)"
+            [class]="selected() === tab ? 'text-maroon-600 font-medium dark:text-soft-pink-200' : 'text-zinc-700 dark:text-zinc-400'"
+          >
+            {{ tab }}
+          </button>
+          }
+        </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6 lg:grid-cols-3 xl:grid-cols-4">
+        @for (product of filtered().slice(0,12); track product.id) {
+        <app-product-card [product]="product" />
+        }
+      </div>
+      <button (click)="viewMore()" class="text-maroon-700 dark:text-soft-pink-200 font-semibold flex items-center gap-2.5 cursor-pointer ms-auto">
+        View More
+        <svg class="rtl:rotate-180" lucideMoveRight></svg>
+      </button>
+    </div>
+  </section>
 </div>
