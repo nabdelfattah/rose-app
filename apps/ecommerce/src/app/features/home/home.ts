@@ -1,10 +1,50 @@
-import { Component } from "@angular/core";
-import { LucideShoppingCart } from "@lucide/angular";
+import { Component, computed, effect, inject, OnInit, signal } from "@angular/core";
+import { LucideShoppingCart, LucideMoveRight } from "@lucide/angular";
 import { ButtonModule } from "@openng/optimus-ui/button";
+import { SectionTitleComponent } from "../../../../../../libs/shared/ui/src/lib/section-title/section-title";
+import { Store } from "@ngrx/store";
+import { selectAllProducts, selectLoading, selectError } from "../products/store/products.selectors";
+import { ProductsActions } from "../products/store/products.actions";
+import { ProductCardComponent } from "@rose-app/ui";
+import { Router } from "@angular/router";
+
 @Component({
   selector: "app-home",
-  imports: [LucideShoppingCart, ButtonModule],
+  imports: [
+    LucideShoppingCart,
+    LucideMoveRight,
+    ButtonModule,
+    SectionTitleComponent,
+    ProductCardComponent
+],
   templateUrl: "./home.html",
   styleUrl: "./home.css",
 })
-export class Home {}
+export class Home implements OnInit {
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
+  readonly products = this.store.selectSignal(selectAllProducts);
+  readonly isLoading = this.store.selectSignal(selectLoading);
+  readonly error = this.store.selectSignal(selectError);
+
+  tabs = ['All', 'Wedding', 'Anniversary', 'Birthday', 'Engagement'];
+  selected = signal('All');
+
+  filtered = computed(() => {
+    const s = this.selected();
+    return s === 'All'
+      ? this.products()
+      : this.products().filter((p) => p.occasions.some((o) => o.occasion.title.includes(s)));
+  });
+
+  viewMore(){
+    this.router.navigate(['/products'])
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(
+      ProductsActions.loadProducts(),
+    );
+  }
+}
+

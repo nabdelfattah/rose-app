@@ -17,6 +17,8 @@ import { headerInterceptor } from "./core/interceptors/header-interceptor";
 import { errorInterceptor } from "./core/interceptors/error-interceptor";
 import { userReducer } from "./features/auth/store/user.reducer";
 import * as userEffects from "./features/auth/store/user.effects";
+import { productsReducer } from "./features/products/store/products.reducer";
+import * as productsEffects from "./features/products/store/products.effects";
 
 export const appRoutes: Route[] = [
   {
@@ -34,6 +36,8 @@ export const appRoutes: Route[] = [
       AuthService,
       provideState({ name: "user", reducer: userReducer }),
       provideEffects(userEffects),
+      provideState({ name: "products", reducer: productsReducer }),
+      provideEffects(productsEffects),
       MessageService,
       // Translation
       provideTranslateService({
