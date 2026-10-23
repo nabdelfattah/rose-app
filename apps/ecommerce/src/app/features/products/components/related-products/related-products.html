@@ -1,0 +1,24 @@
+<section>
+  <p-carousel
+    [value]="products()"
+    [numVisible]="4"
+    [numScroll]="1"
+    [responsiveOptions]="responsiveOptions"
+    [showIndicators]="false"
+    [showNavigators]="true"
+    [pt]="{
+    pcPrevButton: {
+        root: { class: 'rounded-full bg-maroon-500! dark:bg-soft-pink-300! text-zinc-50! size-[33px]!' }
+    },
+    pcNextButton: {
+        root: { class: 'rounded-full bg-maroon-500! dark:bg-soft-pink-300! text-zinc-50! size-[33px]!' }
+    }
+}"
+  >
+    <ng-template pTemplate="item" let-product>
+      <div class="px-2">
+        <app-product-card [product]="product" />
+      </div>
+    </ng-template>
+  </p-carousel>
+</section>
