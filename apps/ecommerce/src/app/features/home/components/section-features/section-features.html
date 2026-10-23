@@ -1,0 +1,15 @@
+<div
+  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 bg-maroon-50 rounded-2xl p-10"
+>
+  @for (item of data(); track $index) {
+  <div class="flex gap-4 items-center" data-testid="feature-item">
+    <div class="p-3 bg-maroon-600 rounded-full">
+      <svg [lucideIcon]="item.icon" class="text-white size-10"></svg>
+    </div>
+    <div class="flex flex-col gap-1.5">
+      <p class="font-semibold text-xl text-maroon-600">{{item.title}}</p>
+      <p class="text-zinc-500 text-sm">{{item.description}}</p>
+    </div>
+  </div>
+  }
+</div>

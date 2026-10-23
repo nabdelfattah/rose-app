@@ -1,11 +1,6 @@
 <div class="card m-4">
-  <p>home works!</p>
-  <svg lucideShoppingCart></svg> lucide works!
-  <br />
-
-  <p-button label="Submit" /> optimus ui library works! (instead of paid
-  primeNg)
-  <h1 class="text-3xl font-bold underline">Hello Tailwind</h1>
+  <app-section-features />
+  <app-section-best-selling />
   <section class="most-popular">
     <div class="container mx-auto flex flex-col gap-10">
       <div class="header w-full flex justify-between items-center">
@@ -27,7 +22,10 @@
         <app-product-card [product]="product" />
         }
       </div>
-      <button (click)="viewMore()" class="text-maroon-700 dark:text-soft-pink-200 font-semibold flex items-center gap-2.5 cursor-pointer ms-auto">
+      <button
+        (click)="viewMore()"
+        class="text-maroon-700 dark:text-soft-pink-200 font-semibold flex items-center gap-2.5 cursor-pointer ms-auto"
+      >
         View More
         <svg class="rtl:rotate-180" lucideMoveRight></svg>
       </button>
