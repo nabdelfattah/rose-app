@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { provideMockStore, MockStore } from "@ngrx/store/testing";
-import { Router } from "@angular/router";
+import { provideRouter, Router } from "@angular/router";
+import { provideTranslateService } from "@ngx-translate/core";
+import { By } from "@angular/platform-browser";
 import { Home } from "./home";
 import { ProductsActions } from "../products/store/products.actions";
 import { Product } from "../products/model/product";
@@ -9,7 +11,6 @@ import {
   selectError,
   selectLoading,
 } from "../products/store/products.selectors";
-import { By } from "@angular/platform-browser";
 
 describe("Home", () => {
   let fixture: ComponentFixture<Home>;
@@ -110,39 +111,28 @@ describe("Home", () => {
       providers: [
         provideMockStore({
           selectors: [
-            {
-              selector: selectAllProducts,
-              value: mockProducts,
-            },
-            {
-              selector: selectLoading,
-              value: false,
-            },
-            {
-              selector: selectError,
-              value: null,
-            },
+            { selector: selectAllProducts, value: mockProducts },
+            { selector: selectLoading, value: false },
+            { selector: selectError, value: null },
           ],
         }),
-        {
-          provide: Router,
-          useValue: {
-            navigate: vi.fn().mockResolvedValue(true),
-          },
-        },
+        provideRouter([]),
+        provideTranslateService({ fallbackLang: "en" }),
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Home);
-    component = fixture.componentInstance;
     store = TestBed.inject(MockStore);
     router = TestBed.inject(Router);
+    vi.spyOn(router, "navigate").mockResolvedValue(true);
+
+    fixture = TestBed.createComponent(Home);
+    component = fixture.componentInstance;
 
     fixture.detectChanges();
   });
 
   afterEach(() => {
-    store.resetSelectors();
+    store?.resetSelectors();
   });
 
   it("should create", () => {
@@ -174,9 +164,8 @@ describe("Home", () => {
   });
 
   it("should navigate to products page when viewMore is called", () => {
-    const navigateSpy = vi.spyOn(router, "navigate");
     component.viewMore();
-    expect(navigateSpy).toHaveBeenCalledWith(["/products"]);
+    expect(router.navigate).toHaveBeenCalledWith(["/products"]);
   });
 
   it("should expose the loading state from the store", () => {
@@ -195,7 +184,7 @@ describe("Home", () => {
       );
       expect(sectionTitle).toBeTruthy();
       expect(sectionTitle.nativeElement.textContent.trim()).toBe(
-        "Most Popular",
+        "home.most-popular",
       );
     });
 
@@ -204,14 +193,21 @@ describe("Home", () => {
       expect(buttons.length).toBe(5);
       expect(
         buttons.map((button) => button.nativeElement.textContent.trim()),
-      ).toEqual(["All", "Wedding", "Anniversary", "Birthday", "Engagement"]);
+      ).toEqual([
+        "home.tabs.all",
+        "home.tabs.wedding",
+        "home.tabs.anniversary",
+        "home.tabs.birthday",
+        "home.tabs.engagement",
+      ]);
     });
 
     it("should update the selected tab when clicking Wedding", () => {
       const weddingButton = fixture.debugElement
         .queryAll(By.css(".tabs button"))
         .find(
-          (button) => button.nativeElement.textContent.trim() === "Wedding",
+          (button) =>
+            button.nativeElement.textContent.trim() === "home.tabs.wedding",
         );
 
       expect(weddingButton).toBeTruthy();
@@ -239,12 +235,20 @@ describe("Home", () => {
       expect(cards.length).toBe(12);
     });
 
+    it("should show the no products message when nothing matches", () => {
+      component.selected.set("Anniversary");
+      fixture.detectChanges();
+      const message = fixture.debugElement.query(By.css("p.text-center"));
+      expect(message).toBeTruthy();
+      expect(message.nativeElement.textContent).toContain("home.no-products");
+    });
+
     it("should call viewMore when clicking the View More button", () => {
       const viewMoreSpy = vi.spyOn(component, "viewMore");
       const button = fixture.debugElement
         .queryAll(By.css("button"))
         .find(
-          (element) => element.nativeElement.textContent.trim() === "View More",
+          (element) => element.nativeElement.textContent.trim() === "home.view-more"
         );
 
       expect(button).toBeTruthy();

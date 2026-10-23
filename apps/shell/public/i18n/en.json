@@ -79,6 +79,33 @@
     "password-uppercase": "Password must include at least one uppercase letter",
     "password-special": "Password must include at least one special character",
     "match":"Confrirm Password Does Not Match"
+  },
+  "home":{
+    "most-popular":"Most Popular",
+    "tabs": {
+        "all": "All",
+        "wedding": "Wedding",
+        "anniversary": "Anniversary",
+        "birthday": "Birthday",
+        "engagement": "Engagement"
+      },
+    "no-products": "No products are currently available in this category",
+    "view-more":"View More",
+    "about":{
+      "title":"About",
+      "heading": {
+        "part-1": "Delivering the",
+        "highlight-1": "Finest",
+        "part-2": "Gift Boxes for Your",
+        "highlight-2": "Special",
+        "part-3": "Moments"
+      },
+      "desc":"Make every moment memorable with our premium gift boxes. Carefully curated and beautifully packaged, each box is filled with handpicked items designed to impress. Whether it's for a birthday, wedding, or a simple “thank you,” our gift boxes are crafted to leave a lasting impression — because thoughtful gifting starts here.",
+      "discover":"Discover",
+      "feat-1":"Competitive Prices & Easy Shopping",
+      "feat-2":"Perfect for Every Occasion",
+      "feat-3":"Premium Quality & Elegant Packaging",
+      "feat-4":"Fast & Reliable Delivery"
+    }
   }
-  
 }
