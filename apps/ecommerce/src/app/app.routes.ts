@@ -84,6 +84,13 @@ export const appRoutes: Route[] = [
               import("./features/products/products").then((c) => c.Products),
           },
           {
+            path: "products/:id",
+            loadComponent: () =>
+              import("./features/products/pages/product-details/product-details").then(
+                (c) => c.ProductDetails,
+              ),
+          },
+          {
             path: "wishlist",
             loadComponent: () =>
               import("./features/wishlist/wishlist").then((c) => c.Wishlist),

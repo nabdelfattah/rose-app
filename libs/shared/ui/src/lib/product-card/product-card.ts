@@ -1,3 +1,4 @@
+import { RouterLink } from '@angular/router';
 import { Component, computed, input, output } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { LucideHeartPlus, LucideStar, LucideShoppingCart, LucideEye } from '@lucide/angular';
@@ -13,7 +14,7 @@ interface ProductBadge {
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [DecimalPipe, LucideHeartPlus, LucideStar, LucideShoppingCart, LucideEye],
+  imports: [DecimalPipe, LucideHeartPlus, LucideStar, LucideShoppingCart, LucideEye, RouterLink],
   templateUrl: './product-card.html',
 })
 export class ProductCardComponent {
