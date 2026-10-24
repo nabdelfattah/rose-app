@@ -1,17 +1,9 @@
 import { Component, inject } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { passwordPattern } from "../utils/patterns";
 import { Store } from "@ngrx/store";
 import { userActions } from "../store/user.actions";
 import { TranslatePipe } from "@ngx-translate/core";
-import {
-  Button,
-  Input,
-  Link,
-  AuthHeading,
-  LangButton,
-  ThemeButtonComponent,
-} from "@rose-app/ui";
+import { Button, Input, Link, AuthHeading } from "@rose-app/ui";
 import { selectLoading } from "../store/user.selector";
 
 @Component({
@@ -23,8 +15,6 @@ import { selectLoading } from "../store/user.selector";
     Button,
     Input,
     AuthHeading,
-    LangButton,
-    ThemeButtonComponent,
   ],
   templateUrl: "./login.html",
 })

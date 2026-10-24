@@ -1,11 +1,9 @@
+import { Component, computed, inject, OnInit, signal } from "@angular/core";
 import {
-  Component
-  computed,
-  inject,
-  OnInit,
-  signal,
-} from "@angular/core";
-import { LucideArrowRight, LucideCheck, LucideMoveRight } from "@lucide/angular";
+  LucideArrowRight,
+  LucideCheck,
+  LucideMoveRight,
+} from "@lucide/angular";
 import { ButtonModule } from "@openng/optimus-ui/button";
 import { SectionTitleComponent } from "../../../../../../libs/shared/ui/src/lib/section-title/section-title";
 import { Store } from "@ngrx/store";
@@ -25,11 +23,11 @@ import { TranslatePipe } from "@ngx-translate/core";
   selector: "app-home",
   imports: [
     Button,
-SubTitleComponent,
-RouterLink,
-TranslatePipe,
+    SubTitleComponent,
+    RouterLink,
+    TranslatePipe,
     SectionFeatures,
- SectionBestSelling,
+    SectionBestSelling,
     LucideMoveRight,
     LucideArrowRight,
     LucideCheck,
