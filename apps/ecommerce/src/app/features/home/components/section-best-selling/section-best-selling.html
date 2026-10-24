@@ -1,1 +1,53 @@
-<p>section-best-selling works!</p>
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-9 mb-34">
+  <!-- text box -->
+  <div class="max-w-96">
+    <header class="mb-2">
+      <app-sub-title>Best Selling</app-sub-title>
+      <h3 class="text-4xl font-bold text-maroon-700 capitalize mt-2.5">
+        <span class="text-soft-pink-400">Check Out</span> What Everyone’s
+        <span class="text-soft-pink-400">Buying</span> Right Now
+      </h3>
+    </header>
+    <p class="text-zinc-500 text-base md:mb-18 mb-6">
+      Not sure what to choose?<br />
+      Start with our best sellers, these are the gifts our customers keep coming
+      back for. Whether you're celebrating a birthday, anniversary or wedding,
+      our top picks are guaranteed to leave a lasting impression.
+    </p>
+    <button appButton>
+      Explore gifts <svg class="rtl:rotate-180" lucideMoveRight></svg>
+    </button>
+  </div>
+
+  <!-- carousel -->
+  <div class="col-span-1 md:col-span-2 lg:col-span-3 min-w-0 overflow-x-clip">
+    <p-carousel
+      [value]="bestProducts()"
+      [numVisible]="3"
+      [numScroll]="3"
+      [circular]="true"
+      [showIndicators]="false"
+      [responsiveOptions]="responsiveOptions"
+      class="best-selling-carousel"
+    >
+      <ng-template #previousicon>
+        <svg
+          lucideChevronLeft
+          class="size-9 text-white rtl:rotate-180 flex"
+        ></svg>
+      </ng-template>
+
+      <ng-template #nexticon>
+        <svg
+          lucideChevronRight
+          class="size-9 text-white rtl:rotate-180 flex"
+        ></svg>
+      </ng-template>
+      <ng-template let-product #item>
+        <div class="px-2">
+          <app-product-card [product]="product" />
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</div>

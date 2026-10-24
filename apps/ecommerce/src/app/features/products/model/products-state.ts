@@ -6,4 +6,9 @@ export interface ProductsState {
   metadata: Metadata | null;
   isLoading: boolean;
   error: string | null;
+  bestSelling: {
+    items: Product[];
+    isLoading: boolean;
+    error: string | null;
+  };
 }
