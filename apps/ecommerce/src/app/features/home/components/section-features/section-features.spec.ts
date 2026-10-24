@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { provideTranslateService } from "@ngx-translate/core";
 import { SectionFeatures } from "./section-features";
 import { el } from "intl-tel-input/locale";
 
@@ -12,6 +13,7 @@ describe("SectionFeatures", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SectionFeatures],
+      providers: [provideTranslateService()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SectionFeatures);

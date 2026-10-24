@@ -13,6 +13,7 @@ import {
   selectBestProductsLoading,
 } from "../../../products/store/products.selectors";
 import { CarouselModule } from "@openng/optimus-ui/carousel";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: "app-section-best-selling",
@@ -24,6 +25,7 @@ import { CarouselModule } from "@openng/optimus-ui/carousel";
     CarouselModule,
     LucideChevronLeft,
     LucideChevronRight,
+    TranslatePipe,
   ],
   templateUrl: "./section-best-selling.html",
   styleUrl: "./section-best-selling.css",

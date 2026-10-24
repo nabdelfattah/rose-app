@@ -2,20 +2,21 @@
   <!-- text box -->
   <div class="max-w-96">
     <header class="mb-2">
-      <app-sub-title>Best Selling</app-sub-title>
+      <app-sub-title>{{ 'home.bestSelling.subtitle' | translate }}</app-sub-title>
       <h3 class="text-4xl font-bold text-maroon-700 capitalize mt-2.5">
-        <span class="text-soft-pink-400">Check Out</span> What Everyone’s
-        <span class="text-soft-pink-400">Buying</span> Right Now
+        <span class="text-soft-pink-400">{{ 'home.bestSelling.title.checkOut' | translate }}</span>
+        {{ 'home.bestSelling.title.whatEveryone' | translate }}
+        <span class="text-soft-pink-400">{{ 'home.bestSelling.title.buying' | translate }}</span>
+        {{ 'home.bestSelling.title.rightNow' | translate }}
       </h3>
     </header>
     <p class="text-zinc-500 text-base md:mb-18 mb-6">
-      Not sure what to choose?<br />
-      Start with our best sellers, these are the gifts our customers keep coming
-      back for. Whether you're celebrating a birthday, anniversary or wedding,
-      our top picks are guaranteed to leave a lasting impression.
+      {{ 'home.bestSelling.question' | translate }}<br />
+      {{ 'home.bestSelling.description' | translate }}
     </p>
     <button appButton>
-      Explore gifts <svg class="rtl:rotate-180" lucideMoveRight></svg>
+      {{ 'home.bestSelling.explore' | translate }}
+      <svg class="rtl:rotate-180" lucideMoveRight></svg>
     </button>
   </div>
 

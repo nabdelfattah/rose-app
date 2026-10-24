@@ -79,6 +79,37 @@
     "password-uppercase": "Password must include at least one uppercase letter",
     "password-special": "Password must include at least one special character",
     "match":"Confrirm Password Does Not Match"
+  },
+  "home": {
+    "feature": {
+      "delivery": {
+        "title": "Free Delivery",
+        "description": "For orders above 120 EGP"
+      },
+      "refund": {
+        "title": "Get Refund",
+        "description": "Refunds within 30 days"
+      },
+      "payment": {
+        "title": "Safe Payment",
+        "description": "100% Secure Payment"
+      },
+      "support": {
+        "title": "24/7 Support",
+        "description": "Contact us at any time"
+      }
+    },
+    "bestSelling": {
+      "subtitle": "Best Selling",
+      "title": {
+        "checkOut": "Check Out",
+        "whatEveryone": "What Everyone’s",
+        "buying": "Buying",
+        "rightNow": "Right Now"
+      },
+      "question": "Not sure what to choose?",
+      "description": "Start with our best sellers, these are the gifts our customers keep coming back for. Whether you're celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
+      "explore": "Explore gifts"
+    }
   }
-  
 }

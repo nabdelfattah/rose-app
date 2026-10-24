@@ -6,33 +6,34 @@ import {
   LucideShieldCheck,
   LucideTruck,
 } from "@lucide/angular";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: "app-section-features",
-  imports: [LucideDynamicIcon],
+  imports: [LucideDynamicIcon, TranslatePipe],
   templateUrl: "./section-features.html",
 })
 export class SectionFeatures {
   data = signal([
     {
       icon: LucideTruck,
-      title: "Free Delivery",
-      description: "For orders above 120 EGP",
+      title: "home.feature.delivery.title",
+      description: "home.feature.delivery.description",
     },
     {
       icon: LucideRefreshCw,
-      title: "Get Refund",
-      description: "Refunds within 30 days",
+      title: "home.feature.refund.title",
+      description: "home.feature.refund.description",
     },
     {
       icon: LucideShieldCheck,
-      title: "Safe Payment",
-      description: "100% Secure Payment",
+      title: "home.feature.payment.title",
+      description: "home.feature.payment.description",
     },
     {
       icon: LucideHeadset,
-      title: "24/7 Support",
-      description: "Contact us at any time",
+      title: "home.feature.support.title",
+      description: "home.feature.support.description",
     },
   ]);
 }
