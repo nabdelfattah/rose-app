@@ -1,5 +1,11 @@
-import { Component, computed, inject, OnInit, signal } from "@angular/core";
-import { LucideMoveRight } from "@lucide/angular";
+import {
+  Component
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from "@angular/core";
+import { LucideArrowRight, LucideCheck, LucideMoveRight } from "@lucide/angular";
 import { ButtonModule } from "@openng/optimus-ui/button";
 import { SectionTitleComponent } from "../../../../../../libs/shared/ui/src/lib/section-title/section-title";
 import { Store } from "@ngrx/store";
@@ -9,20 +15,27 @@ import {
   selectError,
 } from "../products/store/products.selectors";
 import { ProductsActions } from "../products/store/products.actions";
-import { ProductCardComponent } from "@rose-app/ui";
-import { Router } from "@angular/router";
 import { SectionFeatures } from "./components/section-features/section-features";
 import { SectionBestSelling } from "./components/section-best-selling/section-best-selling";
+import { Button, ProductCardComponent, SubTitleComponent } from "@rose-app/ui";
+import { Router, RouterLink } from "@angular/router";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: "app-home",
   imports: [
+    Button,
+SubTitleComponent,
+RouterLink,
+TranslatePipe,
+    SectionFeatures,
+ SectionBestSelling,
     LucideMoveRight,
+    LucideArrowRight,
+    LucideCheck,
     ButtonModule,
     SectionTitleComponent,
     ProductCardComponent,
-    SectionFeatures,
-    SectionBestSelling,
   ],
   templateUrl: "./home.html",
   styleUrl: "./home.css",

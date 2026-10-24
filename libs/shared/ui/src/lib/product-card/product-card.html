@@ -1,4 +1,4 @@
-<article class="group flex h-full min-w-0 flex-col gap-2 bg-white">
+<div class="group flex h-full min-w-0 flex-col gap-2 bg-transparent">
   <!-- Image -->
   <div class="relative w-full h-68 overflow-hidden rounded-xl">
     <img
@@ -11,6 +11,7 @@
       class="absolute inset-0 z-5 flex items-center justify-center bg-soft-pink-600/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
     >
       <button
+        [routerLink]="['/products', product().id]"
         type="button"
         class="grid size-7.5 place-items-center rounded-full bg-[#fff] text-maroon-800 cursor-pointer"
       >
@@ -97,4 +98,4 @@
       </button>
     </div>
   </div>
-</article>
+</div>
