@@ -1,1 +1,853 @@
-<p>header works!</p>
+<!-- Header with Isolated LTR Structural Layout to prevent physical mirroring in RTL -->
+<header
+  class="w-full relative z-50 bg-white dark:bg-[#202124] border-b border-zinc-200 dark:border-zinc-800/80 transition-colors"
+  dir="ltr"
+  [class.font-tajawal]="isArabic()"
+>
+  <!-- Top Header Row -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+    <div
+      class="flex items-center justify-between gap-2 sm:gap-6 h-16 sm:h-18 lg:h-20"
+    >
+      <!-- LEFT SECTION: Logo & Deliver To -->
+      <div class="flex items-center gap-3 sm:gap-4 lg:gap-6 shrink-0">
+        <!-- Logo -->
+        <a
+          routerLink="/"
+          (click)="closeAllOverlays()"
+          class="flex items-center focus:outline-none"
+          aria-label="Rose Home"
+        >
+          <img
+            src="/Logo.svg"
+            alt="Rose"
+            class="h-8 sm:h-10 lg:h-12 w-auto object-contain"
+          />
+        </a>
+
+        <!-- Deliver To (Authenticated Only - Tablet & Desktop) -->
+        @if (isAuthenticated()) {
+        <div
+          class="hidden sm:flex flex-col text-left justify-center pl-2 border-l border-zinc-200 dark:border-zinc-800"
+        >
+          <span
+            class="text-[11px] text-zinc-500 dark:text-zinc-400 font-normal leading-none mb-1"
+          >
+            {{ isArabic() ? 'التوصيل إلى:' : 'Deliver to:' }}
+          </span>
+          <div
+            class="flex items-center gap-1 text-sm font-semibold text-maroon-800 dark:text-soft-pink-300 leading-none"
+          >
+            <svg
+              lucideMapPin
+              class="w-3.5 h-3.5 text-maroon-700 dark:text-soft-pink-300 shrink-0"
+            ></svg>
+            <span>{{ isArabic() ? 'القاهرة' : 'Cairo' }}</span>
+          </div>
+        </div>
+        }
+      </div>
+
+      <!-- CENTER SECTION: Large Search Input (Desktop & Tablet >= 768px) -->
+      <div class="hidden md:flex flex-1 max-w-2xl mx-2 lg:mx-6">
+        <form
+          (ngSubmit)="onSearchSubmit()"
+          class="relative w-full"
+          role="search"
+        >
+          <div
+            class="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500 pointer-events-none flex items-center"
+          >
+            <svg lucideSearch class="w-4 h-4"></svg>
+          </div>
+          <input
+            type="search"
+            [(ngModel)]="searchQuery"
+            name="desktopSearch"
+            [placeholder]="isArabic() ? 'ما الهدية الرائعة التي تبحث عنها؟' : 'What awesome gift are you looking for?'"
+            dir="auto"
+            class="w-full pl-10 pr-4 py-2.5 text-sm rounded-lg border border-zinc-200 dark:border-[#3e4048] bg-white dark:bg-[#32343a] text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-400/80 focus:outline-none focus:ring-1 focus:ring-maroon-600 dark:focus:ring-soft-pink-300 transition"
+          />
+        </form>
+      </div>
+
+      <!-- RIGHT SECTION: User/Login, Separator, Icons (Heart, Cart, Bell), Separator, Language, Theme, Mobile Hamburger -->
+      <div class="flex items-center gap-0.5 sm:gap-1.5 md:gap-2 shrink-0">
+        <!-- 1. User / Login Trigger -->
+        <div>
+          @if (isAuthenticated()) {
+          <!-- Authenticated User Trigger -->
+          <button
+            type="button"
+            (click)="toggleUserPopover($event)"
+            class="flex items-center rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition focus:outline-none p-1 sm:px-2 sm:py-1 shrink-0"
+            aria-haspopup="true"
+            id="user-menu-trigger"
+          >
+            <!-- Mobile View Avatar/Icon (< 640px) -->
+            <div
+              class="sm:hidden w-7 h-7 rounded-full bg-maroon-100 dark:bg-zinc-800 text-maroon-700 dark:text-soft-pink-300 flex items-center justify-center"
+            >
+              <svg lucideUser class="w-4 h-4"></svg>
+            </div>
+
+            <!-- Tablet & Desktop View (>= 640px): Stacked Hello \n Name v -->
+            <div class="hidden sm:flex flex-col text-left">
+              <span
+                class="text-[11px] text-zinc-400 dark:text-zinc-400 font-normal leading-none mb-1"
+              >
+                {{ isArabic() ? 'مرحباً' : 'Hello' }}
+              </span>
+              <div
+                class="flex items-center gap-1 text-sm font-semibold text-maroon-800 dark:text-soft-pink-300 leading-none"
+              >
+                <span class="max-w-[110px] truncate">{{ displayName() }}</span>
+                <svg
+                  lucideChevronDown
+                  class="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-400"
+                ></svg>
+              </div>
+            </div>
+          </button>
+
+          <!-- Optimus UI Popover for User Dropdown -->
+          <p-popover
+            #userPopover
+            [dismissable]="true"
+            [appendTo]="'body'"
+            styleClass="!p-0 !rounded-2xl !shadow-2xl !border !border-zinc-200 dark:!border-zinc-800 dark:!bg-zinc-900 !overflow-hidden"
+          >
+            <div
+              class="w-64 bg-white dark:bg-zinc-900 py-2"
+              [dir]="isArabic() ? 'rtl' : 'ltr'"
+            >
+              <!-- User Greeting / Details -->
+              <div
+                class="px-4 py-3 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-[#3F3F46]"
+              >
+                <p
+                  class="text-sm font-semibold text-[#741C21] dark:text-zinc-100 truncate"
+                >
+                  {{ displayName() }}
+                </p>
+              </div>
+
+              <!-- Menu Links -->
+              <div class="py-1">
+                <a
+                  routerLink="/account"
+                  (click)="closeAllOverlays()"
+                  class="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+                >
+                  <svg lucideUser class="w-4 h-4 text-zinc-500 shrink-0"></svg>
+                  <span
+                    >{{ isArabic() ? 'حسابي / الملف الشخصي' : 'My Profile'
+                    }}</span
+                  >
+                </a>
+
+                <a
+                  routerLink="/account"
+                  fragment="addresses"
+                  (click)="closeAllOverlays()"
+                  class="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+                >
+                  <svg
+                    lucideMapPin
+                    class="w-4 h-4 text-zinc-500 shrink-0"
+                  ></svg>
+                  <span>{{ isArabic() ? 'العناوين' : 'Addresses' }}</span>
+                </a>
+
+                <a
+                  routerLink="/orders"
+                  (click)="closeAllOverlays()"
+                  class="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+                >
+                  <svg
+                    lucidePackage
+                    class="w-4 h-4 text-zinc-500 shrink-0"
+                  ></svg>
+                  <span>{{ isArabic() ? 'الطلبات' : 'Orders' }}</span>
+                </a>
+
+                <div
+                  class="my-1.5 border-t border-zinc-100 dark:border-zinc-800"
+                ></div>
+
+                <a
+                  routerLink="/account"
+                  (click)="closeAllOverlays()"
+                  class="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+                >
+                  <svg
+                    lucideLayoutDashboard
+                    class="w-4 h-4 text-zinc-500 shrink-0"
+                  ></svg>
+                  <span>{{ isArabic() ? 'لوحة التحكم' : 'Dashboard' }}</span>
+                </a>
+
+                <div
+                  class="my-1.5 border-t border-zinc-100 dark:border-zinc-800"
+                ></div>
+
+                <button
+                  type="button"
+                  (click)="logout()"
+                  class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition text-left focus:outline-none"
+                >
+                  <svg lucideLogOut class="w-4 h-4 shrink-0"></svg>
+                  <span>{{ isArabic() ? 'تسجيل الخروج' : 'Logout' }}</span>
+                </button>
+              </div>
+            </div>
+          </p-popover>
+          } @else {
+          <!-- Unauthenticated Login Trigger -->
+          <button
+            type="button"
+            (click)="toggleLoginPopover($event)"
+            class="flex items-center gap-1.5 p-1 sm:px-2.5 sm:py-1.5 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition focus:outline-none shrink-0"
+            aria-haspopup="true"
+            id="login-popover-trigger"
+          >
+            <svg
+              lucideUser
+              class="w-4.5 h-4.5 text-zinc-700 dark:text-zinc-200"
+            ></svg>
+            <span class="hidden sm:inline"
+              >{{ isArabic() ? 'دخول' : 'Login' }}</span
+            >
+          </button>
+
+          <!-- Optimus UI Popover for Login Form -->
+          <p-popover
+            #loginPopover
+            [dismissable]="true"
+            [appendTo]="'body'"
+            styleClass="!p-0 !rounded-2xl !shadow-2xl !border !border-zinc-200 dark:!border-zinc-800 dark:!bg-zinc-900 !overflow-hidden"
+          >
+            <div
+              class="w-80 sm:w-96 p-5 bg-white dark:bg-zinc-900 max-w-[calc(100vw-2rem)]"
+              [dir]="isArabic() ? 'rtl' : 'ltr'"
+            >
+              <!-- Tabs: Login / Register -->
+              <div
+                class="flex items-center border-b border-zinc-200 dark:border-zinc-800 mb-5"
+              >
+                <button
+                  type="button"
+                  (click)="setAuthTab('login')"
+                  class="flex-1 pb-2.5 text-center text-sm font-semibold transition border-b-2 focus:outline-none"
+                  [class.border-maroon-600]="activeAuthTab() === 'login'"
+                  [class.text-maroon-600]="activeAuthTab() === 'login'"
+                  [class.dark:border-soft-pink-400]="activeAuthTab() === 'login'"
+                  [class.dark:text-soft-pink-400]="activeAuthTab() === 'login'"
+                  [class.border-transparent]="activeAuthTab() !== 'login'"
+                  [class.text-zinc-500]="activeAuthTab() !== 'login'"
+                >
+                  {{ isArabic() ? 'تسجيل الدخول' : 'Login' }}
+                </button>
+                <button
+                  type="button"
+                  (click)="setAuthTab('register')"
+                  class="flex-1 pb-2.5 text-center text-sm font-semibold transition border-b-2 border-transparent text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 focus:outline-none"
+                >
+                  {{ isArabic() ? 'حساب جديد' : 'Register' }}
+                </button>
+              </div>
+
+              <!-- Error Notice -->
+              @if (loginError()) {
+              <div
+                class="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-xs text-red-600 dark:text-red-400"
+              >
+                {{ loginError() }}
+              </div>
+              }
+
+              <!-- Login Form -->
+              <form (ngSubmit)="submitLogin()" class="space-y-4">
+                <!-- Username / Email Field -->
+                <div>
+                  <label
+                    class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5"
+                  >
+                    {{ isArabic() ? 'اسم المستخدم أو البريد الإلكتروني' : 'Email
+                    or Username' }}
+                  </label>
+                  <input
+                    type="text"
+                    [(ngModel)]="loginUsername"
+                    name="popoverUsername"
+                    [disabled]="isSubmittingLogin() || isAuthLoading()"
+                    [placeholder]="isArabic() ? 'أدخل اسم المستخدم' : 'Enter username or email'"
+                    required
+                    class="w-full px-3.5 py-2 text-sm rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-maroon-600 dark:focus:ring-soft-pink-400 transition disabled:opacity-50"
+                  />
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <label
+                      class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300"
+                    >
+                      {{ isArabic() ? 'كلمة المرور' : 'Password' }}
+                    </label>
+                    <a
+                      routerLink="/forget-password"
+                      (click)="closeAllOverlays()"
+                      class="text-xs font-medium text-maroon-600 dark:text-soft-pink-400 hover:underline"
+                    >
+                      {{ isArabic() ? 'نسيت كلمة المرور؟' : 'Forgot Password?'
+                      }}
+                    </a>
+                  </div>
+                  <div class="relative">
+                    <input
+                      [type]="showPassword() ? 'text' : 'password'"
+                      [(ngModel)]="loginPassword"
+                      name="popoverPassword"
+                      [disabled]="isSubmittingLogin() || isAuthLoading()"
+                      [placeholder]="isArabic() ? 'أدخل كلمة المرور' : 'Enter password'"
+                      required
+                      class="w-full px-3.5 py-2 pr-10 text-sm rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-maroon-600 dark:focus:ring-soft-pink-400 transition disabled:opacity-50"
+                    />
+                    <button
+                      type="button"
+                      (click)="showPassword.set(!showPassword())"
+                      class="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 focus:outline-none"
+                      aria-label="Toggle password visibility"
+                    >
+                      @if (showPassword()) {
+                      <svg lucideEyeOff class="w-4 h-4"></svg>
+                      } @else {
+                      <svg lucideEye class="w-4 h-4"></svg>
+                      }
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Full Width Submit Button -->
+                <button
+                  type="submit"
+                  [disabled]="isSubmittingLogin() || isAuthLoading() || !loginUsername() || !loginPassword()"
+                  class="w-full mt-2 py-2.5 px-4 rounded-lg bg-maroon-700 hover:bg-maroon-800 text-white font-medium text-sm transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-maroon-600 focus:ring-offset-2 dark:focus:ring-offset-zinc-900"
+                >
+                  @if (isSubmittingLogin() || isAuthLoading()) {
+                  <svg lucideLoaderCircle class="w-4 h-4 animate-spin"></svg>
+                  <span
+                    >{{ isArabic() ? 'جاري تسجيل الدخول...' : 'Logging in...'
+                    }}</span
+                  >
+                  } @else {
+                  <span>{{ isArabic() ? 'تسجيل الدخول' : 'Login' }}</span>
+                  }
+                </button>
+              </form>
+            </div>
+          </p-popover>
+          }
+        </div>
+
+        <!-- Vertical Separator 1 -->
+        <div
+          class="h-4 sm:h-6 w-px bg-zinc-200 dark:bg-zinc-700 mx-0.5 sm:mx-1 shrink-0"
+        ></div>
+
+        <!-- 2. Wishlist Icon -->
+        <a
+          routerLink="/wishlist"
+          (click)="closeAllOverlays()"
+          class="p-1 sm:p-2 rounded-lg text-zinc-700 dark:text-zinc-200 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition focus:outline-none shrink-0"
+          [attr.aria-label]="isArabic() ? 'المفضلة' : 'Wishlist'"
+          title="Wishlist"
+        >
+          <svg lucideHeart class="w-4.5 h-4.5 sm:w-5 sm:h-5"></svg>
+        </a>
+
+        <!-- 3. Cart Icon with Badge -->
+        <a
+          routerLink="/cart"
+          (click)="closeAllOverlays()"
+          class="relative p-1 sm:p-2 rounded-lg text-zinc-700 dark:text-zinc-200 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition focus:outline-none shrink-0"
+          [attr.aria-label]="isArabic() ? 'سلة التسوق' : 'Cart'"
+          title="Cart"
+        >
+          <svg lucideShoppingCart class="w-4.5 h-4.5 sm:w-5 sm:h-5"></svg>
+          <span
+            class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#d91d36] text-white text-[10px] font-bold flex items-center justify-center leading-none pointer-events-none"
+          >
+            8
+          </span>
+        </a>
+
+        <!-- 4. Notifications Bell with Unread Badge -->
+        <div class="relative shrink-0">
+          <button
+            type="button"
+            (click)="toggleNotificationsPopover($event)"
+            class="relative p-1 sm:p-2 rounded-lg text-zinc-700 dark:text-zinc-200 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition focus:outline-none shrink-0"
+            [attr.aria-label]="isArabic() ? 'الإشعارات' : 'Notifications'"
+            title="Notifications"
+            id="notifications-trigger"
+          >
+            <svg lucideBell class="w-4.5 h-4.5 sm:w-5 sm:h-5"></svg>
+            @if (unreadCount() > 0) {
+            <span
+              class="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 rounded-full bg-[#d91d36] text-white text-[10px] font-bold flex items-center justify-center leading-none pointer-events-none animate-pulse"
+            >
+              {{ unreadCount() > 99 ? '99+' : unreadCount() }}
+            </span>
+            }
+          </button>
+
+          <!-- Optimus UI Popover for Notifications -->
+          <p-popover
+            #notificationsPopover
+            [dismissable]="true"
+            [appendTo]="'body'"
+            styleClass="!p-0 !rounded-2xl !shadow-2xl !border !border-zinc-200 dark:!border-zinc-800 dark:!bg-zinc-900 !overflow-hidden"
+          >
+            <div
+              class="w-80 sm:w-96 flex flex-col max-h-[500px] bg-white dark:bg-zinc-900 max-w-[calc(100vw-2rem)]"
+              [dir]="isArabic() ? 'rtl' : 'ltr'"
+            >
+              <!-- Notifications Popover Header -->
+              <div
+                class="flex items-center justify-between px-4 py-3 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/50"
+              >
+                <div class="flex items-center gap-2">
+                  <h3
+                    class="text-sm font-bold text-zinc-900 dark:text-zinc-100"
+                  >
+                    {{ isArabic() ? 'الإشعارات' : 'Notifications' }}
+                  </h3>
+                  @if (unreadCount() > 0) {
+                  <span
+                    class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-maroon-100 dark:bg-soft-pink-950 text-maroon-700 dark:text-soft-pink-300"
+                  >
+                    {{ unreadCount() }} {{ isArabic() ? 'جديد' : 'new' }}
+                  </span>
+                  }
+                </div>
+
+                @if (notifications().length > 0) {
+                <div class="flex items-center gap-2 text-xs">
+                  <button
+                    type="button"
+                    (click)="markAllAsRead()"
+                    class="text-maroon-600 dark:text-soft-pink-400 hover:underline font-medium"
+                  >
+                    {{ isArabic() ? 'قراءة الكل' : 'Mark All As Read' }}
+                  </button>
+                  <span class="text-zinc-300 dark:text-zinc-700">|</span>
+                  <button
+                    type="button"
+                    (click)="clearAllNotifications()"
+                    class="text-zinc-500 hover:text-red-600 transition font-medium"
+                  >
+                    {{ isArabic() ? 'مسح الكل' : 'Clear All' }}
+                  </button>
+                </div>
+                }
+              </div>
+
+              <!-- Notifications Popover Body -->
+              <div
+                class="flex-1 overflow-y-auto divide-y divide-zinc-100 dark:divide-zinc-800"
+              >
+                @if (isLoadingNotifications()) {
+                <!-- Loading State -->
+                <div
+                  class="py-12 flex flex-col items-center justify-center text-zinc-400 gap-2"
+                >
+                  <svg
+                    lucideLoaderCircle
+                    class="w-6 h-6 animate-spin text-maroon-600 dark:text-soft-pink-400"
+                  ></svg>
+                  <span class="text-xs"
+                    >{{ isArabic() ? 'جاري تحميل الإشعارات...' : 'Loading
+                    notifications...' }}</span
+                  >
+                </div>
+                } @else if (notifications().length === 0) {
+                <!-- Empty State -->
+                <div
+                  class="py-12 px-6 flex flex-col items-center justify-center text-center"
+                >
+                  <div
+                    class="w-12 h-12 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-400 mb-3"
+                  >
+                    <svg lucideBellOff class="w-6 h-6"></svg>
+                  </div>
+                  <p
+                    class="text-sm font-semibold text-zinc-800 dark:text-zinc-200"
+                  >
+                    {{ isArabic() ? 'لا توجد إشعارات حالياً' : 'No notifications
+                    yet' }}
+                  </p>
+                  <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                    {{ isArabic() ? 'ستظهر التحديثات والعروض هنا عندما تصلك' :
+                    'Updates, orders, and offers will appear here.' }}
+                  </p>
+                </div>
+                } @else {
+                <!-- Filled State: List of notifications -->
+                @for (item of notifications(); track item._id || item.id ||
+                $index) {
+                <div
+                  class="p-4 flex items-start gap-3 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition relative group"
+                  [class.bg-maroon-50/30]="!item.isRead"
+                  [class.dark:bg-soft-pink-950/20]="!item.isRead"
+                >
+                  <!-- Unread Indicator Dot -->
+                  <div class="mt-1.5 shrink-0">
+                    @if (!item.isRead) {
+                    <span
+                      class="block w-2 h-2 rounded-full bg-[#d91d36]"
+                    ></span>
+                    } @else {
+                    <span
+                      class="block w-2 h-2 rounded-full bg-transparent"
+                    ></span>
+                    }
+                  </div>
+
+                  <!-- Notification Content -->
+                  <div class="flex-1 min-w-0">
+                    <h4
+                      class="text-xs font-semibold text-zinc-900 dark:text-zinc-100 truncate"
+                    >
+                      {{ item.title }}
+                    </h4>
+                    <p
+                      class="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 line-clamp-2"
+                    >
+                      {{ item.message || item.body }}
+                    </p>
+                  </div>
+
+                  <!-- Options / Ellipsis Trigger -->
+                  <div class="relative shrink-0">
+                    <button
+                      type="button"
+                      (click)="toggleRowMenu(item._id || item.id || '', $event)"
+                      class="p-1 rounded text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 focus:outline-none"
+                      aria-label="Notification options"
+                    >
+                      <svg lucideEllipsisVertical class="w-4 h-4"></svg>
+                    </button>
+
+                    <!-- Contextual Row Menu -->
+                    @if (activeRowMenuId() === (item._id || item.id)) {
+                    <div
+                      class="absolute right-0 top-full mt-1 w-36 rounded-xl bg-white dark:bg-zinc-800 shadow-xl border border-zinc-200 dark:border-zinc-700 py-1 z-30 animate-in fade-in duration-100"
+                    >
+                      @if (!item.isRead) {
+                      <button
+                        type="button"
+                        (click)="markNotificationAsRead(item, $event)"
+                        class="w-full flex items-center gap-2 px-3 py-1.5 text-xs text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-left focus:outline-none"
+                      >
+                        <svg lucideCheck class="w-3.5 h-3.5"></svg>
+                        <span
+                          >{{ isArabic() ? 'تحديد كمقروء' : 'Mark as read'
+                          }}</span
+                        >
+                      </button>
+                      }
+                      <button
+                        type="button"
+                        (click)="deleteNotification(item, $event)"
+                        class="w-full flex items-center gap-2 px-3 py-1.5 text-xs text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 text-left focus:outline-none"
+                      >
+                        <svg lucideTrash class="w-3.5 h-3.5"></svg>
+                        <span>{{ isArabic() ? 'حذف' : 'Delete' }}</span>
+                      </button>
+                    </div>
+                    }
+                  </div>
+                </div>
+                } }
+              </div>
+            </div>
+          </p-popover>
+        </div>
+
+        <!-- Vertical Separator 2 -->
+        <div
+          class="h-4 sm:h-6 w-px bg-zinc-200 dark:bg-zinc-700 mx-0.5 sm:mx-1 shrink-0"
+        ></div>
+
+        <!-- 5. Language Switcher (Clean Text) -->
+        <button
+          type="button"
+          (click)="toggleLanguage()"
+          class="px-1 sm:px-2 py-1 text-xs sm:text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition cursor-pointer focus:outline-none shrink-0"
+          [title]="isArabic() ? 'Switch to English' : 'التحويل إلى العربية'"
+        >
+          {{ isArabic() ? 'English' : 'العربية' }}
+        </button>
+
+        <!-- 6. Theme Switcher (Clean Icon) -->
+        <button
+          type="button"
+          (click)="toggleTheme()"
+          class="p-1 sm:p-1.5 text-zinc-600 dark:text-zinc-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition focus:outline-none shrink-0"
+          [attr.aria-label]="themeService.isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+          [title]="themeService.isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+        >
+          @if (themeService.isDark()) {
+          <svg
+            lucideSun
+            class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-yellow-400"
+          ></svg>
+          } @else {
+          <svg lucideMoon class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-zinc-600"></svg>
+          }
+        </button>
+
+        <!-- 7. Mobile Hamburger Menu Toggle (< 768px) -->
+        <button
+          type="button"
+          (click)="toggleMobileDrawer()"
+          class="md:hidden p-1.5 rounded-lg text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition focus:outline-none shrink-0 flex items-center justify-center"
+          [attr.aria-label]="isMobileDrawerOpen() ? 'Close menu' : 'Open menu'"
+          id="mobile-menu-trigger"
+        >
+          <svg lucideMenu class="w-5 h-5 sm:w-6 sm:h-6"></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Handmade Mobile Drawer (< 768px) -->
+  @if (isMobileDrawerOpen()) {
+    <!-- Backdrop: dark overlay, NO blur -->
+    <div
+      class="fixed inset-0 z-40 bg-black/40"
+      aria-hidden="true"
+      (click)="closeMobileMenu()"
+    ></div>
+
+    <!-- Drawer Panel -->
+    <aside
+      dir="ltr"
+      class="fixed left-0 top-0 z-50 h-dvh w-[min(320px,85vw)] overflow-y-auto flex flex-col bg-white dark:bg-[#202124] border-r border-zinc-200 dark:border-zinc-800 shadow-xl mobile-drawer"
+      role="navigation"
+      aria-label="Mobile navigation"
+    >
+      <!-- Drawer Header: Logo + Close -->
+      <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-200 dark:border-zinc-800 shrink-0">
+        <a routerLink="/" (click)="closeMobileMenu()" class="flex items-center focus:outline-none" aria-label="Rose Home">
+          <img src="/Logo.svg" alt="Rose" class="h-8 w-auto object-contain" />
+        </a>
+        <button
+          type="button"
+          (click)="closeMobileMenu()"
+          class="p-1.5 rounded-lg text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition focus:outline-none"
+          aria-label="Close menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Drawer Body -->
+      <div class="flex flex-col flex-1 px-4 py-4 gap-4" [dir]="isArabic() ? 'rtl' : 'ltr'">
+        <!-- Search -->
+        <form (ngSubmit)="onSearchSubmit()" class="relative w-full" role="search">
+          <div class="absolute start-3.5 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500 pointer-events-none flex items-center">
+            <svg lucideSearch class="w-4 h-4"></svg>
+          </div>
+          <input
+            type="search"
+            [(ngModel)]="searchQuery"
+            name="mobileDrawerSearch"
+            [placeholder]="isArabic() ? 'ما الهدية الرائعة التي تبحث عنها؟' : 'What awesome gift are you looking for?'"
+            dir="auto"
+            class="w-full ps-10 pe-4 py-2 text-sm rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-[#32343a] text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-maroon-600 transition"
+          />
+        </form>
+
+        <!-- Deliver To (authenticated only) -->
+        @if (isAuthenticated()) {
+          <div class="flex items-center gap-2 p-2.5 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 text-xs text-zinc-700 dark:text-zinc-300">
+            <svg lucideMapPin class="w-4 h-4 text-maroon-600 dark:text-soft-pink-300 shrink-0"></svg>
+            <div class="flex flex-col text-left">
+              <span class="text-[10px] text-zinc-500">{{ isArabic() ? 'التوصيل إلى' : 'Deliver to:' }}</span>
+              <span class="font-semibold text-zinc-800 dark:text-zinc-100">{{ isArabic() ? 'القاهرة' : 'Cairo' }}</span>
+            </div>
+          </div>
+        }
+
+        <!-- Navigation Links -->
+        <nav class="space-y-1">
+          <a
+            routerLink="/"
+            (click)="closeMobileMenu()"
+            routerLinkActive="bg-maroon-50 text-maroon-700 dark:bg-zinc-800 dark:text-soft-pink-300 font-bold"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+          >
+            <svg lucideHouse class="w-4 h-4"></svg>
+            <span>{{ isArabic() ? 'الرئيسية' : 'Home' }}</span>
+          </a>
+          <a
+            routerLink="/products"
+            (click)="closeMobileMenu()"
+            routerLinkActive="bg-maroon-50 text-maroon-700 dark:bg-zinc-800 dark:text-soft-pink-300 font-bold"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+          >
+            <svg lucideGift class="w-4 h-4"></svg>
+            <span>{{ isArabic() ? 'المنتجات' : 'Products' }}</span>
+          </a>
+          <a
+            routerLink="/categories"
+            (click)="closeMobileMenu()"
+            routerLinkActive="bg-maroon-50 text-maroon-700 dark:bg-zinc-800 dark:text-soft-pink-300 font-bold"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+          >
+            <svg lucideClipboardList class="w-4 h-4"></svg>
+            <span>{{ isArabic() ? 'الفئات' : 'Categories' }}</span>
+          </a>
+          <a
+            routerLink="/occasions"
+            (click)="closeMobileMenu()"
+            routerLinkActive="bg-maroon-50 text-maroon-700 dark:bg-zinc-800 dark:text-soft-pink-300 font-bold"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+          >
+            <svg lucidePartyPopper class="w-4 h-4"></svg>
+            <span>{{ isArabic() ? 'المناسبات' : 'Occasions' }}</span>
+          </a>
+          <a
+            routerLink="/contact"
+            (click)="closeMobileMenu()"
+            routerLinkActive="bg-maroon-50 text-maroon-700 dark:bg-zinc-800 dark:text-soft-pink-300 font-bold"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+          >
+            <svg lucideHeadset class="w-4 h-4"></svg>
+            <span>{{ isArabic() ? 'اتصل بنا' : 'Contact' }}</span>
+          </a>
+          <a
+            routerLink="/about"
+            (click)="closeMobileMenu()"
+            routerLinkActive="bg-maroon-50 text-maroon-700 dark:bg-zinc-800 dark:text-soft-pink-300 font-bold"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+          >
+            <svg lucideInfo class="w-4 h-4"></svg>
+            <span>{{ isArabic() ? 'عن الشركة' : 'About' }}</span>
+          </a>
+        </nav>
+
+        <!-- Spacer -->
+        <div class="flex-1"></div>
+
+        <!-- Language & Theme -->
+        <div class="pt-4 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+          <button
+            type="button"
+            (click)="toggleLanguage()"
+            class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer"
+          >
+            <span class="font-bold text-maroon-700 dark:text-soft-pink-300">
+              {{ isArabic() ? 'English' : 'العربية' }}
+            </span>
+          </button>
+          <button
+            type="button"
+            (click)="toggleTheme()"
+            class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer"
+            [attr.aria-label]="themeService.isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+          >
+            @if (themeService.isDark()) {
+              <svg lucideSun class="w-4 h-4 text-yellow-400"></svg>
+              <span class="text-xs">{{ isArabic() ? 'نهاري' : 'Light' }}</span>
+            } @else {
+              <svg lucideMoon class="w-4 h-4 text-zinc-600"></svg>
+              <span class="text-xs">{{ isArabic() ? 'ليلي' : 'Dark' }}</span>
+            }
+          </button>
+        </div>
+      </div>
+    </aside>
+  }
+
+
+  <!-- Bottom Navigation Row (Desktop & Tablet >= 768px) -->
+  <!-- Light mode: Deep burgundy/maroon (#741c21) with white text -->
+  <!-- Dark mode: Soft light pink (#ffc2d0) with dark burgundy text (#3b0811) -->
+  <nav class="hidden md:block bg-[#741c21] dark:bg-[#ffc2d0] transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <ul
+        class="flex items-center justify-center gap-8 lg:gap-12 py-2.5 text-sm font-medium text-white dark:text-[#3b0811]"
+      >
+        <li>
+          <a
+            routerLink="/"
+            routerLinkActive="border-b-2 border-current font-bold"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex items-center gap-2 py-1 transition border-b-2 border-transparent hover:opacity-85"
+          >
+            <svg lucideHouse class="w-4 h-4"></svg>
+            <span>{{ isArabic() ? 'الرئيسية' : 'Home' }}</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/products"
+            routerLinkActive="border-b-2 border-current font-bold"
+            class="flex items-center gap-2 py-1 transition border-b-2 border-transparent hover:opacity-85"
+          >
+            <svg lucideGift class="w-4 h-4"></svg>
+            <span>{{ isArabic() ? 'المنتجات' : 'Products' }}</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/categories"
+            routerLinkActive="border-b-2 border-current font-bold"
+            class="flex items-center gap-2 py-1 transition border-b-2 border-transparent hover:opacity-85"
+          >
+            <svg lucideClipboardList class="w-4 h-4"></svg>
+            <span>{{ isArabic() ? 'الفئات' : 'Categories' }}</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/occasions"
+            routerLinkActive="border-b-2 border-current font-bold"
+            class="flex items-center gap-2 py-1 transition border-b-2 border-transparent hover:opacity-85"
+          >
+            <svg lucidePartyPopper class="w-4 h-4"></svg>
+            <span>{{ isArabic() ? 'المناسبات' : 'Occasions' }}</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/contact"
+            routerLinkActive="border-b-2 border-current font-bold"
+            class="flex items-center gap-2 py-1 transition border-b-2 border-transparent hover:opacity-85"
+          >
+            <svg lucideHeadset class="w-4 h-4"></svg>
+            <span>{{ isArabic() ? 'اتصل بنا' : 'Contact' }}</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/about"
+            routerLinkActive="border-b-2 border-current font-bold"
+            class="flex items-center gap-2 py-1 transition border-b-2 border-transparent hover:opacity-85"
+          >
+            <svg lucideInfo class="w-4 h-4"></svg>
+            <span>{{ isArabic() ? 'عن الشركة' : 'About' }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
