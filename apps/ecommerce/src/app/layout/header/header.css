@@ -1,1 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Sarabun:wght@400;500;600;700&display=swap");
 
+:host {
+  display: block;
+}
+
+/* Force Tajawal font for Arabic text across Header */
+:host-context([lang="ar"]),
+:host-context([dir="rtl"]),
+:host([dir="rtl"]),
+[lang="ar"],
+.font-tajawal,
+:host-context([lang="ar"]) * {
+  font-family:
+    "Tajawal",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif !important;
+}
+
+/* Custom scrollbar for popovers */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 5px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: rgba(160, 160, 160, 0.3);
+  border-radius: 9999px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(160, 160, 160, 0.5);
+}
+
+/* Optimus UI Popover: eliminate Aura theme background/borders so Rose Tailwind tokens apply cleanly */
+::ng-deep .p-popover,
+:host ::ng-deep .p-popover {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+::ng-deep .p-popover-content,
+:host ::ng-deep .p-popover-content {
+  padding: 0 !important;
+  background: transparent !important;
+}
