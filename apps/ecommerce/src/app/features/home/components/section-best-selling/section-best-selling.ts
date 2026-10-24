@@ -35,21 +35,21 @@ export class SectionBestSelling implements OnInit {
   readonly bestProducts = this.store.selectSignal(selectBestProducts);
   readonly isLoading = this.store.selectSignal(selectBestProductsLoading);
   readonly error = this.store.selectSignal(selectBestProductsError);
-  responsiveOptions: any[] | undefined;
+  readonly responsiveOptions = [
+    {
+      breakpoint: "1023px", // below Tailwind's lg
+      numVisible: 2,
+      numScroll: 2,
+    },
+    {
+      breakpoint: "575px", // small phones
+      numVisible: 1,
+      numScroll: 1,
+    },
+  ];
 
   ngOnInit() {
     this.store.dispatch(ProductsActions.loadBestProducts());
-    this.responsiveOptions = [
-      {
-        breakpoint: "1023px", // below Tailwind's lg
-        numVisible: 2,
-        numScroll: 2,
-      },
-      {
-        breakpoint: "575px", // small phones
-        numVisible: 1,
-        numScroll: 1,
-      },
-    ];
+    this.responsiveOptions;
   }
 }

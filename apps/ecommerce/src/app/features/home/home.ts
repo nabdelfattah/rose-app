@@ -1,12 +1,5 @@
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  OnInit,
-  signal,
-} from "@angular/core";
-import { LucideShoppingCart, LucideMoveRight } from "@lucide/angular";
+import { Component, computed, inject, OnInit, signal } from "@angular/core";
+import { LucideMoveRight } from "@lucide/angular";
 import { ButtonModule } from "@openng/optimus-ui/button";
 import { SectionTitleComponent } from "../../../../../../libs/shared/ui/src/lib/section-title/section-title";
 import { Store } from "@ngrx/store";
@@ -24,7 +17,6 @@ import { SectionBestSelling } from "./components/section-best-selling/section-be
 @Component({
   selector: "app-home",
   imports: [
-    LucideShoppingCart,
     LucideMoveRight,
     ButtonModule,
     SectionTitleComponent,

@@ -10,6 +10,17 @@ import {
   selectLoading,
 } from "../products/store/products.selectors";
 import { By } from "@angular/platform-browser";
+import { provideTranslateService } from "@ngx-translate/core";
+import { Component } from "@angular/core";
+import { SectionBestSelling } from "./components/section-best-selling/section-best-selling";
+import { SectionFeatures } from "./components/section-features/section-features";
+
+// Fake child sections
+@Component({ selector: "app-section-best-selling", template: "" })
+class SectionBestSellingStub {}
+
+@Component({ selector: "app-section-features", template: "" })
+class SectionFeaturesStub {}
 
 describe("Home", () => {
   let fixture: ComponentFixture<Home>;
@@ -108,6 +119,7 @@ describe("Home", () => {
     await TestBed.configureTestingModule({
       imports: [Home],
       providers: [
+        provideTranslateService(),
         provideMockStore({
           selectors: [
             {
@@ -131,7 +143,12 @@ describe("Home", () => {
           },
         },
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(Home, {
+        remove: { imports: [SectionBestSelling, SectionFeatures] },
+        add: { imports: [SectionBestSellingStub, SectionFeaturesStub] },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(Home);
     component = fixture.componentInstance;

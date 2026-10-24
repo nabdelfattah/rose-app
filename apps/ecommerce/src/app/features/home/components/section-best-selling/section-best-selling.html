@@ -2,11 +2,17 @@
   <!-- text box -->
   <div class="max-w-96">
     <header class="mb-2">
-      <app-sub-title>{{ 'home.bestSelling.subtitle' | translate }}</app-sub-title>
+      <app-sub-title
+        >{{ 'home.bestSelling.subtitle' | translate }}</app-sub-title
+      >
       <h3 class="text-4xl font-bold text-maroon-700 capitalize mt-2.5">
-        <span class="text-soft-pink-400">{{ 'home.bestSelling.title.checkOut' | translate }}</span>
+        <span class="text-soft-pink-400"
+          >{{ 'home.bestSelling.title.checkOut' | translate }}</span
+        >
         {{ 'home.bestSelling.title.whatEveryone' | translate }}
-        <span class="text-soft-pink-400">{{ 'home.bestSelling.title.buying' | translate }}</span>
+        <span class="text-soft-pink-400"
+          >{{ 'home.bestSelling.title.buying' | translate }}</span
+        >
         {{ 'home.bestSelling.title.rightNow' | translate }}
       </h3>
     </header>
@@ -22,6 +28,11 @@
 
   <!-- carousel -->
   <div class="col-span-1 md:col-span-2 lg:col-span-3 min-w-0 overflow-x-clip">
+    @if (isLoading()) {
+    <p data-testid="best-loading">Loading...</p>
+    } @else if (error()) {
+    <p data-testid="best-error">Something went wrong. Please try again.</p>
+    } @else {
     <p-carousel
       [value]="bestProducts()"
       [numVisible]="3"
@@ -48,7 +59,7 @@
         <div class="px-2">
           <app-product-card [product]="product" />
         </div>
-      </ng-template>
-    </p-carousel>
+      </ng-template> </p-carousel
+    >}
   </div>
 </div>
