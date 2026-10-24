@@ -1,0 +1,65 @@
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-9 mb-34">
+  <!-- text box -->
+  <div class="max-w-96">
+    <header class="mb-2">
+      <app-sub-title
+        >{{ 'home.bestSelling.subtitle' | translate }}</app-sub-title
+      >
+      <h3 class="text-4xl font-bold text-maroon-700 capitalize mt-2.5">
+        <span class="text-soft-pink-400"
+          >{{ 'home.bestSelling.title.checkOut' | translate }}</span
+        >
+        {{ 'home.bestSelling.title.whatEveryone' | translate }}
+        <span class="text-soft-pink-400"
+          >{{ 'home.bestSelling.title.buying' | translate }}</span
+        >
+        {{ 'home.bestSelling.title.rightNow' | translate }}
+      </h3>
+    </header>
+    <p class="text-zinc-500 text-base md:mb-18 mb-6">
+      {{ 'home.bestSelling.question' | translate }}<br />
+      {{ 'home.bestSelling.description' | translate }}
+    </p>
+    <button appButton>
+      {{ 'home.bestSelling.explore' | translate }}
+      <svg class="rtl:rotate-180" lucideMoveRight></svg>
+    </button>
+  </div>
+
+  <!-- carousel -->
+  <div class="col-span-1 md:col-span-2 lg:col-span-3 min-w-0 overflow-x-clip">
+    @if (isLoading()) {
+    <p data-testid="best-loading">Loading...</p>
+    } @else if (error()) {
+    <p data-testid="best-error">Something went wrong. Please try again.</p>
+    } @else {
+    <p-carousel
+      [value]="bestProducts()"
+      [numVisible]="3"
+      [numScroll]="3"
+      [circular]="true"
+      [showIndicators]="false"
+      [responsiveOptions]="responsiveOptions"
+      class="best-selling-carousel"
+    >
+      <ng-template #previousicon>
+        <svg
+          lucideChevronLeft
+          class="size-9 text-white rtl:rotate-180 flex"
+        ></svg>
+      </ng-template>
+
+      <ng-template #nexticon>
+        <svg
+          lucideChevronRight
+          class="size-9 text-white rtl:rotate-180 flex"
+        ></svg>
+      </ng-template>
+      <ng-template let-product #item>
+        <div class="px-2">
+          <app-product-card [product]="product" />
+        </div>
+      </ng-template> </p-carousel
+    >}
+  </div>
+</div>

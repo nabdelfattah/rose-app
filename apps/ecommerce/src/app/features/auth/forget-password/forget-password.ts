@@ -13,12 +13,20 @@ import { ForgetPasswordPayload } from "../models/payloads";
 import { selectLoading } from "../store/user.selector";
 import { Router } from "@angular/router";
 import { DOCUMENT } from "@angular/common";
-import { Button, Input, LangButton, Link, ThemeButtonComponent } from "@rose-app/ui";
+import { Button, Input, Link } from "@rose-app/ui";
 import { TranslatePipe } from "@ngx-translate/core";
 import { LucideChevronLeft, LucideMoveRight } from "@lucide/angular";
 @Component({
   selector: "app-forget-password",
-  imports: [ThemeButtonComponent, LangButton, ReactiveFormsModule,TranslatePipe, Input, Button, Link, LucideMoveRight, LucideChevronLeft],
+  imports: [
+    ReactiveFormsModule,
+    TranslatePipe,
+    Input,
+    Button,
+    Link,
+    LucideMoveRight,
+    LucideChevronLeft,
+  ],
   templateUrl: "./forget-password.html",
   styleUrl: "./forget-password.css",
 })

@@ -1,5 +1,10 @@
 import { Component, DestroyRef, inject } from "@angular/core";
-import { ReactiveFormsModule, FormControl, FormGroup, Validators } from "@angular/forms";
+import {
+  ReactiveFormsModule,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Actions, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
@@ -8,15 +13,15 @@ import { userActions } from "../store/user.actions";
 import { ResetPasswordPayload } from "../models/payloads";
 import { selectLoading } from "../store/user.selector";
 import { confirmPassword } from "../utils/utils";
-import { Button, Input, LangButton, ThemeButtonComponent } from "@rose-app/ui";
+import { Button, Input } from "@rose-app/ui";
 import { TranslatePipe } from "@ngx-translate/core";
 import { passwordPattern } from "../utils/patterns";
 
 @Component({
-  selector: 'app-reset-password',
-  imports: [ReactiveFormsModule, Button, Input, TranslatePipe, ThemeButtonComponent, LangButton],
-  templateUrl: './reset-password.html',
-  styleUrl: './reset-password.css'
+  selector: "app-reset-password",
+  imports: [ReactiveFormsModule, Button, Input, TranslatePipe],
+  templateUrl: "./reset-password.html",
+  styleUrl: "./reset-password.css",
 })
 export class ResetPassword {
   private readonly store = inject(Store);
@@ -56,16 +61,11 @@ export class ResetPassword {
 
   submit(): void {
     this.resetPasswordForm.markAllAsTouched();
-    if (
-      this.resetPasswordForm.invalid ||
-      this.isLoading() ||
-      !this.token
-    ) {
+    if (this.resetPasswordForm.invalid || this.isLoading() || !this.token) {
       return;
     }
 
-    const { password, rePassword } =
-      this.resetPasswordForm.getRawValue();
+    const { password, rePassword } = this.resetPasswordForm.getRawValue();
 
     const payload: ResetPasswordPayload = {
       token: this.token,

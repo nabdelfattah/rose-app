@@ -1,8 +1,8 @@
-import { Component, input } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-sub-title',
+  selector: "app-sub-title",
   standalone: true,
-  templateUrl: './sub-title.html'
+  templateUrl: "./sub-title.html",
 })
 export class SubTitleComponent {}
