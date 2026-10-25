@@ -1,1 +1,153 @@
-<p>footer works!</p>
+<footer
+  class="w-full bg-[#18181b] dark:bg-[#202124] border-t border-zinc-200 dark:border-zinc-800/80 transition-colors"
+  [class.font-tajawal]="isArabic()"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 items-start"
+    >
+      <!-- LEFT: Logo & Brand Info -->
+      <div
+        class="sm:col-span-1 lg:col-span-4 flex flex-col justify-between space-y-6"
+      >
+        <div class="space-y-4">
+          <a
+            routerLink="/"
+            class="inline-block focus:outline-none"
+            aria-label="Rose Home"
+          >
+            <img
+              src="/Logo.svg"
+              alt="Rose"
+              class="h-32 sm:h-36 lg:h-44 w-auto object-contain"
+            />
+          </a>
+          <p class="text-sm font-medium text-[#FFA3B9]">
+            Rose E-Commerce App
+          </p>
+        </div>
+        <p class="text-xs text-[#F4F4F5] dark:text-zinc-400">
+          All rights reserved | 2025
+        </p>
+      </div>
+
+      <!-- CENTER: Discover our website -->
+      <div class="sm:col-span-1 lg:col-span-3 space-y-4">
+        <h3 class="text-base sm:text-lg font-bold text-[#FFA3B9]">
+          Discover our website
+        </h3>
+        <ul class="flex flex-col space-y-2.5 text-sm">
+          <li>
+            <a
+              routerLink="/"
+              class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/products"
+              class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
+            >
+              Products
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/categories"
+              class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
+            >
+              Categories
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/occasions"
+              class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
+            >
+              Occasions
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/contact"
+              class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
+            >
+              Contact
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/about"
+              class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              href="javascript:void(0)"
+              class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
+            >
+              Terms & Conditions
+            </a>
+          </li>
+          <li>
+            <a
+              href="javascript:void(0)"
+              class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
+            >
+              Privacy Policy
+            </a>
+          </li>
+          <li>
+            <a
+              href="javascript:void(0)"
+              class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
+            >
+              FAQs
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- RIGHT: Newsletter -->
+      <div class="sm:col-span-2 lg:col-span-5 space-y-3">
+        <h3 class="text-base sm:text-lg font-bold text-[#FFA3B9]">
+          Get <span class="text-[#fbeaea]">20%</span> Off Discount Coupon
+        </h3>
+        <p class="text-sm text-[#71717A] dark:text-zinc-400">
+          By subscribing to our newsletter
+        </p>
+
+        <form (submit)="onSubscribe($event)" class="pt-2 space-y-2">
+          <div
+            class="flex items-center w-full max-w-md rounded-full border border-zinc-300 dark:border-zinc-700 bg-[#f8f9fa] dark:bg-[#2b2d31] p-1.5 shadow-sm focus-within:ring-2 focus-within:ring-maroon-600/30 dark:focus-within:ring-soft-pink-300/30 transition"
+          >
+            <input
+              type="email"
+              [(ngModel)]="email"
+              name="newsletterEmail"
+              placeholder="Enter Your Email"
+              class="flex-1 min-w-0 bg-transparent px-3.5 py-1.5 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none"
+              aria-label="Email address for newsletter"
+            />
+            <button
+              type="submit"
+              class="rounded-full bg-soft-pink-200 hover:bg-soft-pink-300 dark:bg-soft-pink-300 dark:hover:bg-soft-pink-400 text-maroon-900 dark:text-maroon-950 px-4 sm:px-5 py-2 text-sm font-semibold flex items-center gap-1.5 shrink-0 transition cursor-pointer focus:outline-none shadow-xs"
+            >
+              <span>Subscribe</span>
+              <svg lucideArrowRight class="w-4 h-4 rtl:rotate-180"></svg>
+            </button>
+          </div>
+          @if (emailError()) {
+          <p class="text-xs text-red-500 dark:text-red-400 font-medium px-2">
+            {{ emailError() }}
+          </p>
+          }
+        </form>
+      </div>
+    </div>
+  </div>
+</footer>
