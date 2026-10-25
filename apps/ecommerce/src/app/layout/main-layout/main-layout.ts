@@ -1,10 +1,11 @@
-import { Component, signal } from "@angular/core";
+import { Component } from "@angular/core";
 import { RouterLink, RouterOutlet } from "@angular/router";
-import { Button } from "@rose-app/ui";
+
+import { Header } from "../header/header";
 
 @Component({
   selector: "app-main-layout",
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Header],
   templateUrl: "./main-layout.html",
 })
 export class MainLayout {}
