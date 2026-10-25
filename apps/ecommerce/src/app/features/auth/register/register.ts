@@ -1,11 +1,4 @@
-import {
-  Component,
-  computed,
-  DestroyRef,
-  inject,
-  PLATFORM_ID,
-  signal,
-} from "@angular/core";
+import { Component, DestroyRef, inject, signal } from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -21,7 +14,7 @@ import { RegisterPayload } from "../models/payloads";
 import { selectLoading } from "../store/user.selector";
 import { confirmPassword } from "../utils/utils";
 import { passwordPattern } from "../utils/patterns";
-import { Button, GenderInput, Input, LangButton, Link, ThemeButtonComponent } from "@rose-app/ui";
+import { Button, GenderInput, Input, Link } from "@rose-app/ui";
 import { LucideMoveRight } from "@lucide/angular";
 import { TranslatePipe } from "@ngx-translate/core";
 import { Router, RouterLink } from "@angular/router";
@@ -43,8 +36,6 @@ import { Stepper } from "./stepper/stepper";
     FormsModule,
     GenderInput,
     Stepper,
-    ThemeButtonComponent,
-    LangButton
   ],
   templateUrl: "./register.html",
   styleUrl: "./register.css",
@@ -107,7 +98,7 @@ export class Register {
   onOtpChange(event: { value: string }): void {
     this.otpValue = event.value;
   }
-  
+
   constructor() {
     // Move to step 2 after sending the OTP successfully
     this.actions$

@@ -8,91 +8,121 @@
       "password": "Password",
       "forgot-password": "Forgot your password?",
       "remember-me": "Remember me",
-      "login":"Login",
+      "login": "Login",
       "create-account": "Don’t have an account yet?",
-      "create-link":"Create one now!"
+      "create-link": "Create one now!"
     },
-    "register":{
-      "welcome":"Become Part Of Out Family",
-      "title":"Create Account",
+    "register": {
+      "welcome": "Become Part Of Out Family",
+      "title": "Create Account",
       "email": "Email",
       "next": "Next",
       "have-account": "Already have an account?",
-      "login-link":"Login",
-      "help":"Need help?",
-      "contact":"Contact us",
-      "otp":{
-        "otp-title":"Enter the OTP Code",
-        "sent-otp":"We have sent a 6-digit code to",
-        "edit":"Edit",
-        "send-new":"Send a new code",
-        "verify":"Verify Code"
+      "login-link": "Login",
+      "help": "Need help?",
+      "contact": "Contact us",
+      "otp": {
+        "otp-title": "Enter the OTP Code",
+        "sent-otp": "We have sent a 6-digit code to",
+        "edit": "Edit",
+        "send-new": "Send a new code",
+        "verify": "Verify Code"
       },
-      "about":{
+      "about": {
         "about-title": "Tell us more about you",
-        "desc":"A few details to get started",
-        "firstname":"First Name",
-        "lastname":"Last Name",
-        "username":"Username",
-        "phone":"Phone",
-        "gender":"Gender",
-        "select-gender":"Select Gender",
-        "male":"Male",
-        "female":"Female"
+        "desc": "A few details to get started",
+        "firstname": "First Name",
+        "lastname": "Last Name",
+        "username": "Username",
+        "phone": "Phone",
+        "gender": "Gender",
+        "select-gender": "Select Gender",
+        "male": "Male",
+        "female": "Female"
       },
-      "password":{
-        "password-title":"Create a strong password",
-        "desc":"Choose a secure password to protect your account",
-        "password":"Password",
-        "confirm-password":"Confirm Password"
+      "password": {
+        "password-title": "Create a strong password",
+        "desc": "Choose a secure password to protect your account",
+        "password": "Password",
+        "confirm-password": "Confirm Password"
       }
     },
-    "forgot-password":{
-      "forgot-title":"Forgot Password?",
-      "desc":"Worry not, we’ll send you instructions to help you reset it.",
-      "email":"Email",
-      "next":"Next",
+    "forgot-password": {
+      "forgot-title": "Forgot Password?",
+      "desc": "Worry not, we’ll send you instructions to help you reset it.",
+      "email": "Email",
+      "next": "Next",
       "create-account": "Don’t have an account yet?",
-      "create-link":"Create one now!",
-      "help":"Need help?",
-      "contact-link":"Contact us",
-      "reset":{
-        "title":"Password Reset Sent",
-        "reset-link":"We have sent a password reset link to:",
-        "desc":"If an account exists for this email address, we've sent password reset instructions. If you don't receive the email within a few minutes, check your spam or junk folder.",
-        "check-p":"If you don’t see the email within a few minutes, check your spam or junk folder."
+      "create-link": "Create one now!",
+      "help": "Need help?",
+      "contact-link": "Contact us",
+      "reset": {
+        "title": "Password Reset Sent",
+        "reset-link": "We have sent a password reset link to:",
+        "desc": "If an account exists for this email address, we've sent password reset instructions. If you don't receive the email within a few minutes, check your spam or junk folder.",
+        "check-p": "If you don’t see the email within a few minutes, check your spam or junk folder."
       },
-      "create-password":{
-        "title":"Create a new password",
-        "desc":"Set a strong password to secure your account.",
-        "password":"Password",
-        "confirm-password":"Confirm Password",
-        "reset-password":"Reset Password"
+      "create-password": {
+        "title": "Create a new password",
+        "desc": "Set a strong password to secure your account.",
+        "password": "Password",
+        "confirm-password": "Confirm Password",
+        "reset-password": "Reset Password"
       }
     }
   },
-   "validation": {
+  "validation": {
     "required": "Your {{field}} is required",
     "email": "Please enter a valid email",
     "egyptian-phone": "Accept Egyptian numbers only",
     "password-length": "Password must be at least 8 characters",
     "password-uppercase": "Password must include at least one uppercase letter",
     "password-special": "Password must include at least one special character",
-    "match":"Confrirm Password Does Not Match"
+    "match": "Confrirm Password Does Not Match"
   },
-  "home":{
-    "most-popular":"Most Popular",
-    "tabs": {
-        "all": "All",
-        "wedding": "Wedding",
-        "anniversary": "Anniversary",
-        "birthday": "Birthday",
-        "engagement": "Engagement"
+  "home": {
+    "feature": {
+      "delivery": {
+        "title": "Free Delivery",
+        "description": "For orders above 120 EGP"
       },
+      "refund": {
+        "title": "Get Refund",
+        "description": "Refunds within 30 days"
+      },
+      "payment": {
+        "title": "Safe Payment",
+        "description": "100% Secure Payment"
+      },
+      "support": {
+        "title": "24/7 Support",
+        "description": "Contact us at any time"
+      }
+    },
+    "bestSelling": {
+      "subtitle": "Best Selling",
+      "title": {
+        "checkOut": "Check Out",
+        "whatEveryone": "What Everyone’s",
+        "buying": "Buying",
+        "rightNow": "Right Now"
+      },
+      "question": "Not sure what to choose?",
+      "description": "Start with our best sellers, these are the gifts our customers keep coming back for. Whether you're celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
+      "explore": "Explore gifts"
+    },
+    "most-popular": "Most Popular",
+    "tabs": {
+      "all": "All",
+      "wedding": "Wedding",
+      "anniversary": "Anniversary",
+      "birthday": "Birthday",
+      "engagement": "Engagement"
+    },
     "no-products": "No products are currently available in this category",
-    "view-more":"View More",
-    "about":{
-      "title":"About",
+    "view-more": "View More",
+    "about": {
+      "title": "About",
       "heading": {
         "part-1": "Delivering the",
         "highlight-1": "Finest",
@@ -100,16 +130,16 @@
         "highlight-2": "Special",
         "part-3": "Moments"
       },
-      "desc":"Make every moment memorable with our premium gift boxes. Carefully curated and beautifully packaged, each box is filled with handpicked items designed to impress. Whether it's for a birthday, wedding, or a simple “thank you,” our gift boxes are crafted to leave a lasting impression — because thoughtful gifting starts here.",
-      "discover":"Discover",
-      "feat-1":"Competitive Prices & Easy Shopping",
-      "feat-2":"Perfect for Every Occasion",
-      "feat-3":"Premium Quality & Elegant Packaging",
-      "feat-4":"Fast & Reliable Delivery"
+      "desc": "Make every moment memorable with our premium gift boxes. Carefully curated and beautifully packaged, each box is filled with handpicked items designed to impress. Whether it's for a birthday, wedding, or a simple “thank you,” our gift boxes are crafted to leave a lasting impression — because thoughtful gifting starts here.",
+      "discover": "Discover",
+      "feat-1": "Competitive Prices & Easy Shopping",
+      "feat-2": "Perfect for Every Occasion",
+      "feat-3": "Premium Quality & Elegant Packaging",
+      "feat-4": "Fast & Reliable Delivery"
     }
   },
-  "products":{
-    "product-details":{
+  "products": {
+    "product-details": {
       "related-products": "Related Products"
     }
   }
