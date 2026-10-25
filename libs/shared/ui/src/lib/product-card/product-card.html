@@ -1,0 +1,101 @@
+<div class="group flex h-full min-w-0 flex-col gap-2 bg-transparent">
+  <!-- Image -->
+  <div class="relative w-full h-68 overflow-hidden rounded-xl">
+    <img
+      [src]="product().cover"
+      [alt]="product().title"
+      class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+    />
+    <!-- Overlay -->
+    <div
+      class="absolute inset-0 z-5 flex items-center justify-center bg-soft-pink-600/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+    >
+      <button
+        [routerLink]="['/products', product().id]"
+        type="button"
+        class="grid size-7.5 place-items-center rounded-full bg-[#fff] text-maroon-800 cursor-pointer"
+      >
+        <svg lucideEye class="size-5"></svg>
+      </button>
+    </div>
+    <!-- Wishlist -->
+    <button
+      type="button"
+      class="group/wish absolute inset-s-2 top-2 z-10 flex h-7.5 items-center overflow-hidden rounded-full bg-[#fff] text-maroon-800 cursor-pointer"
+    >
+      <span class="grid size-7.5 shrink-0 place-items-center">
+        <svg lucideHeartPlus class="size-4.5"></svg>
+      </span>
+
+      <span
+        class="max-w-0 whitespace-nowrap text-sm opacity-0 transition-all duration-300 group-hover/wish:max-w-40 group-hover/wish:pe-3 group-hover/wish:opacity-100"
+      >
+        Add to wishlist
+      </span>
+    </button>
+    <!-- Badges -->
+    <div class="absolute inset-e-2 top-2 z-10 flex justify-end gap-1">
+      @for (badge of badges(); track badge.type) {
+      <span
+        class="rounded-full px-1.5 py-1 text-[12px] font-medium uppercase leading-tight"
+        [class.bg-[#fff]]="badge.type === 'new'"
+        [class.text-zinc-[#3F3F46]]="badge.type === 'new'"
+        [class.bg-maroon-50]="badge.type === 'hot'"
+        [class.text-maroon-600]="badge.type === 'hot'"
+        [class.bg-red-600]="badge.type === 'out-of-stock'"
+        [class.text-soft-pink-50]="badge.type === 'out-of-stock'"
+      >
+        {{ badge.label }}
+      </span>
+      }
+    </div>
+  </div>
+  <!-- Info -->
+  <div class="flex flex-1 flex-col gap-2">
+    <h3
+      class="font-semibold leading-relaxed text-maroon-700 dark:text-soft-pink-200 text-[18px] capitalize"
+      [title]="product().title"
+    >
+      {{ product().title }}
+    </h3>
+    <div
+      class="flex items-center gap-0.5"
+      [attr.aria-label]="'Rating: ' + normalizedRating() + ' out of 5'"
+    >
+      @for (star of stars; track star) {
+      <svg
+        lucideStar
+        class="w-[16.88px] h-3.75"
+        [style.color]="'#FBA707'"
+        [style.fill]="star <= normalizedRating() ? '#FBA707' : 'transparent'"
+        [style.stroke]="'#FBA707'"
+        [style.stroke-width]="1.8"
+      ></svg>
+      }
+    </div>
+    <div class="mt-auto flex items-center justify-between gap-2 pt-1">
+      <div class="flex flex-wrap items-baseline gap-1.5">
+        @if (discountedPrice() !== null) {
+        <span class="text-maroon-700 dark:text-soft-pink-200">
+          {{ discountedPrice() | number: '1.2-2' }} EGP
+        </span>
+
+        <span class="text-zinc-400 line-through">
+          {{ originalPrice() | number: '1.2-2' }} EGP
+        </span>
+        } @else if (originalPrice() !== null) {
+        <span class="text-maroon-700 dark:text-soft-pink-200">
+          {{ originalPrice() | number: '1.2-2' }} EGP
+        </span>
+        }
+      </div>
+
+      <button
+        type="button"
+        class="flex size-10.5 items-center justify-center rounded-full bg-maroon-600 dark:bg-maroon-500 text-[#fff] cursor-pointer"
+      >
+        <svg lucideShoppingCart class="size-6"></svg>
+      </button>
+    </div>
+  </div>
+</div>
