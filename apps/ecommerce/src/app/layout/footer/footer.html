@@ -1,6 +1,5 @@
 <footer
   class="w-full bg-[#18181b] dark:bg-[#202124] border-t border-zinc-200 dark:border-zinc-800/80 transition-colors"
-  [class.font-tajawal]="isArabic()"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14">
     <div
@@ -23,18 +22,18 @@
             />
           </a>
           <p class="text-sm font-medium text-[#FFA3B9]">
-            Rose E-Commerce App
+            {{ 'footer.brand-tagline' | translate }}
           </p>
         </div>
         <p class="text-xs text-[#F4F4F5] dark:text-zinc-400">
-          All rights reserved | 2025
+          {{ 'footer.copyright' | translate }}
         </p>
       </div>
 
       <!-- CENTER: Discover our website -->
       <div class="sm:col-span-1 lg:col-span-3 space-y-4">
         <h3 class="text-base sm:text-lg font-bold text-[#FFA3B9]">
-          Discover our website
+          {{ 'footer.discover.heading' | translate }}
         </h3>
         <ul class="flex flex-col space-y-2.5 text-sm">
           <li>
@@ -42,7 +41,7 @@
               routerLink="/"
               class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
             >
-              Home
+              {{ 'footer.discover.home' | translate }}
             </a>
           </li>
           <li>
@@ -50,7 +49,7 @@
               routerLink="/products"
               class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
             >
-              Products
+              {{ 'footer.discover.products' | translate }}
             </a>
           </li>
           <li>
@@ -58,7 +57,7 @@
               routerLink="/categories"
               class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
             >
-              Categories
+              {{ 'footer.discover.categories' | translate }}
             </a>
           </li>
           <li>
@@ -66,7 +65,7 @@
               routerLink="/occasions"
               class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
             >
-              Occasions
+              {{ 'footer.discover.occasions' | translate }}
             </a>
           </li>
           <li>
@@ -74,7 +73,7 @@
               routerLink="/contact"
               class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
             >
-              Contact
+              {{ 'footer.discover.contact' | translate }}
             </a>
           </li>
           <li>
@@ -82,7 +81,7 @@
               routerLink="/about"
               class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
             >
-              About
+              {{ 'footer.discover.about' | translate }}
             </a>
           </li>
           <li>
@@ -90,7 +89,7 @@
               href="javascript:void(0)"
               class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
             >
-              Terms & Conditions
+              {{ 'footer.discover.terms' | translate }}
             </a>
           </li>
           <li>
@@ -98,7 +97,7 @@
               href="javascript:void(0)"
               class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
             >
-              Privacy Policy
+              {{ 'footer.discover.privacy' | translate }}
             </a>
           </li>
           <li>
@@ -106,7 +105,7 @@
               href="javascript:void(0)"
               class="text-[#F4F4F5] dark:text-zinc-400 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition"
             >
-              FAQs
+              {{ 'footer.discover.faqs' | translate }}
             </a>
           </li>
         </ul>
@@ -115,10 +114,10 @@
       <!-- RIGHT: Newsletter -->
       <div class="sm:col-span-2 lg:col-span-5 space-y-3">
         <h3 class="text-base sm:text-lg font-bold text-[#FFA3B9]">
-          Get <span class="text-[#fbeaea]">20%</span> Off Discount Coupon
+          {{ 'footer.newsletter.heading-pre' | translate }}<span class="text-[#fbeaea]">20%</span>{{ 'footer.newsletter.heading-post' | translate }}
         </h3>
         <p class="text-sm text-[#71717A] dark:text-zinc-400">
-          By subscribing to our newsletter
+          {{ 'footer.newsletter.subtitle' | translate }}
         </p>
 
         <form (submit)="onSubscribe($event)" class="pt-2 space-y-2">
@@ -129,7 +128,7 @@
               type="email"
               [(ngModel)]="email"
               name="newsletterEmail"
-              placeholder="Enter Your Email"
+              [placeholder]="'footer.newsletter.placeholder' | translate"
               class="flex-1 min-w-0 bg-transparent px-3.5 py-1.5 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none"
               aria-label="Email address for newsletter"
             />
@@ -137,13 +136,13 @@
               type="submit"
               class="rounded-full bg-soft-pink-200 hover:bg-soft-pink-300 dark:bg-soft-pink-300 dark:hover:bg-soft-pink-400 text-maroon-900 dark:text-maroon-950 px-4 sm:px-5 py-2 text-sm font-semibold flex items-center gap-1.5 shrink-0 transition cursor-pointer focus:outline-none shadow-xs"
             >
-              <span>Subscribe</span>
+              <span>{{ 'footer.newsletter.subscribe' | translate }}</span>
               <svg lucideArrowRight class="w-4 h-4 rtl:rotate-180"></svg>
             </button>
           </div>
           @if (emailError()) {
           <p class="text-xs text-red-500 dark:text-red-400 font-medium px-2">
-            {{ emailError() }}
+            {{ emailError() | translate }}
           </p>
           }
         </form>

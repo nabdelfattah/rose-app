@@ -142,5 +142,30 @@
     "product-details": {
       "related-products": "منتجات ذات صلة"
     }
+  },
+  "footer": {
+    "brand-tagline": "تطبيق روز للتجارة الإلكترونية",
+    "copyright": "جميع الحقوق محفوظة | 2025",
+    "discover": {
+      "heading": "اكتشف موقعنا",
+      "home": "الرئيسية",
+      "products": "المنتجات",
+      "categories": "الفئات",
+      "occasions": "المناسبات",
+      "contact": "تواصل معنا",
+      "about": "من نحن",
+      "terms": "الشروط والأحكام",
+      "privacy": "سياسة الخصوصية",
+      "faqs": "الأسئلة الشائعة"
+    },
+    "newsletter": {
+      "heading-pre": "احصل على خصم ",
+      "heading-post": " بالاشتراك في النشرة البريدية",
+      "subtitle": "باشتراكك في نشرتنا البريدية",
+      "placeholder": "أدخل بريدك الإلكتروني",
+      "subscribe": "اشترك",
+      "error-required": "يرجى إدخال البريد الإلكتروني",
+      "error-invalid": "يرجى إدخال بريد إلكتروني صالح"
+    }
   }
 }
