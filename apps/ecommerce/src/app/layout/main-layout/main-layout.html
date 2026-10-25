@@ -1,52 +1,5 @@
-<section class="flex flex-col gap-6 p-6">
-  <!-- Variants -->
-  <div class="flex flex-wrap items-center gap-3">
-    <button appButton>Primary</button>
-    <button appButton variant="secondary">Secondary</button>
-    <button appButton variant="outline">Outline</button>
-    <button appButton variant="subtle">Subtle</button>
-    <button appButton variant="ghost">Ghost</button>
-    <button appButton variant="destructive">Destructive</button>
-  </div>
 
-  <!-- Disabled, per variant -->
-  <div class="flex flex-wrap items-center gap-3">
-    <a appButton disabled>Primary</a>
-    <button appButton variant="secondary" disabled>Secondary</button>
-    <button appButton variant="outline" disabled>Outline</button>
-    <button appButton variant="subtle" disabled>Subtle</button>
-    <button appButton variant="ghost" disabled>Ghost</button>
-    <button appButton variant="destructive" disabled>Destructive</button>
-  </div>
-
-  <!-- Sizes -->
-  <div class="flex flex-wrap items-center gap-3">
-    <button appButton size="sm">Small</button>
-    <button appButton size="md">Medium</button>
-    <button appButton size="lg">Large</button>
-  </div>
-  <button appButton size="full">Full width</button>
-
-  <!-- States -->
-  <div class="flex flex-wrap items-center gap-3">
-    <button appButton loading>Loading</button>
-    <button appButton variant="secondary" loading>Loading</button>
-    <button
-      appButton
-      variant="outline"
-      [loading]="isLoading()"
-      (click)="toggleLoading()"
-    >
-      Click to load
-    </button>
-  </div>
-
-  <!-- As links -->
-  <div class="flex flex-wrap items-center gap-3">
-    <a appButton variant="outline" routerLink="/">Link button</a>
-    <a appButton routerLink="/" disabled>Disabled link</a>
-  </div>
-</section>
+<app-header />
 
 <router-outlet />
 <app-footer />

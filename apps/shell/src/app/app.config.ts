@@ -16,6 +16,7 @@ import { provideEffects } from "@ngrx/effects";
 import { provideStore } from "@ngrx/store";
 import { provideTranslateService } from "@ngx-translate/core";
 import { provideTranslateHttpLoader } from "@ngx-translate/http-loader";
+import { provideLucideConfig } from "@lucide/angular";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,16 +29,17 @@ export const appConfig: ApplicationConfig = {
         preset: Aura,
       },
     }),
+    provideLucideConfig({ strokeWidth: 1.5 }),
     provideStore(),
     provideEffects(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideTranslateService({
-      loader:provideTranslateHttpLoader({
-        prefix:"/i18n/",
+      loader: provideTranslateHttpLoader({
+        prefix: "/i18n/",
         suffix: ".json",
       }),
-      fallbackLang:"en",
-      lang:"en"
+      fallbackLang: "en",
+      lang: "en",
     }),
   ],
 };

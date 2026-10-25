@@ -1,0 +1,38 @@
+/* The carousel buttons are rendered inside optimus-ui's template, so ::ng-deep is
+   needed to reach them through Angular's style encapsulation. :host keeps it scoped. */
+:host ::ng-deep .p-carousel-content {
+  position: relative;
+}
+
+:host ::ng-deep .p-carousel-prev-button,
+:host ::ng-deep .p-carousel-next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+:host ::ng-deep .p-carousel-prev-button .p-button,
+:host ::ng-deep .p-carousel-next-button .p-button {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: none;
+  border-radius: 9999px;
+  background-color: var(--color-maroon-600);
+  color: white;
+}
+
+:host ::ng-deep .p-carousel-prev-button .p-button:not(:disabled):hover,
+:host ::ng-deep .p-carousel-next-button .p-button:not(:disabled):hover {
+  background-color: var(--color-maroon-800);
+  color: white;
+}
+
+:host ::ng-deep .p-carousel-prev-button {
+  inset-inline-start: 0;
+}
+
+:host ::ng-deep .p-carousel-next-button {
+  inset-inline-end: 0;
+}

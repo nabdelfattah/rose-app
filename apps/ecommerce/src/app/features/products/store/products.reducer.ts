@@ -1,14 +1,17 @@
-import { createReducer, on } from '@ngrx/store';
-import { Product, ProductRes, Metadata } from './../model/product';
-import { ProductsActions } from './products.actions';
-import { ProductsState } from '../model/products-state';
-
+import { createReducer, on } from "@ngrx/store";
+import { ProductsActions } from "./products.actions";
+import { ProductsState } from "../model/products-state";
 
 export const initialProductsState: ProductsState = {
   products: [],
   metadata: null,
   isLoading: false,
   error: null,
+  bestSelling: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
 };
 
 export const productsReducer = createReducer(
@@ -20,23 +23,49 @@ export const productsReducer = createReducer(
     error: null,
   })),
 
-  on(
-    ProductsActions.loadProductsSuccess,
-    (state, { response }) => ({
-      ...state,
-      products: response.payload.data,
-      metadata: response.payload.metadata,
+  on(ProductsActions.loadProductsSuccess, (state, { response }) => ({
+    ...state,
+    products: response.payload.data,
+    metadata: response.payload.metadata,
+    isLoading: false,
+    error: null,
+  })),
+
+  on(ProductsActions.loadProductsFailure, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error,
+  })),
+
+  //////////////////////////////////////////////////////////////////////
+  // for best selling products
+  //////////////////////////////////////////////////////////////////////
+  on(ProductsActions.loadBestProducts, (state) => ({
+    ...state,
+    bestSelling: {
+      items: state.bestSelling.items,
+      isLoading: true,
+      error: null,
+    },
+  })),
+
+  on(ProductsActions.loadBestProductsSuccess, (state, { response }) => ({
+    ...state,
+    bestSelling: {
+      items: response.payload.data,
       isLoading: false,
       error: null,
-    })
-  ),
+    },
+  })),
 
-  on(
-    ProductsActions.loadProductsFailure,
-    (state, { error }) => ({
-      ...state,
+  on(ProductsActions.loadBestProductsFailure, (state, { error }) => ({
+    ...state,
+    bestSelling: {
+      items: state.bestSelling.items,
       isLoading: false,
       error,
-    })
-  )
+    },
+    isLoading: false,
+    error,
+  })),
 );

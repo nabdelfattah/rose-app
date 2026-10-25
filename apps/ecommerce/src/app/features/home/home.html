@@ -1,16 +1,15 @@
 <div class="card m-4">
-  <p>home works!</p>
-  <svg lucideShoppingCart></svg> lucide works!
-  <br />
-
-  <p-button label="Submit" /> optimus ui library works! (instead of paid
-  primeNg)
-  <h1 class="text-3xl font-bold underline">Hello Tailwind</h1>
+  <app-section-features />
+  <app-section-best-selling />
   <section class="most-popular">
     <div class="container mx-auto flex flex-col gap-10">
-      <div class="header w-full flex flex-col md:flex-row md:justify-between md:items-center">
+      <div
+        class="header w-full flex flex-col md:flex-row md:justify-between md:items-center"
+      >
         <app-section-title>{{"home.most-popular"|translate}}</app-section-title>
-        <div class="tabs flex flex-wrap justify-center gap-6 justify-self-center">
+        <div
+          class="tabs flex flex-wrap justify-center gap-6 justify-self-center"
+        >
           @for (tab of tabs; track tab) {
           <button
             class="cursor-pointer"
@@ -28,7 +27,9 @@
         }
       </div>
       @if(filtered().length === 0){
-        <p class="text-zinc-500 dark:text-zinc-400 text-center ">{{ 'home.no-products' | translate }}.</p>
+      <p class="text-zinc-500 dark:text-zinc-400 text-center">
+        {{ 'home.no-products' | translate }}.
+      </p>
       }
       <button
         (click)="viewMore()"
@@ -52,7 +53,9 @@
         <div class="about-content flex flex-col gap-6">
           <app-sub-title>{{"home.about.title"|translate}}</app-sub-title>
           <div class="content">
-            <h1 class="text-2xl md:text-3xl mb-2 text-maroon-700 dark:text-soft-pink-200">
+            <h1
+              class="text-2xl md:text-3xl mb-2 text-maroon-700 dark:text-soft-pink-200"
+            >
               {{"home.about.heading.part-1"|translate}}
               <span class="text-soft-pink-500 dark:text-maroon-400"
                 >{{"home.about.heading.highlight-1"|translate}}</span
@@ -67,37 +70,63 @@
               {{"home.about.desc"|translate}}
             </p>
           </div>
-          <button routerLink="/" appButton class="flex gap-2.5 text-zinc-50 w-fit font-normal">
+          <button
+            routerLink="/"
+            appButton
+            class="flex gap-2.5 text-zinc-50 w-fit font-normal"
+          >
             {{"home.about.discover"|translate}}
             <svg class="rtl:rotate-180" lucideArrowRight></svg>
           </button>
-          <div class="features flex flex-col md:flex-row md:items-center md:gap-4 lg:gap-6">
+          <div
+            class="features flex flex-col md:flex-row md:items-center md:gap-4 lg:gap-6"
+          >
             <div class="left-side flex flex-col text-sm gap-2">
-              <p class="flex items-center gap-2.5 ">
+              <p class="flex items-center gap-2.5">
                 <span class="check size-10.5 flex justify-center items-center">
-                  <svg class="text-maroon-700 dark:text-soft-pink-400" lucideCheck></svg>
+                  <svg
+                    class="text-maroon-700 dark:text-soft-pink-400"
+                    lucideCheck
+                  ></svg>
                 </span>
-                <span class="text-zinc-800">{{"home.about.feat-1"|translate}}</span>
+                <span class="text-zinc-800"
+                  >{{"home.about.feat-1"|translate}}</span
+                >
               </p>
-              <p class="flex items-center gap-2.5 ">
+              <p class="flex items-center gap-2.5">
                 <span class="check size-10.5 flex justify-center items-center">
-                  <svg class="text-maroon-700 dark:text-soft-pink-400" lucideCheck></svg>
+                  <svg
+                    class="text-maroon-700 dark:text-soft-pink-400"
+                    lucideCheck
+                  ></svg>
                 </span>
-                <span class="text-zinc-800">{{"home.about.feat-2"|translate}}</span>
+                <span class="text-zinc-800"
+                  >{{"home.about.feat-2"|translate}}</span
+                >
               </p>
             </div>
             <div class="right-side flex flex-col text-sm gap-2">
               <p class="flex items-center gap-2.5">
                 <span class="check size-10.5 flex justify-center items-center">
-                  <svg class="text-maroon-700 dark:text-soft-pink-400" lucideCheck></svg>
+                  <svg
+                    class="text-maroon-700 dark:text-soft-pink-400"
+                    lucideCheck
+                  ></svg>
                 </span>
-                <span class="text-zinc-800">{{"home.about.feat-3"|translate}}</span>
+                <span class="text-zinc-800"
+                  >{{"home.about.feat-3"|translate}}</span
+                >
               </p>
               <p class="flex items-center gap-2.5">
                 <span class="check size-10.5 flex justify-center items-center">
-                  <svg class="text-maroon-700 dark:text-soft-pink-400" lucideCheck></svg>
+                  <svg
+                    class="text-maroon-700 dark:text-soft-pink-400"
+                    lucideCheck
+                  ></svg>
                 </span>
-                <span class="text-zinc-800">{{"home.about.feat-4"|translate}}</span>
+                <span class="text-zinc-800"
+                  >{{"home.about.feat-4"|translate}}</span
+                >
               </p>
             </div>
           </div>
