@@ -140,7 +140,21 @@
   },
   "products": {
     "product-details": {
-      "related-products": "منتجات ذات صلة"
+      "related-products": "منتجات ذات صلة",
+      "reviews": {
+        "title": "مراجعات المنتج",
+        "general-rating": "التقييم العام:",
+        "ratings-count": "({{count}} تقييم)",
+        "your-rating": "تقييمك:",
+        "rating-required": "من فضلك اختر تقييمًا.",
+        "headline-label": "العنوان",
+        "headline-placeholder": "أدخل عنوان المراجعة",
+        "content-label": "المراجعة",
+        "content-placeholder": "ما رأيك في هذا المنتج؟",
+        "submit": "إضافة مراجعة",
+        "submitting": "جارٍ الإضافة...",
+        "login-required": "يرجى تسجيل الدخول لتتمكن من مراجعة المنتج"
+      }
     }
   }
 }

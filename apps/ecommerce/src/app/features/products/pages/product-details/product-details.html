@@ -1,16 +1,20 @@
 <!-- ----------------------------------------------------------------- -->
 <!-- Reviews -->
 <section>
-  <app-section-title>Product Reviews</app-section-title>
+  <app-section-title>{{ 'products.product-details.reviews.title' | translate }}</app-section-title>
   <!-- rating -->
   <div class="flex flex-col gap-1 pb-4 border-b border-b-zinc-200">
-    <p class="text-zinc-800 text-xl font-semibold">General rating:</p>
+    <p class="text-zinc-800 text-xl font-semibold">
+      {{ 'products.product-details.reviews.general-rating' | translate }}
+    </p>
     <div class="flex items-center text-zinc-500 text-sm font-medium">
       <p class="text-2xl font-bold text-zinc-800">
         {{selectedProduct()?.rating | number: '1.1-1'}}
       </p>
       &nbsp;
-      <p>({{selectedProduct()?.ratings}} ratings)</p>
+      <p>
+        {{ 'products.product-details.reviews.ratings-count' | translate: { count: selectedProduct()?.ratings } }}
+      </p>
     </div>
     <app-rating [rating]="selectedProduct()?.rating || 0" [readonly]="true" />
   </div>
@@ -65,35 +69,41 @@
         <!-- rating -->
         <div>
           <div class="flex items-center gap-2.5">
-            <span class="text-base font-medium text-zinc-800"
-              >Your rating:</span
-            >
+            <span class="text-base font-medium text-zinc-800">
+              {{ 'products.product-details.reviews.your-rating' | translate }}
+            </span>
             <app-rating formControlName="rating" />
           </div>
           @if (hasError('rating')) {
-          <p class="mt-1 text-sm text-red-600">Please choose a rating.</p>
+          <p class="mt-1 text-sm text-red-600">
+            {{ 'products.product-details.reviews.rating-required' | translate }}
+          </p>
           }
         </div>
 
         <!-- title -->
         <app-input
-          label="Title"
+          label="products.product-details.reviews.headline-label"
           type="text"
           id="title"
-          placeholder="Enter review title"
+          placeholder="products.product-details.reviews.headline-placeholder"
           [control]="form.controls.headline"
         />
         <!-- review -->
         <app-input
-          label="Review"
+          label="products.product-details.reviews.content-label"
           type="textarea"
           id="content"
-          placeholder="What do you think of this product?"
+          placeholder="products.product-details.reviews.content-placeholder"
           [control]="form.controls.content"
         />
 
         <button appButton type="submit" size="full" [disabled]="isLoading()">
-          {{ isLoading() ? 'Adding...' : 'Add Review' }}
+          {{
+            (isLoading()
+              ? 'products.product-details.reviews.submitting'
+              : 'products.product-details.reviews.submit') | translate
+          }}
         </button>
       </form>
       @if (!isLoggedIn()) {
@@ -101,7 +111,7 @@
         class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 p-4 text-center"
       >
         <p class="text-base font-semibold text-zinc-800">
-          Please login to be able to review the product
+          {{ 'products.product-details.reviews.login-required' | translate }}
         </p>
       </div>
       }

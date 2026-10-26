@@ -140,7 +140,21 @@
   },
   "products": {
     "product-details": {
-      "related-products": "Related Products"
+      "related-products": "Related Products",
+      "reviews": {
+        "title": "Product Reviews",
+        "general-rating": "General rating:",
+        "ratings-count": "({{count}} ratings)",
+        "your-rating": "Your rating:",
+        "rating-required": "Please choose a rating.",
+        "headline-label": "Title",
+        "headline-placeholder": "Enter review title",
+        "content-label": "Review",
+        "content-placeholder": "What do you think of this product?",
+        "submit": "Add Review",
+        "submitting": "Adding...",
+        "login-required": "Please login to be able to review the product"
+      }
     }
   }
 }
