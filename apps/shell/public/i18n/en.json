@@ -136,6 +136,10 @@
       "feat-2": "Perfect for Every Occasion",
       "feat-3": "Premium Quality & Elegant Packaging",
       "feat-4": "Fast & Reliable Delivery"
+    },
+    "gallery":{
+      "gallery":"Gallery",
+      "title":"Check Out our Wonderful Gallery"
     }
   },
   "products": {
