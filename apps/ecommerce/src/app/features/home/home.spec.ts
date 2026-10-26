@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { provideMockStore, MockStore } from "@ngrx/store/testing";
 import { provideRouter, Router } from "@angular/router";
-import { provideTranslateService } from "@ngx-translate/core";
-import { By } from "@angular/platform-browser";
 import { Home } from "./home";
 import { ProductsActions } from "../products/store/products.actions";
 import { Product } from "../products/model/product";
@@ -121,7 +119,6 @@ describe("Home", () => {
     await TestBed.configureTestingModule({
       imports: [Home],
       providers: [
-        provideTranslateService(),
         provideMockStore({
           selectors: [
             { selector: selectAllProducts, value: mockProducts },
@@ -138,7 +135,6 @@ describe("Home", () => {
         add: { imports: [SectionBestSellingStub, SectionFeaturesStub] },
       })
       .compileComponents();
-    }).compileComponents();
 
     store = TestBed.inject(MockStore);
     router = TestBed.inject(Router);

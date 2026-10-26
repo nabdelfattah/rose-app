@@ -140,6 +140,10 @@
     "gallery":{
       "gallery":"Gallery",
       "title":"Check Out our Wonderful Gallery"
+    },
+    "testimonials":{
+      "testimonials":"testimonials",
+      "title":"Real Words from Happy Customers"
     }
   },
   "products": {

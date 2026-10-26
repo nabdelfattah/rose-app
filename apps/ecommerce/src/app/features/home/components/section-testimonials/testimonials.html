@@ -1,0 +1,54 @@
+<div class="testimonials-header flex flex-col items-center gap-2">
+  <app-sub-title>{{"home.testimonials.testimonials"|translate}}</app-sub-title>
+  <app-section-title>{{"home.testimonials.title"|translate}}</app-section-title>
+</div>
+<div class="bg-maroon-50 dark:bg-zinc-700 py-24">
+  <div class="container mx-auto">
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-20 justify-items-center px-4 pt-10"
+    >
+      @for (testimonial of testimonials().slice(0,3); track testimonial.id) {
+      <div
+        class="testimonials-card flex flex-col items-center justify-around gap-6 relative bg-white rounded-3xl pt-13.75 pb-5 px-5 w-full max-w-85.75 min-h-62.5 shadow-[0_4px_50.5px_0_#741C211A] md:last:col-span-2 lg:last:col-span-1"
+      >
+        <div
+          class="image absolute top-0 inset-s-1/2 -translate-y-1/2 -translate-x-1/2 rtl:translate-x-1/2 bg-zinc-100 flex justify-center items-center size-30 rounded-full border-[3px] border-white overflow-hidden"
+        >
+          @if (testimonial.image) {
+          <img
+            class="w-full h-full object-cover"
+            [src]="testimonial.image"
+            [alt]="testimonial.name"
+          />
+          } @else {
+          <p class="text-3xl">{{ testimonial.name.charAt(0).toUpperCase() }}</p>
+          }
+        </div>
+
+        <p class="name capitalize mt-3">{{ testimonial.name }}</p>
+
+        <div class="content flex flex-col items-center gap-2">
+          <p class="comment font-medium text-center line-clamp-3">
+            {{ testimonial.content }}
+          </p>
+          <div
+            class="rating flex gap-1"
+          >
+            @for (star of stars; track star) {
+            <svg
+              lucideStar
+              class="text-[#FBA707] w-[16.88px] h-3.75"
+              [class]="star <= testimonial.rating ? 'text-[#FBA707] fill-[#FBA707]' : 'text-[#FBA707] fill-none'"
+            ></svg>
+            }
+          </div>
+        </div>
+
+        <p class="date text-zinc-400 text-center">
+          {{ testimonial.createdAt | date: 'MMM d, y' }}
+        </p>
+      </div>
+      }
+    </div>
+  </div>
+</div>

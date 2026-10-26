@@ -18,6 +18,7 @@ import { SectionBestSelling } from "./components/section-best-selling/section-be
 import { Button, ProductCardComponent, SubTitleComponent } from "@rose-app/ui";
 import { Router, RouterLink } from "@angular/router";
 import { TranslatePipe } from "@ngx-translate/core";
+import { Testimonials } from "./components/section-testimonials/testimonials";
 
 @Component({
   selector: "app-home",
@@ -34,6 +35,7 @@ import { TranslatePipe } from "@ngx-translate/core";
     ButtonModule,
     SectionTitleComponent,
     ProductCardComponent,
+    Testimonials
   ],
   templateUrl: "./home.html",
   styleUrl: "./home.css",
