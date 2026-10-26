@@ -19,9 +19,9 @@ export class ProductService {
   getProductById(
     id: string,
     lang: Language = 'en',
-  ): Observable<SingleProductRes | ProductRes> {
+  ): Observable<SingleProductRes> {
     const headers = new HttpHeaders({ 'Accept-Language': lang });
-    return this.httpClient.get<SingleProductRes | ProductRes>(
+    return this.httpClient.get<SingleProductRes>(
       `${this.apiUrl}/${id}`,
       { headers },
     );

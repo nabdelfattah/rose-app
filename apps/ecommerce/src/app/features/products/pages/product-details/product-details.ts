@@ -1,11 +1,12 @@
 import {
   Component,
   computed,
+  DestroyRef,
   effect,
   inject,
-  OnDestroy,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { selectAllProducts } from '../../store/products.selectors';
 import { RelatedProducts } from '../../components/related-products/related-products';
@@ -15,7 +16,6 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ProductService } from '../../service/product.service';
 import { Product } from '../../model/product';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -28,11 +28,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })
-export class ProductDetails implements OnDestroy {
+export class ProductDetails {
   private readonly store = inject(Store);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly productService = inject(ProductService, { optional: true });
   private readonly languageService = inject(LanguageService, { optional: true });
+  private readonly destroyRef = inject(DestroyRef);
 
   private readonly products = this.store.selectSignal(selectAllProducts);
   private productId: string | null =
@@ -50,9 +51,6 @@ export class ProductDetails implements OnDestroy {
     this.products().filter((p) => p.id !== this.productId),
   );
 
-  private routeSub: Subscription | null = null;
-  private fetchSub: Subscription | null = null;
-
   constructor() {
     // Re-fetch whenever the app language changes so API returns the correct locale.
     effect(() => {
@@ -61,18 +59,15 @@ export class ProductDetails implements OnDestroy {
     });
 
     // Watch route param changes (e.g. navigating between products).
-    this.routeSub = this.activatedRoute.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id && id !== this.productId) {
-        this.productId = id;
-        this.loadProduct(id, this.languageService?.currentLang() ?? 'en');
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.routeSub?.unsubscribe();
-    this.fetchSub?.unsubscribe();
+    this.activatedRoute.paramMap
+      ?.pipe(takeUntilDestroyed(this.destroyRef))
+      ?.subscribe((params) => {
+        const id = params.get('id');
+        if (id && id !== this.productId) {
+          this.productId = id;
+          this.loadProduct(id, this.languageService?.currentLang() ?? 'en');
+        }
+      });
   }
 
   private loadProduct(
@@ -80,14 +75,16 @@ export class ProductDetails implements OnDestroy {
     lang = this.languageService?.currentLang() ?? 'en',
   ): void {
     if (!id || !this.productService) return;
-    this.fetchSub?.unsubscribe();
-    this.fetchSub = this.productService.getProductById(id, lang).subscribe({
-      next: (res: any) => {
-        const prod = res?.payload?.product ?? res?.payload?.data?.[0];
-        if (prod) {
-          this.currentProduct.set(prod);
-        }
-      },
-    });
+    this.productService
+      .getProductById(id, lang)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          const prod = res.payload?.product;
+          if (prod) {
+            this.currentProduct.set(prod);
+          }
+        },
+      });
   }
 }
