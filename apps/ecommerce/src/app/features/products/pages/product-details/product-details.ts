@@ -5,14 +5,24 @@ import {
   selectSelectedProduct,
 } from "../../store/products.selectors";
 import { RelatedProducts } from "../../components/related-products/related-products";
-import { SectionTitleComponent } from "@rose-app/ui";
+import { SectionTitleComponent, Avatar } from "@rose-app/ui";
 import { ActivatedRoute } from "@angular/router";
 import { TranslatePipe } from "@ngx-translate/core";
 import { ProductsActions } from "../../store/products.actions";
+import { Rating } from "../../../../shared/components/rating/rating";
+import { DatePipe, DecimalPipe } from "@angular/common";
 
 @Component({
   selector: "app-product-details",
-  imports: [RelatedProducts, SectionTitleComponent, TranslatePipe],
+  imports: [
+    DatePipe,
+    DecimalPipe,
+    RelatedProducts,
+    SectionTitleComponent,
+    TranslatePipe,
+    Rating,
+    Avatar,
+  ],
   templateUrl: "./product-details.html",
   styleUrl: "./product-details.css",
 })

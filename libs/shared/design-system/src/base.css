@@ -42,3 +42,11 @@
     color: var(--color-zinc-50);
   }
 }
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
