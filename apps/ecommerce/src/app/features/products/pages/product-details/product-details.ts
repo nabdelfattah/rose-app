@@ -49,7 +49,11 @@ export class ProductDetails {
   );
 
   protected readonly form = this.fb.nonNullable.group({
-    rating: [0, [Validators.min(1)]],
+    // decimal not allowed from the backend
+    rating: [
+      0,
+      [Validators.min(1), Validators.max(5), Validators.pattern(/^\d+$/)],
+    ],
     headline: [
       "",
       [
@@ -94,6 +98,7 @@ export class ProductDetails {
               ProductsActions.loadSelectedProduct({ id: this.productId! }),
             );
           },
+          error: () => {},
         });
     } else {
       this.form.markAllAsTouched();

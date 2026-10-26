@@ -13,35 +13,19 @@
   (mouseleave)="preview(null)"
   (blur)="onTouched()"
 >
-  @for (fill of stars(); track $index; let i = $index) {
-  <span class="relative inline-flex" aria-hidden="true">
+  @for (filled of stars(); track $index; let i = $index) {
+  <span
+    class="inline-flex"
+    aria-hidden="true"
+    [class.cursor-pointer]="interactive()"
+    (mouseenter)="preview(i + 1)"
+    (click)="select(i + 1)"
+  >
     <svg
       lucideStar
-      class="size-4 text-zinc-200 stroke-[#FFA508] fill-transparent"
+      class="size-4 stroke-[#FFA508]"
+      [class]="filled ? 'text-amber-400 fill-[#FFA508]' : 'text-zinc-200 fill-transparent'"
     ></svg>
-
-    <span
-      class="absolute inset-y-0 start-0 flex overflow-hidden pointer-events-none"
-      [style.width.%]="fill"
-    >
-      <svg
-        lucideStar
-        class="size-4 shrink-0 text-amber-400 stroke-[#FFA508] fill-[#FFA508]"
-      ></svg>
-    </span>
-
-    @if (interactive()) {
-    <span
-      class="absolute inset-y-0 start-0 w-1/2 cursor-pointer"
-      (mouseenter)="preview(i + 0.5)"
-      (click)="select(i + 0.5)"
-    ></span>
-    <span
-      class="absolute inset-y-0 end-0 w-1/2 cursor-pointer"
-      (mouseenter)="preview(i + 1)"
-      (click)="select(i + 1)"
-    ></span>
-    }
   </span>
   }
 </div>

@@ -36,18 +36,15 @@ export class Rating implements ControlValueAccessor {
   );
   protected readonly hoverValue = signal<number | null>(null);
 
-  protected readonly currentValue = computed(
-    () => Math.round(this.rating() * 2) / 2,
-  );
+  // ratings are whole stars only
+  protected readonly currentValue = computed(() => Math.round(this.rating()));
   private readonly shownValue = computed(
     () => this.hoverValue() ?? this.currentValue(),
   );
 
+  // true => filled star
   protected readonly stars = computed(() =>
-    Array.from(
-      { length: this.max() },
-      (_, i) => Math.min(Math.max(this.shownValue() - i, 0), 1) * 100,
-    ),
+    Array.from({ length: this.max() }, (_, i) => i < this.shownValue()),
   );
 
   protected readonly label = computed(
@@ -90,7 +87,7 @@ export class Rating implements ControlValueAccessor {
     if (!this.interactive()) return;
 
     const isRtl = getComputedStyle(this.host.nativeElement).direction === "rtl";
-    const step = 0.5;
+    const step = 1;
     const current = this.currentValue();
     let next: number | null = null;
 
@@ -122,7 +119,7 @@ export class Rating implements ControlValueAccessor {
 
   // One place that changes the value, so the form is always told
   private update(value: number) {
-    const clamped = Math.min(Math.max(value, 0), this.max());
+    const clamped = Math.min(Math.max(Math.round(value), 0), this.max());
     this.rating.set(clamped);
     this.onChange(clamped);
   }
