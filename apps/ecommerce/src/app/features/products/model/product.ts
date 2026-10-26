@@ -4,6 +4,12 @@ export interface ProductRes {
   payload: Payload;
 }
 
+export interface ProductDetailRes {
+  status: boolean;
+  code: number;
+  payload: { product: Product };
+}
+
 export interface Payload {
   data: Product[];
   metadata: Metadata;

@@ -55,7 +55,7 @@ export const appRoutes: Route[] = [
       {
         path: "",
         component: MainLayout,
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
         children: [
           { path: "", component: Home, pathMatch: "full" },
           {

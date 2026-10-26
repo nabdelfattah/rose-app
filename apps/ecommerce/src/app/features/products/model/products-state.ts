@@ -11,4 +11,10 @@ export interface ProductsState {
     isLoading: boolean;
     error: string | null;
   };
+  selectedProduct: {
+    id: string | null;
+    item: Product | null;
+    isLoading: boolean;
+    error: string | null;
+  };
 }

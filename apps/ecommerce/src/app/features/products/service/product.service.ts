@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { BASE_URL } from "../../../core/constants/apiUrl";
-import { ProductRes } from "../model/product";
+import { ProductDetailRes, ProductRes } from "../model/product";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -15,8 +15,8 @@ export class ProductService {
     return this.httpClient.get<ProductRes>(this.apiUrl);
   }
 
-  getProductById(id: string): Observable<ProductRes> {
-    return this.httpClient.get<ProductRes>(`${this.apiUrl}/${id}`);
+  getProductById(id: string): Observable<ProductDetailRes> {
+    return this.httpClient.get<ProductDetailRes>(`${this.apiUrl}/${id}`);
   }
 
   // for best selling section in the home page (Nada)

@@ -34,3 +34,19 @@ export const selectBestProductsError = createSelector(
   selectProductsState,
   (state) => state.bestSelling.error,
 );
+
+//////////////////////////////////////////////////////////////////////
+// for Selected product (product details)
+//////////////////////////////////////////////////////////////////////
+export const selectSelectedProduct = createSelector(
+  selectProductsState,
+  (state) => state.selectedProduct.item,
+);
+export const selectSelectedProductLoading = createSelector(
+  selectProductsState,
+  (state) => state.selectedProduct.isLoading,
+);
+export const selectSelectedProductError = createSelector(
+  selectProductsState,
+  (state) => state.selectedProduct.error,
+);
