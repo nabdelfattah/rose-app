@@ -15,6 +15,7 @@ import {
 import { ProductsActions } from "../products/store/products.actions";
 import { SectionFeatures } from "./components/section-features/section-features";
 import { SectionBestSelling } from "./components/section-best-selling/section-best-selling";
+import { TrustedCompanies } from "./components/trusted-companies/trusted-companies";
 import { Button, ProductCardComponent, SubTitleComponent } from "@rose-app/ui";
 import { Router, RouterLink } from "@angular/router";
 import { TranslatePipe } from "@ngx-translate/core";
@@ -28,6 +29,7 @@ import { TranslatePipe } from "@ngx-translate/core";
     TranslatePipe,
     SectionFeatures,
     SectionBestSelling,
+    TrustedCompanies,
     LucideMoveRight,
     LucideArrowRight,
     LucideCheck,
