@@ -9,15 +9,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
-
-export interface BannerSlide {
-  heading: string;
-  subtitle: string;
-  ctaText: string;
-  ctaRoute: string;
-  imageUrl: string;
-  alt: string;
-}
+import { BannerSlide } from './promotional-banners.interface';
 
 export interface OccasionCard {
   pill: string;
