@@ -4,10 +4,19 @@ export interface ProductRes {
   payload: Payload;
 }
 
+export interface SingleProductRes {
+  status: boolean;
+  code: number;
+  payload: {
+    product: Product;
+  };
+}
+
 export interface Payload {
   data: Product[];
   metadata: Metadata;
 }
+
 
 export interface Product {
   id: string;
