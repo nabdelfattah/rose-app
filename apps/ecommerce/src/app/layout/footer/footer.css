@@ -1,1 +1,19 @@
+:host {
+  display: block;
+}
 
+/* Force Tajawal font for Arabic text across Footer */
+:host-context([lang="ar"]),
+:host-context([dir="rtl"]),
+:host([dir="rtl"]),
+[lang="ar"],
+.font-tajawal,
+:host-context([lang="ar"]) * {
+  font-family:
+    "Tajawal",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}

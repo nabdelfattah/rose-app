@@ -150,5 +150,30 @@
     "product-details": {
       "related-products": "Related Products"
     }
+  },
+  "footer": {
+    "brand-tagline": "Rose E-Commerce App",
+    "copyright": "All rights reserved | 2025",
+    "discover": {
+      "heading": "Discover our website",
+      "home": "Home",
+      "products": "Products",
+      "categories": "Categories",
+      "occasions": "Occasions",
+      "contact": "Contact",
+      "about": "About",
+      "terms": "Terms & Conditions",
+      "privacy": "Privacy Policy",
+      "faqs": "FAQs"
+    },
+    "newsletter": {
+      "heading-pre": "Get ",
+      "heading-post": " Off Discount Coupon",
+      "subtitle": "By subscribing to our newsletter",
+      "placeholder": "Enter Your Email",
+      "subscribe": "Subscribe",
+      "error-required": "Please enter your email address",
+      "error-invalid": "Please enter a valid email address"
+    }
   }
 }
