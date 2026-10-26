@@ -18,10 +18,12 @@ import { SectionBestSelling } from "./components/section-best-selling/section-be
 import { Button, ProductCardComponent, SubTitleComponent } from "@rose-app/ui";
 import { Router, RouterLink } from "@angular/router";
 import { TranslatePipe } from "@ngx-translate/core";
+import { PromotionalBanners } from "./components/promotional-banners/promotional-banners";
 
 @Component({
   selector: "app-home",
   imports: [
+    PromotionalBanners,
     Button,
     SubTitleComponent,
     RouterLink,
