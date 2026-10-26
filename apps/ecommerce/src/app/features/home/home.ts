@@ -15,19 +15,23 @@ import {
 import { ProductsActions } from "../products/store/products.actions";
 import { SectionFeatures } from "./components/section-features/section-features";
 import { SectionBestSelling } from "./components/section-best-selling/section-best-selling";
+import { TrustedCompanies } from "./components/trusted-companies/trusted-companies";
 import { Button, ProductCardComponent, SubTitleComponent } from "@rose-app/ui";
 import { Router, RouterLink } from "@angular/router";
 import { TranslatePipe } from "@ngx-translate/core";
+import { PromotionalBanners } from "./components/promotional-banners/promotional-banners";
 
 @Component({
   selector: "app-home",
   imports: [
+    PromotionalBanners,
     Button,
     SubTitleComponent,
     RouterLink,
     TranslatePipe,
     SectionFeatures,
     SectionBestSelling,
+    TrustedCompanies,
     LucideMoveRight,
     LucideArrowRight,
     LucideCheck,
