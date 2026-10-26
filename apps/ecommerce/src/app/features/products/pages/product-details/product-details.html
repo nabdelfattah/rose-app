@@ -52,11 +52,14 @@
       }
     </div>
     <!-- reviews entery -->
-    <div class="w-121">
+    <div class="w-121 relative">
       <form
         [formGroup]="form"
         (ngSubmit)="submitHandler()"
-        class="flex flex-col gap-4"
+        class="flex flex-col gap-4 transition"
+        [class.blur-sm]="!isLoggedIn()"
+        [class.select-none]="!isLoggedIn()"
+        [attr.inert]="isLoggedIn() ? null : ''"
         novalidate
       >
         <!-- rating -->
@@ -93,6 +96,15 @@
           {{ isLoading() ? 'Adding...' : 'Add Review' }}
         </button>
       </form>
+      @if (!isLoggedIn()) {
+      <div
+        class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 p-4 text-center"
+      >
+        <p class="text-base font-semibold text-zinc-800">
+          Please login to be able to review the product
+        </p>
+      </div>
+      }
     </div>
   </div>
 </section>

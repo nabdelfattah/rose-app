@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from "@angular/core";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import {
   selectAllProducts,
   selectSelectedProduct,
@@ -13,6 +13,7 @@ import { Rating } from "../../../../shared/components/rating/rating";
 import { DatePipe, DecimalPipe } from "@angular/common";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ReviewsService } from "../../service/reviews.service";
+import { selectToken } from "../../../auth/store/user.selector";
 
 type ReviewField = "rating" | "headline" | "content";
 
@@ -48,7 +49,7 @@ export class ProductDetails {
   );
 
   protected readonly form = this.fb.nonNullable.group({
-    rating: [0, [Validators.min(0.5)]],
+    rating: [0, [Validators.min(1)]],
     headline: [
       "",
       [
@@ -68,6 +69,8 @@ export class ProductDetails {
     ],
   });
 
+  protected readonly isLoggedIn = this.store.selectSignal(selectToken);
+
   ngOnInit() {
     this.store.dispatch(
       ProductsActions.loadSelectedProduct({ id: this.productId! }),
@@ -75,7 +78,7 @@ export class ProductDetails {
   }
 
   submitHandler() {
-    if (this.form.valid) {
+    if (this.form.valid && this.isLoggedIn()) {
       this.isLoading.set(true);
       this.reviewService
         .addReview({
@@ -85,12 +88,13 @@ export class ProductDetails {
         .subscribe({
           next: () => {
             this.isLoading.set(false);
+            this.form.reset();
+            // refetch the product's data to update the reviews
+            this.store.dispatch(
+              ProductsActions.loadSelectedProduct({ id: this.productId! }),
+            );
           },
         });
-      // refetch the product's data to update the reviews
-      this.store.dispatch(
-        ProductsActions.loadSelectedProduct({ id: this.productId! }),
-      );
     } else {
       this.form.markAllAsTouched();
       return;

@@ -19,6 +19,7 @@ import { userReducer } from "./features/auth/store/user.reducer";
 import * as userEffects from "./features/auth/store/user.effects";
 import { productsReducer } from "./features/products/store/products.reducer";
 import * as productsEffects from "./features/products/store/products.effects";
+import { ReviewsService } from "./features/products/service/reviews.service";
 
 export const appRoutes: Route[] = [
   {
@@ -34,6 +35,8 @@ export const appRoutes: Route[] = [
       }),
       // Providing AuthService here creates it in this route's injector, so it uses the HttpClient + interceptors above.
       AuthService,
+      // The reviews endpoints need the token from headerInterceptor.
+      ReviewsService,
       provideState({ name: "user", reducer: userReducer }),
       provideEffects(userEffects),
       provideState({ name: "products", reducer: productsReducer }),

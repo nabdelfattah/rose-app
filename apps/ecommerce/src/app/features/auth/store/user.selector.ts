@@ -3,6 +3,10 @@ import { UserState } from "../models/user-state";
 
 export const selectUserState = createFeatureSelector<UserState>("user");
 
+export const selectToken = createSelector(
+  selectUserState,
+  (state) => state.token,
+);
 export const selectLoading = createSelector(
   selectUserState,
   (state) => state.isLoading,
