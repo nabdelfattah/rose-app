@@ -1,0 +1,16 @@
+/*
+ * Light mode: grayscale + reduced opacity (matches Figma muted grey)
+ * Dark mode : invert the dark SVG pixels to near-white, then adjust
+ *             brightness/contrast so the logos read clearly on dark bg.
+ *             invert(1) turns black → white; brightness(0.85) softens to
+ *             an off-white that aligns with the project's zinc-100 / soft-pink-100 range.
+ * Scoped exclusively to this component — no other images are affected.
+ */
+:host .logo-img {
+  filter: grayscale(1) opacity(0.55);
+  transition: filter 0.2s ease;
+}
+
+:host-context(.dark) .logo-img {
+  filter: grayscale(1) invert(1) brightness(0.85) opacity(0.8);
+}
