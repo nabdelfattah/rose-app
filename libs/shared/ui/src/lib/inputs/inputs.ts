@@ -27,7 +27,11 @@ export class Input implements AfterViewInit {
   private platformId = inject(PLATFORM_ID);
   private languageService = inject(LanguageService);
   label = input.required<string>();
-  type = input<"text" | "email" | "password" | "number" | "tel">("text");
+  type = input<"text" | "email" | "password" | "number" | "tel" | "textarea">(
+    "text",
+  );
+  // only used when type is "textarea"
+  rows = input<number>(4);
   placeholder = input<string>("");
   value = input<string>("");
   control = input.required<FormControl>();

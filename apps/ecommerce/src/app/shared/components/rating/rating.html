@@ -1,21 +1,25 @@
 <div
   class="flex items-center gap-1 rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
+  [class.opacity-50]="disabled()"
   [attr.role]="readonly() ? 'img' : 'slider'"
   [attr.aria-label]="readonly() ? label() : 'Rating'"
-  [attr.tabindex]="readonly() ? null : 0"
+  [attr.tabindex]="interactive() ? 0 : null"
+  [attr.aria-disabled]="disabled() || null"
   [attr.aria-valuemin]="readonly() ? null : 0"
   [attr.aria-valuemax]="readonly() ? null : max()"
   [attr.aria-valuenow]="readonly() ? null : currentValue()"
   [attr.aria-valuetext]="readonly() ? null : label()"
   (keydown)="onKeydown($event)"
   (mouseleave)="preview(null)"
+  (blur)="onTouched()"
 >
   @for (fill of stars(); track $index; let i = $index) {
   <span class="relative inline-flex" aria-hidden="true">
-    <!-- empty star -->
-    <svg lucideStar class="size-4 text-zinc-200 fill-transparent"></svg>
+    <svg
+      lucideStar
+      class="size-4 text-zinc-200 stroke-[#FFA508] fill-transparent"
+    ></svg>
 
-    <!-- filled part -->
     <span
       class="absolute inset-y-0 start-0 flex overflow-hidden pointer-events-none"
       [style.width.%]="fill"
@@ -26,8 +30,7 @@
       ></svg>
     </span>
 
-    <!-- click areas -->
-    @if (!readonly()) {
+    @if (interactive()) {
     <span
       class="absolute inset-y-0 start-0 w-1/2 cursor-pointer"
       (mouseenter)="preview(i + 0.5)"

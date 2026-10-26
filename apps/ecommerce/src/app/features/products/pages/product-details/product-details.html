@@ -52,7 +52,48 @@
       }
     </div>
     <!-- reviews entery -->
-    <div class="w-121"></div>
+    <div class="w-121">
+      <form
+        [formGroup]="form"
+        (ngSubmit)="submitHandler()"
+        class="flex flex-col gap-4"
+        novalidate
+      >
+        <!-- rating -->
+        <div>
+          <div class="flex items-center gap-2.5">
+            <span class="text-base font-medium text-zinc-800"
+              >Your rating:</span
+            >
+            <app-rating formControlName="rating" />
+          </div>
+          @if (hasError('rating')) {
+          <p class="mt-1 text-sm text-red-600">Please choose a rating.</p>
+          }
+        </div>
+
+        <!-- title -->
+        <app-input
+          label="Title"
+          type="text"
+          id="title"
+          placeholder="Enter review title"
+          [control]="form.controls.headline"
+        />
+        <!-- review -->
+        <app-input
+          label="Review"
+          type="textarea"
+          id="content"
+          placeholder="What do you think of this product?"
+          [control]="form.controls.content"
+        />
+
+        <button appButton type="submit" size="full" [disabled]="isLoading()">
+          {{ isLoading() ? 'Adding...' : 'Add Review' }}
+        </button>
+      </form>
+    </div>
   </div>
 </section>
 

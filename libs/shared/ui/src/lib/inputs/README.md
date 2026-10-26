@@ -69,7 +69,8 @@ Give each field its `FormControl` through `[control]`. With a form group, that's
 | `id` | `string` | ✅ | — | The `<input>` id. It also connects the `<label>` to the field. Must be unique on the page. |
 | `label` | `string` | ✅ | — | Label text. It also appears in the "required" error message ("Your **Email** is required"). |
 | `control` | `FormControl` | ✅ | — | The form control this field reads from and writes to. |
-| `type` | `"text" \| "email" \| "password" \| "number" \| "tel"` | | `"text"` | The type of field. `password` and `tel` add extra behavior (see below). |
+| `type` | `"text" \| "email" \| "password" \| "number" \| "tel" \| "textarea"` | | `"text"` | The type of field. `password`, `tel` and `textarea` add extra behavior (see below). |
+| `rows` | `number` | | `4` | Visible lines of text. Only used when `type="textarea"`. |
 | `placeholder` | `string` | | `""` | Placeholder text. |
 | `helperText` | `string` | | `""` | Small gray hint text under the field. |
 | `value` | `string` | | `""` | ⚠️ Don't use this. Set the starting value on the `FormControl` instead (see [Gotchas](#gotchas)). |
@@ -88,6 +89,7 @@ The component chooses the message from the error on the control:
 | `required` | `Validators.required` | `Your {label} is required` (the border also turns red) |
 | `email` | `Validators.email` | `Please Enter Valid Email` |
 | `pattern` with `type="tel"` | `Validators.pattern(...)` | `Accept Egyption Numbers Only` |
+| `pattern` with `type="textarea"` | `Validators.pattern(...)` | Nothing (show your own message) |
 | `pattern` with any other type | `Validators.pattern(...)` | A three-item password rules list (8+ chars, uppercase, special character) |
 
 Errors not in this table are **not displayed**, even though they still make the form invalid. That includes `minlength`, `maxlength`, `min`, `max` and custom validators. If you need one of those, show your own message under the component:
@@ -132,6 +134,23 @@ form = this.fb.nonNullable.group({
 ```
 
 For a **confirm password** field, use a separate control and a group-level validator that compares the two. The component won't show that error, so render the message yourself as in the `minlength` example above.
+
+### Textarea
+
+`type="textarea"` renders a `<textarea>` instead of an `<input>`. Use `rows` to set its height. The user can still drag it taller.
+
+```html
+<app-input
+  id="content"
+  label="Review"
+  type="textarea"
+  [rows]="6"
+  placeholder="Tell us what you think"
+  [control]="form.controls.content"
+/>
+```
+
+`[value]` is ignored for textareas. Set the starting value on the control.
 
 ### Phone (`tel`)
 
