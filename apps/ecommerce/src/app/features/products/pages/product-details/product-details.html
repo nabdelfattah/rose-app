@@ -1,7 +1,10 @@
 <!-- ----------------------------------------------------------------- -->
 <!-- Reviews -->
 <section>
-  <app-section-title>{{ 'products.product-details.reviews.title' | translate }}</app-section-title>
+  <app-section-title
+    >{{ 'products.product-details.reviews.title' | translate
+    }}</app-section-title
+  >
   <!-- rating -->
   <div class="flex flex-col gap-1 pb-4 border-b border-b-zinc-200">
     <p class="text-zinc-800 text-xl font-semibold">
@@ -13,7 +16,8 @@
       </p>
       &nbsp;
       <p>
-        {{ 'products.product-details.reviews.ratings-count' | translate: { count: selectedProduct()?.ratings } }}
+        {{ 'products.product-details.reviews.ratings-count' | translate: {
+        count: selectedProduct()?.ratings } }}
       </p>
     </div>
     <app-rating [rating]="selectedProduct()?.rating || 0" [readonly]="true" />
@@ -98,12 +102,8 @@
           [control]="form.controls.content"
         />
 
-        <button appButton type="submit" size="full" [disabled]="isLoading()">
-          {{
-            (isLoading()
-              ? 'products.product-details.reviews.submitting'
-              : 'products.product-details.reviews.submit') | translate
-          }}
+        <button appButton type="submit" size="full">
+          {{('products.product-details.reviews.submit') | translate}}
         </button>
       </form>
       @if (!isLoggedIn()) {

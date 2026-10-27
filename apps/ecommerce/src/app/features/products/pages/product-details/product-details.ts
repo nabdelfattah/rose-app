@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from "@angular/core";
+import { Component, computed, DestroyRef, inject, signal } from "@angular/core";
 import { select, Store } from "@ngrx/store";
 import {
   selectAllProducts,
@@ -14,6 +14,7 @@ import { DatePipe, DecimalPipe } from "@angular/common";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ReviewsService } from "../../service/reviews.service";
 import { selectToken } from "../../../auth/store/user.selector";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 type ReviewField = "rating" | "headline" | "content";
 
@@ -42,7 +43,8 @@ export class ProductDetails {
   products = this.store.selectSignal(selectAllProducts);
   productId = this.activatedRoute.snapshot.paramMap.get("id");
   readonly selectedProduct = this.store.selectSignal(selectSelectedProduct);
-  isLoading = signal(false);
+
+  private destroyRef = inject(DestroyRef);
 
   relatedProducts = computed(() =>
     this.products().filter((p) => p.id !== this.productId),
@@ -83,15 +85,14 @@ export class ProductDetails {
 
   submitHandler() {
     if (this.form.valid && this.isLoggedIn()) {
-      this.isLoading.set(true);
       this.reviewService
         .addReview({
           ...this.form.getRawValue(),
           productId: this.productId!,
         })
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: () => {
-            this.isLoading.set(false);
             this.form.reset();
             // refetch the product's data to update the reviews
             this.store.dispatch(

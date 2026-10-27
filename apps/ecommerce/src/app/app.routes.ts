@@ -20,6 +20,10 @@ import * as userEffects from "./features/auth/store/user.effects";
 import { productsReducer } from "./features/products/store/products.reducer";
 import * as productsEffects from "./features/products/store/products.effects";
 import { ReviewsService } from "./features/products/service/reviews.service";
+import {
+  ngxSpinnerInterceptor,
+  provideNgxSpinnerHttpConfig,
+} from "ngx-spinner";
 
 export const appRoutes: Route[] = [
   {
@@ -28,8 +32,13 @@ export const appRoutes: Route[] = [
     // every provider from ecommerce needs to live here to work both inside the shell and ecommerce.
     providers: [
       provideHttpClient(
-        withInterceptors([errorInterceptor, headerInterceptor]),
+        withInterceptors([
+          errorInterceptor,
+          headerInterceptor,
+          ngxSpinnerInterceptor,
+        ]),
       ),
+      provideNgxSpinnerHttpConfig({ spinner: { type: "ball-scale-multiple" } }),
       provideIamAuth({
         baseUrl: "https://rose-app.elevate-bootcamp.cloud/api/",
       }),

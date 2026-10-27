@@ -123,7 +123,7 @@ describe("ProductDetails", () => {
       headline: "",
       content: "",
     });
-    expect(component.isLoading()).toBe(false);
+
     expect(store.dispatch).toHaveBeenCalledWith(
       ProductsActions.loadSelectedProduct({ id: "p2" }),
     );
