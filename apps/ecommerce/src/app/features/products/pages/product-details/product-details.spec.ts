@@ -149,4 +149,8 @@ describe("ProductDetails", () => {
       expect(reviewsService.addReview).not.toHaveBeenCalled();
     });
   });
+
+  it('should resolve the current product for ProductDetailsInfo', () => {
+    expect(component.product()?.id).toBe('p2');
+  });
 });

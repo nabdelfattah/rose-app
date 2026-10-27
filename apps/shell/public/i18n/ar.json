@@ -136,11 +136,26 @@
       "feat-2": "مثالية لجميع المناسبات",
       "feat-3": "جودة فائقة وتغليف أنيق",
       "feat-4": "توصيل سريع وموثوق"
+    },
+    "gallery": {
+      "gallery": "معرض الصور",
+      "title": "ألقِ نظرة على معرضنا الرائع"
+    },
+    "testimonials": {
+      "testimonials": "آراء العملاء",
+      "title": "كلمات حقيقية من عملائنا السعداء"
     }
   },
   "products": {
     "product-details": {
       "related-products": "منتجات ذات صلة",
+      "add-to-cart": "أضف إلى السلة",
+      "add-to-wishlist": "أضف إلى المفضلة",
+      "remove-from-wishlist": "إزالة من المفضلة",
+      "in-stock": "متوفر في المخزون",
+      "out-of-stock": "غير متوفر",
+      "available": "متوفر",
+      "currency": "ج.م",
       "reviews": {
         "title": "مراجعات المنتج",
         "general-rating": "التقييم العام:",
@@ -155,6 +170,31 @@
         "submitting": "جارٍ الإضافة...",
         "login-required": "يرجى تسجيل الدخول لتتمكن من مراجعة المنتج"
       }
+    }
+  },
+  "footer": {
+    "brand-tagline": "تطبيق روز للتجارة الإلكترونية",
+    "copyright": "جميع الحقوق محفوظة | 2025",
+    "discover": {
+      "heading": "اكتشف موقعنا",
+      "home": "الرئيسية",
+      "products": "المنتجات",
+      "categories": "الفئات",
+      "occasions": "المناسبات",
+      "contact": "تواصل معنا",
+      "about": "من نحن",
+      "terms": "الشروط والأحكام",
+      "privacy": "سياسة الخصوصية",
+      "faqs": "الأسئلة الشائعة"
+    },
+    "newsletter": {
+      "heading-pre": "احصل على خصم ",
+      "heading-post": " بالاشتراك في النشرة البريدية",
+      "subtitle": "باشتراكك في نشرتنا البريدية",
+      "placeholder": "أدخل بريدك الإلكتروني",
+      "subscribe": "اشترك",
+      "error-required": "يرجى إدخال البريد الإلكتروني",
+      "error-invalid": "يرجى إدخال بريد إلكتروني صالح"
     }
   }
 }

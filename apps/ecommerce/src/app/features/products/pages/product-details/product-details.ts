@@ -1,5 +1,15 @@
-import { Component, computed, DestroyRef, inject, signal } from "@angular/core";
-import { select, Store } from "@ngrx/store";
+import { ProductDetailsInfo } from "../../components/product-details-info/product-details-info";
+import { LanguageService } from "@rose-app/ui";
+import { ProductService } from "../../service/product.service";
+import { Product } from "../../model/product";
+import {
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  signal,
+} from "@angular/core";
 import {
   selectAllProducts,
   selectSelectedProduct,
@@ -15,12 +25,17 @@ import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ReviewsService } from "../../service/reviews.service";
 import { selectToken } from "../../../auth/store/user.selector";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { Store } from "@ngrx/store";
 
 type ReviewField = "rating" | "headline" | "content";
 
 @Component({
   selector: "app-product-details",
   imports: [
+    ProductDetailsInfo,
+    RelatedProducts,
+    SectionTitleComponent,
+    TranslatePipe,
     ReactiveFormsModule,
     DatePipe,
     DecimalPipe,
@@ -36,6 +51,57 @@ type ReviewField = "rating" | "headline" | "content";
   styleUrl: "./product-details.css",
 })
 export class ProductDetails {
+  private readonly productService = inject(ProductService, { optional: true });
+  private readonly languageService = inject(LanguageService, {
+    optional: true,
+  });
+  // private readonly currentProduct = signal<Product | null>(null);
+
+  /** Resolved product – prefers the freshly fetched single-product response. */
+  // readonly product = computed<Product | null>(() => {
+  //   const fetched = this.currentProduct();
+  //   if (fetched && fetched.id === this.productId) return fetched;
+  //   return (
+  //     this.products().find((p) => p.id === this.productId) ?? fetched ?? null
+  //   );
+  // });
+
+  // constructor() {
+  //   // Re-fetch whenever the app language changes so API returns the correct locale.
+  //   effect(() => {
+  //     const lang = this.languageService?.currentLang() ?? "en"; // reactive signal dependency
+  //     this.loadProduct(this.productId, lang);
+  //   });
+
+  //   // Watch route param changes (e.g. navigating between products).
+  //   this.activatedRoute.paramMap
+  //     ?.pipe(takeUntilDestroyed(this.destroyRef))
+  //     ?.subscribe((params) => {
+  //       const id = params.get("id");
+  //       if (id && id !== this.productId) {
+  //         this.productId = id;
+  //         this.loadProduct(id, this.languageService?.currentLang() ?? "en");
+  //       }
+  //     });
+  // }
+
+  // private loadProduct(
+  //   id: string | null,
+  //   lang = this.languageService?.currentLang() ?? "en",
+  // ): void {
+  //   if (!id || !this.productService) return;
+  //   this.productService
+  //     .getProductById(id, lang)
+  //     .pipe(takeUntilDestroyed(this.destroyRef))
+  //     .subscribe({
+  //       next: (res) => {
+  //         const prod = res.payload?.product;
+  //         if (prod) {
+  //           this.currentProduct.set(prod);
+  //         }
+  //       },
+  //     });
+  // }
   private store = inject(Store);
   private activatedRoute = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);

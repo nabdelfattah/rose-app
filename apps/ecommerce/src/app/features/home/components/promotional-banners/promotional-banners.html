@@ -1,0 +1,222 @@
+<section
+  class="promotional-banners py-4 lg:py-6"
+  aria-label="Promotional Banners"
+>
+  <div class="container mx-auto px-4 flex flex-col gap-4 lg:gap-6">
+    <!-- Top Row: Static Left Card (4 cols) + Main Carousel Banner (8 cols) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch">
+      <!-- 1. Top Left: Static Promotional Card (NOT part of carousel) -->
+      <article
+        class="group relative overflow-hidden rounded-3xl min-h-[360px] sm:min-h-[400px] lg:min-h-[420px] lg:col-span-4 bg-zinc-950 shadow-sm flex flex-col justify-end p-6 sm:p-8"
+      >
+        <img
+          [src]="leftBanner.imageUrl"
+          [alt]="leftBanner.alt"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          loading="eager"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10"
+          aria-hidden="true"
+        ></div>
+
+        <div class="relative z-10 flex flex-col items-start gap-3.5">
+          <!-- Small pill -->
+          <span
+            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#fbeaea] text-[#501419] shadow-xs"
+          >
+            {{ leftBanner.pill }}
+          </span>
+
+          <!-- Heading -->
+          <h2
+            class="text-xl sm:text-2xl font-bold text-[#fff] tracking-tight leading-snug whitespace-pre-line"
+          >
+            {{ leftBanner.heading }}
+          </h2>
+
+          <!-- CTA: Shop Now with Arrow -->
+          <a
+            [routerLink]="leftBanner.link"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-soft-pink-100 hover:bg-white text-[#501419] font-semibold text-sm transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-soft-pink-300"
+          >
+            <span>{{ leftBanner.ctaText }}</span>
+            <svg
+              class="w-4 h-4 rtl:rotate-180 transition-transform group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 2. Top Right: Main Promotional Carousel -->
+      <div
+        class="relative overflow-hidden rounded-3xl min-h-[360px] sm:min-h-[400px] lg:min-h-[420px] lg:col-span-8 bg-zinc-950 shadow-sm flex flex-col justify-end"
+        aria-roledescription="carousel"
+        aria-label="Promotional Carousel"
+      >
+        <!-- Slides -->
+        @for (slide of slides; track slide.heading; let i = $index) {
+        <div
+          class="absolute inset-0 transition-opacity duration-500 ease-in-out flex flex-col justify-end p-6 sm:p-8 lg:p-10"
+          [class.opacity-100]="currentSlide() === i"
+          [class.opacity-0]="currentSlide() !== i"
+          [class.pointer-events-auto]="currentSlide() === i"
+          [class.pointer-events-none]="currentSlide() !== i"
+          [attr.aria-hidden]="currentSlide() !== i"
+        >
+          <img
+            [src]="slide.imageUrl"
+            [alt]="slide.alt"
+            class="absolute inset-0 w-full h-full object-cover"
+            [loading]="i === 0 ? 'eager' : 'lazy'"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10"
+            aria-hidden="true"
+          ></div>
+
+          <!-- Slide Content (Bottom-Left) -->
+          <div class="relative z-10 flex flex-col items-start gap-3 max-w-xl">
+            <h2
+              class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#fff] tracking-tight leading-tight"
+            >
+              {{ slide.heading }}
+            </h2>
+            @if (slide.subtitle) {
+            <p
+              class="text-sm sm:text-base text-[#fff] font-normal leading-relaxed"
+            >
+              {{ slide.subtitle }}
+            </p>
+            }
+            <a
+              [routerLink]="slide.ctaRoute"
+              class="inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-soft-pink-100 hover:bg-white text-[#501419] font-semibold text-sm transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-soft-pink-300 mt-1"
+            >
+              {{ slide.ctaText }}
+            </a>
+          </div>
+        </div>
+        }
+
+        <!-- Carousel Pagination Indicators (Top-Right) -->
+        <div
+          class="absolute top-5 right-5 sm:top-6 sm:right-6 z-20 flex items-center gap-1.5"
+          role="tablist"
+          aria-label="Carousel pagination"
+        >
+          @for (slide of slides; track slide.heading; let i = $index) {
+          <button
+            type="button"
+            role="tab"
+            (click)="goToSlide(i)"
+            [attr.aria-selected]="currentSlide() === i"
+            [attr.aria-label]="'Go to slide ' + (i + 1)"
+            class="transition-all duration-300 cursor-pointer h-2 rounded-full focus:outline-none focus:ring-2 focus:ring-soft-pink-300"
+            [class.w-7]="currentSlide() === i"
+            [class.bg-maroon-600]="currentSlide() === i"
+            [class.w-2]="currentSlide() !== i"
+            [class.bg-white/70]="currentSlide() !== i"
+            [class.hover:bg-white]="currentSlide() !== i"
+          ></button>
+          }
+        </div>
+
+        <!-- Carousel Navigation Controls (Bottom-Right) -->
+        <div
+          class="absolute bottom-5 right-5 sm:bottom-6 sm:right-6 z-20 flex items-center"
+        >
+          <div
+            class="inline-flex items-center gap-1 bg-soft-pink-100/90 backdrop-blur-xs rounded-full p-1 shadow-md"
+            aria-label="Carousel navigation"
+          >
+            <button
+              type="button"
+              (click)="prevSlide()"
+              aria-label="Previous slide"
+              class="p-1.5 rounded-full hover:bg-white text-[#501419] transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-maroon-500"
+            >
+              <svg
+                class="w-4 h-4 rtl:rotate-180"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              (click)="nextSlide()"
+              aria-label="Next slide"
+              class="p-1.5 rounded-full hover:bg-white text-[#501419] transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-maroon-500"
+            >
+              <svg
+                class="w-4 h-4 rtl:rotate-180"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row: 3 Occasion Cards (Wedding, Engagement, Anniversary - NO CTA/button) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+      @for (card of occasionCards; track card.pill) {
+      <a
+        [routerLink]="card.link"
+        class="group relative overflow-hidden rounded-3xl min-h-[220px] sm:min-h-[250px] lg:min-h-[280px] bg-zinc-950 shadow-sm flex flex-col justify-end p-5 sm:p-6 transition-transform duration-300 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-maroon-400"
+      >
+        <img
+          [src]="card.imageUrl"
+          [alt]="card.alt"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          loading="lazy"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"
+          aria-hidden="true"
+        ></div>
+
+        <div class="relative z-10 flex flex-col items-start">
+          <!-- Occasion / Category Pill -->
+          <span
+            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#fbeaea] text-[#501419] shadow-xs mb-2 w-fit"
+          >
+            {{ card.pill }}
+          </span>
+
+          <!-- Occasion Title (strictly NO Shop Now CTA) -->
+          <h3
+            class="text-base sm:text-lg lg:text-xl font-bold text-[#fff] leading-snug whitespace-pre-line"
+          >
+            {{ card.title }}
+          </h3>
+        </div>
+      </a>
+      }
+    </div>
+  </div>
+</section>

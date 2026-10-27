@@ -136,11 +136,27 @@
       "feat-2": "Perfect for Every Occasion",
       "feat-3": "Premium Quality & Elegant Packaging",
       "feat-4": "Fast & Reliable Delivery"
+    },
+    "gallery": {
+      "gallery": "Gallery",
+      "title": "Check Out our Wonderful Gallery"
+    },
+    "testimonials": {
+      "testimonials": "testimonials",
+      "title": "Real Words from Happy Customers"
     }
   },
   "products": {
     "product-details": {
       "related-products": "Related Products",
+      "add-to-cart": "Add to Cart",
+      "add-to-wishlist": "Add to wishlist",
+      "remove-from-wishlist": "Remove from wishlist",
+      "in-stock": "In Stock",
+      "out-of-stock": "Out of Stock",
+      "available": "available",
+      "currency": "EGP",
+
       "reviews": {
         "title": "Product Reviews",
         "general-rating": "General rating:",
@@ -155,6 +171,31 @@
         "submitting": "Adding...",
         "login-required": "Please login to be able to review the product"
       }
+    }
+  },
+  "footer": {
+    "brand-tagline": "Rose E-Commerce App",
+    "copyright": "All rights reserved | 2025",
+    "discover": {
+      "heading": "Discover our website",
+      "home": "Home",
+      "products": "Products",
+      "categories": "Categories",
+      "occasions": "Occasions",
+      "contact": "Contact",
+      "about": "About",
+      "terms": "Terms & Conditions",
+      "privacy": "Privacy Policy",
+      "faqs": "FAQs"
+    },
+    "newsletter": {
+      "heading-pre": "Get ",
+      "heading-post": " Off Discount Coupon",
+      "subtitle": "By subscribing to our newsletter",
+      "placeholder": "Enter Your Email",
+      "subscribe": "Subscribe",
+      "error-required": "Please enter your email address",
+      "error-invalid": "Please enter a valid email address"
     }
   }
 }
