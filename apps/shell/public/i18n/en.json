@@ -148,7 +148,15 @@
   },
   "products": {
     "product-details": {
-      "related-products": "Related Products"
+      "related-products": "Related Products",
+      "add-to-cart": "Add to Cart",
+      "add-to-wishlist": "Add to wishlist",
+      "remove-from-wishlist": "Remove from wishlist",
+      "in-stock": "In Stock",
+      "out-of-stock": "Out of Stock",
+      "available": "available",
+      "currency": "EGP",
+      "reviews": "reviews"
     }
   },
   "footer": {

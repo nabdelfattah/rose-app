@@ -64,4 +64,8 @@ describe('ProductDetails', () => {
       component.relatedProducts().some(product => product.id === 'p2')
     ).toBe(false);
   });
+
+  it('should resolve the current product for ProductDetailsInfo', () => {
+    expect(component.product()?.id).toBe('p2');
+  });
 });

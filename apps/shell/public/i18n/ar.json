@@ -148,7 +148,15 @@
   },
   "products": {
     "product-details": {
-      "related-products": "منتجات ذات صلة"
+      "related-products": "منتجات ذات صلة",
+      "add-to-cart": "أضف إلى السلة",
+      "add-to-wishlist": "أضف إلى المفضلة",
+      "remove-from-wishlist": "إزالة من المفضلة",
+      "in-stock": "متوفر في المخزون",
+      "out-of-stock": "غير متوفر",
+      "available": "متوفر",
+      "currency": "ج.م",
+      "reviews": "تقييمات"
     }
   },
   "footer": {

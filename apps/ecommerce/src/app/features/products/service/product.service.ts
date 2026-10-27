@@ -1,7 +1,8 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { BASE_URL } from "../../../core/constants/apiUrl";
-import { ProductRes } from "../model/product";
+import { ProductRes, SingleProductRes } from "../model/product";
+import { Language } from "@rose-app/ui";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -15,8 +16,15 @@ export class ProductService {
     return this.httpClient.get<ProductRes>(this.apiUrl);
   }
 
-  getProductById(id: string): Observable<ProductRes> {
-    return this.httpClient.get<ProductRes>(`${this.apiUrl}/${id}`);
+  getProductById(
+    id: string,
+    lang: Language = 'en',
+  ): Observable<SingleProductRes> {
+    const headers = new HttpHeaders({ 'Accept-Language': lang });
+    return this.httpClient.get<SingleProductRes>(
+      `${this.apiUrl}/${id}`,
+      { headers },
+    );
   }
 
   // for best selling section in the home page (Nada)

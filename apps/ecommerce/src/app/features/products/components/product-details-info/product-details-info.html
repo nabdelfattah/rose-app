@@ -1,0 +1,194 @@
+<section class="w-full py-6 lg:py-10" aria-label="Product Information">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+
+    <!-- ══════════════════════════════════════════
+         LEFT – Image Gallery
+    ══════════════════════════════════════════ -->
+    <div class="flex flex-col gap-4 w-full">
+
+      <!-- Main image -->
+      <div class="relative w-full h-80 sm:h-96 lg:h-[460px] overflow-hidden rounded-2xl sm:rounded-3xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+        <img
+          [src]="selectedImage()"
+          [alt]="product().title"
+          class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          loading="eager"
+        />
+
+        <!-- Overlay badge -->
+        @if (isOutOfStock()) {
+          <span class="absolute top-4 start-4 z-10 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase text-white bg-red-600 shadow-sm">
+            {{ 'products.product-details.out-of-stock' | translate }}
+          </span>
+        } @else if (product().discountType === 'PERCENT' && product().discountValue) {
+          <span class="absolute top-4 start-4 z-10 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase text-white bg-red-900 shadow-sm">
+            -{{ product().discountValue }}%
+          </span>
+        }
+      </div>
+
+      <!-- Thumbnail row -->
+      @if (images().length > 0) {
+        <div
+          class="flex items-center gap-3 overflow-x-auto p-1 w-full"
+          role="tablist"
+          aria-label="Product image thumbnails"
+        >
+          @for (img of images(); track img; let i = $index) {
+            <button
+              type="button"
+              role="tab"
+              class="relative shrink-0 size-20 rounded-xl overflow-hidden cursor-pointer border-2 bg-zinc-100 dark:bg-zinc-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maroon-700 focus-visible:ring-offset-2"
+              [class.border-maroon-700]="selectedImageIndex() === i"
+              [class.dark:border-maroon-500]="selectedImageIndex() === i"
+              [class.opacity-100]="selectedImageIndex() === i"
+              [class.border-zinc-200]="selectedImageIndex() !== i"
+              [class.dark:border-zinc-700]="selectedImageIndex() !== i"
+              [class.opacity-70]="selectedImageIndex() !== i"
+              [class.hover:opacity-100]="selectedImageIndex() !== i"
+              [class.hover:border-zinc-300]="selectedImageIndex() !== i"
+              [class.dark:hover:border-zinc-600]="selectedImageIndex() !== i"
+              [attr.aria-selected]="selectedImageIndex() === i"
+              [attr.aria-label]="'View image ' + (i + 1)"
+              (click)="selectImage(i)"
+            >
+              <img
+                [src]="img"
+                [alt]="product().title + ' thumbnail ' + (i + 1)"
+                class="w-full h-full object-cover block"
+                loading="lazy"
+              />
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         RIGHT – Product Information
+    ══════════════════════════════════════════ -->
+    <div class="flex flex-col gap-5">
+
+      <!-- Category pill -->
+      @if (product().category?.title) {
+        <span class="inline-flex items-center self-start w-fit px-3.5 py-1.5 rounded-full text-xs font-semibold leading-none bg-soft-pink-100 dark:bg-zinc-800 text-maroon-700 dark:text-soft-pink-300">
+          {{ product().category.title }}
+        </span>
+      }
+
+      <!-- Title -->
+      <h1 class="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-zinc-50 capitalize leading-tight m-0">
+        {{ product().title }}
+      </h1>
+
+      <!-- Rating row -->
+      <div class="flex items-center gap-2.5">
+        <div class="flex items-center gap-1 text-yellow-400" aria-label="Rating">
+          @for (star of ratingStars(); track star.index) {
+            <svg
+              lucideStar
+              class="size-4.5"
+              [class.fill-yellow-400]="star.filled"
+              [class.text-yellow-400]="star.filled"
+              [class.text-zinc-300]="!star.filled"
+              [class.dark:text-zinc-600]="!star.filled"
+            ></svg>
+          }
+        </div>
+        <span class="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+          {{ product().rating | number:'1.1-1' }}
+        </span>
+        <span class="text-xs text-zinc-500 dark:text-zinc-400">
+          ({{ product().ratings || product()._count?.reviews || 0 }}
+          {{ 'products.product-details.reviews' | translate }})
+        </span>
+      </div>
+
+      <!-- Price row -->
+      <div class="flex items-baseline gap-3.5 flex-wrap">
+        <!-- Current / final price -->
+        <span class="text-3xl sm:text-4xl font-extrabold text-red-900 dark:text-soft-pink-300 leading-none">
+          {{ currentPrice() | number:'1.2-2' }}<span class="text-lg font-semibold text-maroon-700 dark:text-soft-pink-400"> {{ 'products.product-details.currency' | translate }}</span>
+        </span>
+
+        <!-- Struck-through original price (only when discounted) -->
+        @if (discountedPrice() !== null && originalPrice() !== null) {
+          <span class="text-xl font-normal text-zinc-400 dark:text-zinc-500 line-through">
+            {{ originalPrice() | number:'1.2-2' }} {{ 'products.product-details.currency' | translate }}
+          </span>
+        }
+      </div>
+
+      <!-- Stock status -->
+      <div class="flex items-center gap-2">
+        @if (!isOutOfStock()) {
+          <span class="inline-flex items-center gap-2 text-sm font-medium text-emerald-700 dark:text-emerald-400">
+            <span class="size-2.5 rounded-full bg-emerald-500 shrink-0 animate-pulse"></span>
+            {{ 'products.product-details.in-stock' | translate }}
+            <span class="text-xs text-zinc-500 dark:text-zinc-400 font-normal">
+              ({{ product().stock }} {{ 'products.product-details.available' | translate }})
+            </span>
+          </span>
+        } @else {
+          <span class="inline-flex items-center gap-2 text-sm font-medium text-red-600 dark:text-red-400">
+            <span class="size-2.5 rounded-full bg-red-600 shrink-0"></span>
+            {{ 'products.product-details.out-of-stock' | translate }}
+          </span>
+        }
+      </div>
+
+      <hr class="w-full border-0 border-t border-zinc-200 dark:border-zinc-700 my-0" />
+
+      <!-- Description -->
+      <p class="text-base leading-relaxed text-zinc-600 dark:text-zinc-300 whitespace-pre-line m-0">
+        {{ product().description }}
+      </p>
+
+      <!-- Action buttons -->
+      <div class="flex items-center gap-4 pt-2">
+        <!-- Wishlist -->
+        <button
+          type="button"
+          class="group shrink-0 size-13 rounded-xl border-2 flex items-center justify-center cursor-pointer transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maroon-700 focus-visible:ring-offset-2"
+          [class.bg-maroon-50]="isWishlisted()"
+          [class.dark:bg-zinc-700]="isWishlisted()"
+          [class.border-maroon-700]="isWishlisted()"
+          [class.dark:border-maroon-500]="isWishlisted()"
+          [class.bg-white]="!isWishlisted()"
+          [class.dark:bg-zinc-800]="!isWishlisted()"
+          [class.border-zinc-200]="!isWishlisted()"
+          [class.dark:border-zinc-700]="!isWishlisted()"
+          [class.hover:border-maroon-700]="!isWishlisted()"
+          [class.dark:hover:border-soft-pink-300]="!isWishlisted()"
+          [attr.aria-pressed]="isWishlisted()"
+          [attr.aria-label]="(isWishlisted() ? 'products.product-details.remove-from-wishlist' : 'products.product-details.add-to-wishlist') | translate"
+          (click)="onToggleWishlist()"
+        >
+          <svg
+            lucideHeart
+            class="size-5.5 transition-transform duration-200 group-hover:scale-110"
+            [class.fill-maroon-700]="isWishlisted()"
+            [class.text-maroon-700]="isWishlisted()"
+            [class.dark:fill-soft-pink-400]="isWishlisted()"
+            [class.dark:text-soft-pink-400]="isWishlisted()"
+            [class.fill-none]="!isWishlisted()"
+            [class.text-maroon-700]="!isWishlisted()"
+            [class.dark:text-soft-pink-200]="!isWishlisted()"
+          ></svg>
+        </button>
+
+        <!-- Add to Cart -->
+        <button
+          type="button"
+          class="flex-1 h-13 px-8 rounded-xl border-none bg-maroon-700 hover:bg-maroon-800 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-white text-base font-semibold flex items-center justify-center gap-2.5 cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maroon-700 focus-visible:ring-offset-2"
+          [disabled]="isOutOfStock()"
+          (click)="onAddToCart()"
+        >
+          <svg lucideShoppingCart class="size-5"></svg>
+          <span>{{ 'products.product-details.add-to-cart' | translate }}</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
