@@ -19,6 +19,7 @@ import { TrustedCompanies } from "./components/trusted-companies/trusted-compani
 import { Button, ProductCardComponent, SubTitleComponent } from "@rose-app/ui";
 import { Router, RouterLink } from "@angular/router";
 import { TranslatePipe } from "@ngx-translate/core";
+import { Testimonials } from "./components/section-testimonials/testimonials";
 import { PromotionalBanners } from "./components/promotional-banners/promotional-banners";
 
 @Component({
@@ -38,6 +39,7 @@ import { PromotionalBanners } from "./components/promotional-banners/promotional
     ButtonModule,
     SectionTitleComponent,
     ProductCardComponent,
+    Testimonials
   ],
   templateUrl: "./home.html",
   styleUrl: "./home.css",
