@@ -3,7 +3,6 @@ import { Header } from './header';
 import { provideStore } from '@ngrx/store';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { CookieService } from 'ngx-cookie-service';
 import { Actions } from '@ngrx/effects';
 import { of } from 'rxjs';
@@ -18,7 +17,6 @@ describe('Header', () => {
     await TestBed.configureTestingModule({
       imports: [Header],
       providers: [
-        provideNoopAnimations(),
         provideStore({ user: () => ({ isLoading: false }) }),
         provideRouter([]),
         provideHttpClient(),

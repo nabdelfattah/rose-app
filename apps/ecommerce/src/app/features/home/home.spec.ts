@@ -11,8 +11,6 @@ import {
   selectError,
   selectLoading,
 } from "../products/store/products.selectors";
-import { By } from "@angular/platform-browser";
-import { provideTranslateService } from "@ngx-translate/core";
 import { Component } from "@angular/core";
 import { SectionBestSelling } from "./components/section-best-selling/section-best-selling";
 import { SectionFeatures } from "./components/section-features/section-features";
@@ -121,7 +119,6 @@ describe("Home", () => {
     await TestBed.configureTestingModule({
       imports: [Home],
       providers: [
-        provideTranslateService(),
         provideMockStore({
           selectors: [
             { selector: selectAllProducts, value: mockProducts },
@@ -138,7 +135,6 @@ describe("Home", () => {
         add: { imports: [SectionBestSellingStub, SectionFeaturesStub] },
       })
       .compileComponents();
-    }).compileComponents();
 
     store = TestBed.inject(MockStore);
     router = TestBed.inject(Router);
