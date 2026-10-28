@@ -137,9 +137,9 @@
       "feat-3": "جودة فائقة وتغليف أنيق",
       "feat-4": "توصيل سريع وموثوق"
     },
-    "gallery":{
-      "gallery":"معرض الصور",
-      "title":"ألقِ نظرة على معرضنا الرائع"
+    "gallery": {
+      "gallery": "معرض الصور",
+      "title": "ألقِ نظرة على معرضنا الرائع"
     },
     "testimonials": {
       "testimonials": "آراء العملاء",
@@ -156,7 +156,20 @@
       "out-of-stock": "غير متوفر",
       "available": "متوفر",
       "currency": "ج.م",
-      "reviews": "تقييمات"
+      "reviews": {
+        "title": "مراجعات المنتج",
+        "general-rating": "التقييم العام:",
+        "ratings-count": "({{count}} تقييم)",
+        "your-rating": "تقييمك:",
+        "rating-required": "من فضلك اختر تقييمًا.",
+        "headline-label": "العنوان",
+        "headline-placeholder": "أدخل عنوان المراجعة",
+        "content-label": "المراجعة",
+        "content-placeholder": "ما رأيك في هذا المنتج؟",
+        "submit": "إضافة مراجعة",
+        "submitting": "جارٍ الإضافة...",
+        "login-required": "يرجى تسجيل الدخول لتتمكن من مراجعة المنتج"
+      }
     }
   },
   "footer": {

@@ -53,3 +53,30 @@ export const loadBestSellingProducts = createEffect(
     ),
   { functional: true },
 );
+
+//////////////////////////////////////////////////////////////////////
+// for best selling products
+//////////////////////////////////////////////////////////////////////
+export const loadSelectedProduct = createEffect(
+  (actions$ = inject(Actions), productService = inject(ProductService)) =>
+    actions$.pipe(
+      ofType(ProductsActions.loadSelectedProduct),
+
+      switchMap(({ id }) =>
+        productService.getProductById(id).pipe(
+          map((response) =>
+            ProductsActions.loadSelectedProductSuccess({ response }),
+          ),
+
+          catchError((error: HttpErrorResponse) =>
+            of(
+              ProductsActions.loadSelectedProductFailure({
+                error: error.message || "Failed to load the product",
+              }),
+            ),
+          ),
+        ),
+      ),
+    ),
+  { functional: true },
+);

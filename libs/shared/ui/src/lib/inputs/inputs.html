@@ -1,6 +1,19 @@
 <div class="flex flex-col gap-2">
   <label class="text-zinc-800" [for]="id()"> {{ label() | translate }} </label>
   <div class="relative">
+    @if (type() === 'textarea') {
+    <textarea
+      [rows]="rows()"
+      [placeholder]="placeholder() | translate"
+      [formControl]="control()"
+      [id]="id()"
+      class="border border-zinc-400 text-zinc-800 bg-white focus:border-maroon-600 dark:focus:border-pink-400 placeholder:text-zinc-400 p-4 rounded-[10px] outline-0 w-full block resize-y"
+      [class]="{
+        'border-red-500': control().hasError('required') && control().touched,
+        'border-zinc-400': !(control().hasError('required') && control().touched),
+      }"
+    ></textarea>
+    } @else {
     <input
       #input
       [type]="type()"
@@ -14,6 +27,7 @@
         'border-zinc-400': !(control().hasError('required') && control().touched),
       }"
     />
+    }
     @if (helperText()) {
     <p class="mt-1 text-sm text-zinc-500">{{ helperText() | translate }}</p>
     } @if (type() === 'password') {
@@ -41,7 +55,7 @@
         
     @if(type() ==='tel'){
             <p class="error text-red-600">{{ 'validation.egyptian-phone' | translate }}</p>
-            }@else {
+            }@else if (type() !== 'textarea') {
             <ul>
                 <li class="error text-red-600 text-[14px] list-disc">
                 {{ 'validation.password-length' | translate }}

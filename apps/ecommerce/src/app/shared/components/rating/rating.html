@@ -1,0 +1,31 @@
+<div
+  class="flex items-center gap-1 rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
+  [class.opacity-50]="disabled()"
+  [attr.role]="readonly() ? 'img' : 'slider'"
+  [attr.aria-label]="readonly() ? label() : 'Rating'"
+  [attr.tabindex]="interactive() ? 0 : null"
+  [attr.aria-disabled]="disabled() || null"
+  [attr.aria-valuemin]="readonly() ? null : 0"
+  [attr.aria-valuemax]="readonly() ? null : max()"
+  [attr.aria-valuenow]="readonly() ? null : currentValue()"
+  [attr.aria-valuetext]="readonly() ? null : label()"
+  (keydown)="onKeydown($event)"
+  (mouseleave)="preview(null)"
+  (blur)="onTouched()"
+>
+  @for (filled of stars(); track $index; let i = $index) {
+  <span
+    class="inline-flex"
+    aria-hidden="true"
+    [class.cursor-pointer]="interactive()"
+    (mouseenter)="preview(i + 1)"
+    (click)="select(i + 1)"
+  >
+    <svg
+      lucideStar
+      class="size-4 stroke-[#FFA508]"
+      [class]="filled ? 'text-amber-400 fill-[#FFA508]' : 'text-zinc-200 fill-transparent'"
+    ></svg>
+  </span>
+  }
+</div>

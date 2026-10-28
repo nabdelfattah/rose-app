@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
-import { ProductRes } from "../model/product";
+import { ProductDetailRes, ProductRes } from "../model/product";
 
 export const ProductsActions = createActionGroup({
   source: "Products",
@@ -24,6 +24,19 @@ export const ProductsActions = createActionGroup({
     }>(),
 
     "Load Best Products Failure": props<{
+      error: string;
+    }>(),
+
+    //////////////////////////////////////////////////////////////////////
+    // Product Details
+    //////////////////////////////////////////////////////////////////////
+    "Load Selected Product": props<{ id: string }>(),
+
+    "Load Selected Product Success": props<{
+      response: ProductDetailRes;
+    }>(),
+
+    "Load Selected Product Failure": props<{
       error: string;
     }>(),
   },

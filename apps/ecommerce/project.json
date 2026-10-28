@@ -56,9 +56,7 @@
     },
     "esbuild": {
       "executor": "@angular/build:application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/ecommerce",
@@ -76,20 +74,17 @@
           }
         ],
         "styles": [
-          "apps/ecommerce/src/styles.css"
+          "apps/ecommerce/src/styles.css",
+          "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
         ],
         "server": "apps/ecommerce/src/main.server.ts",
         "ssr": {
           "entry": "apps/ecommerce/src/server.ts"
         },
         "outputMode": "server",
-        "polyfills": [
-          "es-module-shims"
-        ],
+        "polyfills": ["es-module-shims"],
         "security": {
-          "allowedHosts": [
-            "localhost"
-          ]
+          "allowedHosts": ["localhost"]
         }
       },
       "configurations": {

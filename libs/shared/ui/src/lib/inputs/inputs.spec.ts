@@ -231,6 +231,17 @@ describe("Input", () => {
     ).toBe(true);
   });
 
+  it("should render a textarea instead of an input for textarea type", () => {
+    fixture.componentRef.setInput("type", "textarea");
+    fixture.componentRef.setInput("rows", 6);
+    fixture.detectChanges();
+    const textarea: HTMLTextAreaElement | null =
+      fixture.nativeElement.querySelector("textarea");
+    expect(textarea).not.toBeNull();
+    expect(textarea?.rows).toBe(6);
+    expect(fixture.nativeElement.querySelector("input")).toBeNull();
+  });
+
   it("should display the phone pattern error for tel type", () => {
     fixture.componentRef.setInput("type", "tel");
     const control = component.control();

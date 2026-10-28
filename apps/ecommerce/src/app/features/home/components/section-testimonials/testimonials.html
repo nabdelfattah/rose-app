@@ -21,19 +21,19 @@
             [alt]="testimonial.name"
           />
           } @else {
-          <p class="text-3xl">{{ testimonial.name.charAt(0).toUpperCase() }}</p>
+          <p class="text-3xl text-zinc-800">
+            {{ testimonial.name.charAt(0).toUpperCase() }}
+          </p>
           }
         </div>
 
         <p class="name capitalize mt-3">{{ testimonial.name }}</p>
 
         <div class="content flex flex-col items-center gap-2">
-          <p class="comment font-medium text-center line-clamp-3">
+          <p class="comment text-zinc-800 font-medium text-center line-clamp-3">
             {{ testimonial.content }}
           </p>
-          <div
-            class="rating flex gap-1"
-          >
+          <div class="rating flex gap-1">
             @for (star of stars; track star) {
             <svg
               lucideStar

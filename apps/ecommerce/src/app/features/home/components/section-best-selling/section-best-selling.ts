@@ -50,6 +50,5 @@ export class SectionBestSelling implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(ProductsActions.loadBestProducts());
-    this.responsiveOptions;
   }
 }

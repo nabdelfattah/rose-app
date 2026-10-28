@@ -4,19 +4,16 @@ export interface ProductRes {
   payload: Payload;
 }
 
-export interface SingleProductRes {
+export interface ProductDetailRes {
   status: boolean;
   code: number;
-  payload: {
-    product: Product;
-  };
+  payload: { product: Product };
 }
 
 export interface Payload {
   data: Product[];
   metadata: Metadata;
 }
-
 
 export interface Product {
   id: string;
@@ -39,6 +36,7 @@ export interface Product {
   category: Category;
   subCategory?: SubCategory;
   occasions: Occasion[];
+  reviews?: Review[];
   _count: Count;
 }
 
@@ -68,6 +66,24 @@ export interface Occasion2 {
   immutable: boolean;
   createdAt: string;
   updatedAt: string;
+}
+export interface Review {
+  id: string;
+  userId: string;
+  productId: string;
+  headline: string;
+  content: string;
+  rating: number;
+  createdAt: string;
+  updatedAt: string;
+  user: User;
+}
+
+export interface User {
+  id: string;
+  username: string;
+  firstName: string;
+  lastName: string;
 }
 
 export interface Count {

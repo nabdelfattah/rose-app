@@ -19,6 +19,11 @@ import { userReducer } from "./features/auth/store/user.reducer";
 import * as userEffects from "./features/auth/store/user.effects";
 import { productsReducer } from "./features/products/store/products.reducer";
 import * as productsEffects from "./features/products/store/products.effects";
+import { ReviewsService } from "./features/products/service/reviews.service";
+import {
+  ngxSpinnerInterceptor,
+  provideNgxSpinnerHttpConfig,
+} from "ngx-spinner";
 
 export const appRoutes: Route[] = [
   {
@@ -27,13 +32,20 @@ export const appRoutes: Route[] = [
     // every provider from ecommerce needs to live here to work both inside the shell and ecommerce.
     providers: [
       provideHttpClient(
-        withInterceptors([errorInterceptor, headerInterceptor]),
+        withInterceptors([
+          errorInterceptor,
+          headerInterceptor,
+          ngxSpinnerInterceptor,
+        ]),
       ),
+      provideNgxSpinnerHttpConfig({ spinner: { type: "ball-scale-multiple" } }),
       provideIamAuth({
         baseUrl: "https://rose-app.elevate-bootcamp.cloud/api/",
       }),
       // Providing AuthService here creates it in this route's injector, so it uses the HttpClient + interceptors above.
       AuthService,
+      // The reviews endpoints need the token from headerInterceptor.
+      ReviewsService,
       provideState({ name: "user", reducer: userReducer }),
       provideEffects(userEffects),
       provideState({ name: "products", reducer: productsReducer }),
@@ -55,7 +67,7 @@ export const appRoutes: Route[] = [
       {
         path: "",
         component: MainLayout,
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
         children: [
           { path: "", component: Home, pathMatch: "full" },
           {

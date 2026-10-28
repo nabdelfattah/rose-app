@@ -1,14 +1,136 @@
 <div class="container mx-auto px-4">
-  @if (product(); as current) {
-    <app-product-details-info [product]="current" />
+  @if (selectedProduct(); as current) {
+  <app-product-details-info [product]="current" />
   }
-</div>
-
-<section class="related-products py-20">
-    <div class="container mx-auto">
-        <div class="flex flex-col gap-4">
-            <app-section-title>{{"products.product-details.related-products"|translate}}</app-section-title>
-            <app-related-products [products]="relatedProducts()" />
-        </div>
+  <!-- ----------------------------------------------------------------- -->
+  <!-- Reviews -->
+  <section>
+    <app-section-title
+      >{{ 'products.product-details.reviews.title' | translate
+      }}</app-section-title
+    >
+    <!-- rating -->
+    <div class="flex flex-col gap-1 pb-4 border-b border-b-zinc-200">
+      <p class="text-zinc-800 text-xl font-semibold">
+        {{ 'products.product-details.reviews.general-rating' | translate }}
+      </p>
+      <div class="flex items-center text-zinc-500 text-sm font-medium">
+        <p class="text-2xl font-bold text-zinc-800">
+          {{selectedProduct()?.rating | number: '1.1-1'}}
+        </p>
+        &nbsp;
+        <p>
+          {{ 'products.product-details.reviews.ratings-count' | translate: {
+          count: selectedProduct()?.ratings } }}
+        </p>
+      </div>
+      <app-rating [rating]="selectedProduct()?.rating || 0" [readonly]="true" />
     </div>
-</section>
+    <!-- reviews -->
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-5">
+      <!-- reviews loop -->
+      <div
+        class="max-h-92 overflow-y-auto no-scrollbar md:pr-7 md:border-r md:border-r-zinc-200"
+      >
+        @for (review of selectedProduct()?.reviews; track review.id) {
+        <article
+          class="flex min-w-0 flex-col gap-2.5 pb-4 border-b border-b-zinc-100 mb-2.5"
+        >
+          <!-- avatar -->
+          <div class="flex gap-2.5 items-center">
+            <app-avatar [name]="review.user.firstName" />
+            <div class="flex flex-col">
+              <p class="text-zinc-800 text-base font-semibold">
+                {{review.user.firstName}}
+              </p>
+              <p class="text-zinc-400 text-sm font-normal">
+                {{review.createdAt | date: 'MMM d, y'}}
+              </p>
+            </div>
+          </div>
+          <app-rating [rating]="review.rating" [readonly]="true" />
+          <!-- content -->
+          <div>
+            <p
+              class="wrap-break-word text-zinc-800 text-base font-semibold mb-1.5"
+            >
+              {{review.headline}}
+            </p>
+            <p class="wrap-break-word text-zinc-600 text-base font-normal">
+              {{review.content}}
+            </p>
+          </div>
+        </article>
+        }
+      </div>
+      <!-- reviews entery -->
+      <div class="w-121 relative">
+        <form
+          [formGroup]="form"
+          (ngSubmit)="submitHandler()"
+          class="flex flex-col gap-4 transition"
+          [class.blur-sm]="!isLoggedIn()"
+          [class.select-none]="!isLoggedIn()"
+          [attr.inert]="isLoggedIn() ? null : ''"
+          novalidate
+        >
+          <!-- rating -->
+          <div>
+            <div class="flex items-center gap-2.5">
+              <span class="text-base font-medium text-zinc-800">
+                {{ 'products.product-details.reviews.your-rating' | translate }}
+              </span>
+              <app-rating formControlName="rating" />
+            </div>
+            @if (hasError('rating')) {
+            <p class="mt-1 text-sm text-red-600">
+              {{ 'products.product-details.reviews.rating-required' | translate
+              }}
+            </p>
+            }
+          </div>
+
+          <!-- title -->
+          <app-input
+            label="products.product-details.reviews.headline-label"
+            type="text"
+            id="title"
+            placeholder="products.product-details.reviews.headline-placeholder"
+            [control]="form.controls.headline"
+          />
+          <!-- review -->
+          <app-input
+            label="products.product-details.reviews.content-label"
+            type="textarea"
+            id="content"
+            placeholder="products.product-details.reviews.content-placeholder"
+            [control]="form.controls.content"
+          />
+
+          <button appButton type="submit" size="full">
+            {{('products.product-details.reviews.submit') | translate}}
+          </button>
+        </form>
+        @if (!isLoggedIn()) {
+        <div
+          class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 p-4 text-center"
+        >
+          <p class="text-base font-semibold text-zinc-800">
+            {{ 'products.product-details.reviews.login-required' | translate }}
+          </p>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ----------------------------------------------------------------- -->
+  <!-- Related Products -->
+  <section class="related-products py-20">
+    <div class="container mx-auto">
+      <div class="flex flex-col gap-4">
+        <app-related-products [products]="relatedProducts()" />
+      </div>
+    </div>
+  </section>
+</div>

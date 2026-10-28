@@ -9,8 +9,6 @@ import {
   selectError,
   selectLoading,
 } from "../products/store/products.selectors";
-import { By } from "@angular/platform-browser";
-import { provideTranslateService } from "@ngx-translate/core";
 import { Component } from "@angular/core";
 import { SectionBestSelling } from "./components/section-best-selling/section-best-selling";
 import { SectionFeatures } from "./components/section-features/section-features";
