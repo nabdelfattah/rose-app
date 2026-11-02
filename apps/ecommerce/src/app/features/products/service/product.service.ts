@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { BASE_URL } from "../../../core/constants/apiUrl";
 import { ProductDetailRes, ProductRes } from "../model/product";
@@ -13,6 +13,14 @@ export class ProductService {
 
   getProducts(): Observable<ProductRes> {
     return this.httpClient.get<ProductRes>(this.apiUrl);
+  }
+
+  getPaginatedProducts(page: number, limit: number): Observable<ProductRes> {
+    const params = new HttpParams()
+      .set("page", page)
+      .set("limit", limit);
+
+    return this.httpClient.get<ProductRes>(this.apiUrl, { params });
   }
 
   getProductById(id: string): Observable<ProductDetailRes> {

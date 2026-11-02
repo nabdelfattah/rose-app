@@ -19,6 +19,11 @@ export const selectError = createSelector(
   (state) => state.error,
 );
 
+export const selectProductsMetadata = createSelector(
+  selectProductsState,
+  (state) => state.metadata,
+);
+
 //////////////////////////////////////////////////////////////////////
 // for best selling products
 //////////////////////////////////////////////////////////////////////

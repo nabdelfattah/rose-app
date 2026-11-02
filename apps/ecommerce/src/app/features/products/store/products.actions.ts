@@ -5,6 +5,10 @@ export const ProductsActions = createActionGroup({
   source: "Products",
   events: {
     "Load Products": emptyProps(),
+    "Load Products Page": props<{
+      page: number;
+      limit: number;
+    }>(),
 
     "Load Products Success": props<{
       response: ProductRes;

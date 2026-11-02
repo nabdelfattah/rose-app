@@ -27,6 +27,27 @@ export const loadProducts = createEffect(
   { functional: true },
 );
 
+export const loadProductsPage = createEffect(
+  (actions$ = inject(Actions), productService = inject(ProductService)) =>
+    actions$.pipe(
+      ofType(ProductsActions.loadProductsPage),
+
+      switchMap(({ page, limit }) =>
+        productService.getPaginatedProducts(page, limit).pipe(
+          map((response) => ProductsActions.loadProductsSuccess({ response })),
+
+          catchError((error: HttpErrorResponse) =>
+            of(
+              ProductsActions.loadProductsFailure({
+                error: error.message || "Failed to load products",
+              }),
+            ),
+          ),
+        ),
+      ),
+    ),
+  { functional: true },
+);
 //////////////////////////////////////////////////////////////////////
 // for best selling products
 //////////////////////////////////////////////////////////////////////

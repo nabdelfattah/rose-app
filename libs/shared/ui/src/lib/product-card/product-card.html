@@ -21,6 +21,7 @@
     <!-- Wishlist -->
     <button
       type="button"
+      (click)="wishlistToggle.emit(product())"
       class="group/wish absolute inset-s-2 top-2 z-10 flex h-7.5 items-center overflow-hidden rounded-full bg-[#fff] text-maroon-800 cursor-pointer"
     >
       <span class="grid size-7.5 shrink-0 place-items-center">
@@ -92,6 +93,8 @@
 
       <button
         type="button"
+        [disabled]="isOutOfStock()"
+        (click)="addToCart.emit(product())"
         class="flex size-10.5 items-center justify-center rounded-full bg-maroon-600 dark:bg-maroon-500 text-[#fff] cursor-pointer"
       >
         <svg lucideShoppingCart class="size-6"></svg>

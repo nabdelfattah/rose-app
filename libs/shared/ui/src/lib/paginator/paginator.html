@@ -1,0 +1,30 @@
+<nav class="flex items-center justify-center gap-2">
+      <button type="button" [class]="btn" [disabled]="page() === 1" (click)="go(1)">
+        <span class="rtl:rotate-180"><svg lucideChevronsLeft/></span>
+      </button>
+      <button type="button" [class]="btn" [disabled]="page() === 1" (click)="go(page() - 1)">
+        <span class="rtl:rotate-180"><svg lucideChevronLeft/></span>
+      </button>
+
+      @for (p of items(); track $index) {
+        @if (p === '...') {
+          <span class="w-10 text-center select-none text-zinc-500">...</span>
+        } @else {
+          <button
+            type="button"
+            [class]="p === page() ? btn + ' ' + activeCls : btn"
+            [attr.aria-page]="p === page() ? 'page' : null"
+            (click)="go(p)"
+          >
+            {{ p }}
+          </button>
+        }
+      }
+
+      <button type="button" [class]="btn" [disabled]="page() === totalPages()" (click)="go(page() + 1)">
+        <span class="rtl:rotate-180"><svg lucideChevronRight/></span>
+      </button>
+      <button type="button" [class]="btn" [disabled]="page() === totalPages()" (click)="go(totalPages())">
+        <span class="rtl:rotate-180"><svg lucideChevronsRight/></span>
+      </button>
+    </nav>
