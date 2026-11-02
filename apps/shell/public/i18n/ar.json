@@ -147,6 +147,9 @@
     }
   },
   "products": {
+    "products-page":{
+      "no-products":"لا تتوفر أي منتجات حالياً."
+    },
     "product-details": {
       "related-products": "منتجات ذات صلة",
       "add-to-cart": "أضف إلى السلة",

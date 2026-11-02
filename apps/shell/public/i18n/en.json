@@ -147,6 +147,9 @@
     }
   },
   "products": {
+    "products-page":{
+      "no-products":"No products are currently available."
+    },
     "product-details": {
       "related-products": "Related Products",
       "add-to-cart": "Add to Cart",

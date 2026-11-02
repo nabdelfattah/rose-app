@@ -1,3 +1,4 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { Component, computed, inject } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { selectAllProducts, selectError, selectLoading, selectProductsMetadata } from "./store/products.selectors";
@@ -7,7 +8,7 @@ import { Paginator } from "@rose-app/ui";
 
 @Component({
   selector: "app-products",
-  imports: [ProductCardComponent, Paginator],
+  imports: [ProductCardComponent, Paginator, TranslatePipe],
   templateUrl: "./products.html",
   styleUrl: "./products.css",
 })
