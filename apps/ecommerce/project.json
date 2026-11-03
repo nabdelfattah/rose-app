@@ -20,7 +20,13 @@
         },
         "development": {
           "target": "ecommerce:esbuild:development",
-          "dev": true
+          "dev": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/ecommerce/src/environments/environment.ts",
+              "with": "apps/ecommerce/src/environments/environment.development.ts"
+            }
+          ]
         }
       }
     },
@@ -56,7 +62,9 @@
     },
     "esbuild": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/ecommerce",
@@ -82,9 +90,13 @@
           "entry": "apps/ecommerce/src/server.ts"
         },
         "outputMode": "server",
-        "polyfills": ["es-module-shims"],
+        "polyfills": [
+          "es-module-shims"
+        ],
         "security": {
-          "allowedHosts": ["localhost"]
+          "allowedHosts": [
+            "localhost"
+          ]
         }
       },
       "configurations": {
