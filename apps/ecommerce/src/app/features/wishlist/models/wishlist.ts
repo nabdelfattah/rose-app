@@ -19,7 +19,7 @@ export interface WishlistPostResponse {
   status: boolean;
   code: number;
   payload: {
-    wishlistItems: Product;
+    wishlistItem: WishlistItem;
   };
 }
 

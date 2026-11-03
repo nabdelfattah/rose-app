@@ -1,3 +1,3 @@
 export const environment = {
-  baseUrl: "https://rose-app.elevate-bootcamp.cloud/api",
+  baseUrl: "https://rose-app.elevate-bootcamp.cloud/api/",
 };

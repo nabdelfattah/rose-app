@@ -19,11 +19,15 @@ import { userReducer } from "./features/auth/store/user.reducer";
 import * as userEffects from "./features/auth/store/user.effects";
 import { productsReducer } from "./features/products/store/products.reducer";
 import * as productsEffects from "./features/products/store/products.effects";
+import * as wishlistEffect from "./features/wishlist/store/wishlist.effects";
 import { ReviewsService } from "./features/products/service/reviews.service";
 import {
   ngxSpinnerInterceptor,
   provideNgxSpinnerHttpConfig,
 } from "ngx-spinner";
+import { environment } from "../environments/environment";
+import { wishlistReducer } from "./features/wishlist/store/wishlist.reducer";
+import { WishlistService } from "./features/wishlist/services/wishlist.service";
 
 export const appRoutes: Route[] = [
   {
@@ -40,16 +44,19 @@ export const appRoutes: Route[] = [
       ),
       provideNgxSpinnerHttpConfig({ spinner: { type: "ball-scale-multiple" } }),
       provideIamAuth({
-        baseUrl: "https://rose-app.elevate-bootcamp.cloud/api/",
+        baseUrl: environment.baseUrl,
       }),
       // Providing AuthService here creates it in this route's injector, so it uses the HttpClient + interceptors above.
       AuthService,
-      // The reviews endpoints need the token from headerInterceptor.
+      // Their endpoints need the token from headerInterceptor.
       ReviewsService,
+      WishlistService,
       provideState({ name: "user", reducer: userReducer }),
       provideEffects(userEffects),
       provideState({ name: "products", reducer: productsReducer }),
       provideEffects(productsEffects),
+      provideState({ name: "wishlist", reducer: wishlistReducer }),
+      provideEffects(wishlistEffect),
       MessageService,
       // Translation
       provideTranslateService({

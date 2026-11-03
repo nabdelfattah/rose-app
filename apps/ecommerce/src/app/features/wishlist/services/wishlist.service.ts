@@ -14,26 +14,26 @@ export class WishlistService {
 
   getWishlistProducts(): Observable<WishlistGetResponse> {
     return this.httpClient.get<WishlistGetResponse>(
-      `${environment.baseUrl}/wishlist`,
+      `${environment.baseUrl}wishlist`,
     );
   }
 
   addWishlist(productId: string): Observable<WishlistPostResponse> {
     return this.httpClient.post<WishlistPostResponse>(
-      `${environment.baseUrl}/wishlist`,
+      `${environment.baseUrl}wishlist`,
       { productId },
     );
   }
 
   deleteWishlistItem(id: string): Observable<WishlistRes> {
     return this.httpClient.delete<WishlistRes>(
-      `${environment.baseUrl}/wishlist/${id}`,
+      `${environment.baseUrl}wishlist/${id}`,
     );
   }
 
   clearWishlist(): Observable<WishlistRes> {
     return this.httpClient.delete<WishlistRes>(
-      `${environment.baseUrl}/wishlist`,
+      `${environment.baseUrl}wishlist`,
     );
   }
 }
