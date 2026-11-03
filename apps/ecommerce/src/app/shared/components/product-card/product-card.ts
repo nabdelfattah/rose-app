@@ -1,10 +1,26 @@
-import { RouterLink } from '@angular/router';
-import { Component, computed, input, output } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
-import { LucideHeartPlus, LucideStar, LucideShoppingCart, LucideEye } from '@lucide/angular';
-import { Product } from './../../../../../../apps/ecommerce/src/app/features/products/model/product';
+import { selectWishlistProducts } from "./../../../features/wishlist/store/wishlist.selector";
+import { RouterLink } from "@angular/router";
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  output,
+  signal,
+} from "@angular/core";
+import { DecimalPipe } from "@angular/common";
+import {
+  LucideHeartPlus,
+  LucideStar,
+  LucideShoppingCart,
+  LucideEye,
+} from "@lucide/angular";
+import { Product } from "../../../features/products/model/product";
+import { Store } from "@ngrx/store";
+import { wishlistActions } from "../../../features/wishlist/store/wishlist.actions";
+import { WishlistItem } from "../../../features/wishlist/models/wishlist";
 
-type BadgeType = 'new' | 'hot' | 'out-of-stock';
+type BadgeType = "new" | "hot" | "out-of-stock";
 
 interface ProductBadge {
   label: string;
@@ -12,21 +28,45 @@ interface ProductBadge {
 }
 
 @Component({
-  selector: 'app-product-card',
+  selector: "app-product-card",
   standalone: true,
-  imports: [DecimalPipe, LucideHeartPlus, LucideStar, LucideShoppingCart, LucideEye, RouterLink],
-  templateUrl: './product-card.html',
+  imports: [
+    DecimalPipe,
+    LucideHeartPlus,
+    LucideStar,
+    LucideShoppingCart,
+    LucideEye,
+    RouterLink,
+  ],
+  templateUrl: "./product-card.html",
 })
 export class ProductCardComponent {
+  private readonly store = inject(Store);
+  wishlistProducts = this.store.selectSignal(selectWishlistProducts);
 
   product = input.required<Product>();
-  wishlistToggle = output<Product>();
+  isWishlist = signal<boolean>(false);
+
+  wishlistToggle() {
+    const productId = this.getProductIdFromWishlistItem(
+      this.product().id,
+      this.wishlistProducts(),
+    );
+
+    if (productId) {
+      console.log("remove from wishlist: ", productId);
+      this.store.dispatch(wishlistActions.deleteItem({ id: productId }));
+    } else {
+      console.log("add to wishlist", this.product().id);
+      this.store.dispatch(wishlistActions.addItem({ id: this.product().id }));
+    }
+  }
   addToCart = output<Product>();
 
-   stars = [1, 2, 3, 4, 5];
-   readonly isOutOfStock = computed(() => Number(this.product().stock) <= 0);
+  stars = [1, 2, 3, 4, 5];
+  readonly isOutOfStock = computed(() => Number(this.product().stock) <= 0);
 
-   badges = computed<ProductBadge[]>(() => {
+  badges = computed<ProductBadge[]>(() => {
     const product = this.product();
     const badges: ProductBadge[] = [];
 
@@ -43,56 +83,54 @@ export class ProductCardComponent {
 
     if (isNew) {
       badges.push({
-        label: 'NEW',
-        type: 'new',
+        label: "NEW",
+        type: "new",
       });
     }
 
     if (product.stock <= 0) {
       badges.push({
-        label: 'OUT OF STOCK',
-        type: 'out-of-stock',
+        label: "OUT OF STOCK",
+        type: "out-of-stock",
       });
     }
 
     if (product.rating >= 4.5 && product.ratings >= 10) {
       badges.push({
-        label: 'HOT',
-        type: 'hot',
+        label: "HOT",
+        type: "hot",
       });
     }
 
     return badges;
   });
 
-   originalPrice = computed(() => {
-  const price = Number(this.product().price);
+  originalPrice = computed(() => {
+    const price = Number(this.product().price);
 
-  return Number.isFinite(price) && price >= 0
-    ? price
-    : null;
-});
+    return Number.isFinite(price) && price >= 0 ? price : null;
+  });
 
- discountedPrice = computed(() => {
-  const product = this.product();
-  const price = Number(product.price);
-  const discount = Number(product.discountValue);
+  discountedPrice = computed(() => {
+    const product = this.product();
+    const price = Number(product.price);
+    const discount = Number(product.discountValue);
 
-  if (
-    product.discountType !== 'PERCENT' ||
-    !Number.isFinite(price) ||
-    !Number.isFinite(discount) ||
-    price < 0 ||
-    discount <= 0 ||
-    discount > 100
-  ) {
-    return null;
-  }
+    if (
+      product.discountType !== "PERCENT" ||
+      !Number.isFinite(price) ||
+      !Number.isFinite(discount) ||
+      price < 0 ||
+      discount <= 0 ||
+      discount > 100
+    ) {
+      return null;
+    }
 
-  return price * (1 - discount / 100);
-});
+    return price * (1 - discount / 100);
+  });
 
-   normalizedRating = computed(() => {
+  normalizedRating = computed(() => {
     const rating = Number(this.product().rating);
     if (!Number.isFinite(rating)) {
       return 0;
@@ -100,11 +138,21 @@ export class ProductCardComponent {
     return Math.min(5, Math.max(0, rating));
   });
 
-   price = computed(() => {
+  price = computed(() => {
     const price = Number(this.product().price);
 
-    return Number.isFinite(price) && price >= 0
-      ? price
-      : null;
+    return Number.isFinite(price) && price >= 0 ? price : null;
   });
+
+  getProductIdFromWishlistItem(id: string, products: WishlistItem[]) {
+    console.log({ id });
+    console.log({ products });
+    let desiredId = null;
+    for (const product of products) {
+      if (product.product.id == id) {
+        desiredId = product.id;
+      }
+    }
+    return desiredId;
+  }
 }
