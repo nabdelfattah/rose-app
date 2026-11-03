@@ -54,10 +54,8 @@ export class ProductCardComponent {
     );
 
     if (productId) {
-      console.log("remove from wishlist: ", productId);
       this.store.dispatch(wishlistActions.deleteItem({ id: productId }));
     } else {
-      console.log("add to wishlist", this.product().id);
       this.store.dispatch(wishlistActions.addItem({ id: this.product().id }));
     }
   }
@@ -145,8 +143,6 @@ export class ProductCardComponent {
   });
 
   getProductIdFromWishlistItem(id: string, products: WishlistItem[]) {
-    console.log({ id });
-    console.log({ products });
     let desiredId = null;
     for (const product of products) {
       if (product.product.id == id) {

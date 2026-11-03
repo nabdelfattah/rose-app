@@ -2,7 +2,10 @@ import { inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { WishlistService } from "../services/wishlist.service";
 import { wishlistActions } from "./wishlist.actions";
-import { catchError, map, of, switchMap } from "rxjs";
+import { catchError, map, of, switchMap, tap } from "rxjs";
+import { Store } from "@ngrx/store";
+import { selectWishlistProducts } from "./wishlist.selector";
+import { concatLatestFrom } from "@ngrx/operators";
 
 // GET
 export const loadWishlistProducts = createEffect(
@@ -68,7 +71,7 @@ export const removeWishlistProduct = createEffect(
 export const clearWishlist = createEffect(
   (actions$ = inject(Actions), wishlistService = inject(WishlistService)) => {
     return actions$.pipe(
-      ofType(wishlistActions.pageOpen),
+      ofType(wishlistActions.deleteBulk),
       switchMap(() => {
         return wishlistService.clearWishlist().pipe(
           map(() => wishlistActions.deleteBulkSuccess()),
@@ -80,4 +83,26 @@ export const clearWishlist = createEffect(
     );
   },
   { functional: true },
+);
+
+// one effect handle local storage instead of repeating the steps in 4 places
+const WISHLIST_KEY = "roseWishlist";
+export const saveWishlistToStorage = createEffect(
+  (actions$ = inject(Actions), store = inject(Store)) => {
+    return actions$.pipe(
+      ofType(
+        wishlistActions.productsLoadSuccess,
+        wishlistActions.addItemSuccess,
+        wishlistActions.deleteItemSuccess,
+        wishlistActions.deleteBulkSuccess,
+      ),
+      // get the latest value in the store and concat it with the action in an array
+      // [action, products]
+      concatLatestFrom(() => store.select(selectWishlistProducts)),
+      tap(([, products]) => {
+        localStorage.setItem(WISHLIST_KEY, JSON.stringify(products));
+      }),
+    );
+  },
+  { functional: true, dispatch: false },
 );
