@@ -1,10 +1,15 @@
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe } from "@ngx-translate/core";
 import { Component, computed, inject } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { selectAllProducts, selectError, selectLoading, selectProductsMetadata } from "./store/products.selectors";
+import {
+  selectAllProducts,
+  selectError,
+  selectLoading,
+  selectProductsMetadata,
+} from "./store/products.selectors";
 import { ProductsActions } from "./store/products.actions";
-import { ProductCardComponent } from "@rose-app/ui";
 import { Paginator } from "@rose-app/ui";
+import { ProductCardComponent } from "../../shared/components/product-card/product-card";
 
 @Component({
   selector: "app-products",
@@ -21,7 +26,7 @@ export class Products {
   readonly page = computed(() => this.metadata()?.page ?? 1);
   readonly totalPages = computed(() => this.metadata()?.totalPages ?? 1);
   readonly showPagination = computed(() => this.totalPages() > 1);
-  
+
   constructor() {
     this.loadPage(1);
   }

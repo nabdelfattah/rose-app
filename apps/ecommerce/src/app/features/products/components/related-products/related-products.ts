@@ -1,8 +1,9 @@
 import { Component, input } from "@angular/core";
 import { CarouselModule } from "@openng/optimus-ui/carousel";
 import { Product } from "../../model/product";
-import { ProductCardComponent, SectionTitleComponent } from "@rose-app/ui";
+import { SectionTitleComponent } from "@rose-app/ui";
 import { TranslatePipe } from "@ngx-translate/core";
+import { ProductCardComponent } from "../../../../shared/components/product-card/product-card";
 @Component({
   selector: "app-related-products",
   standalone: true,

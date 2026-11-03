@@ -4,7 +4,7 @@ import {
   LucideMoveRight,
 } from "@lucide/angular";
 import { Component, inject, OnInit } from "@angular/core";
-import { Button, ProductCardComponent, SubTitleComponent } from "@rose-app/ui";
+import { Button, SubTitleComponent } from "@rose-app/ui";
 import { Store } from "@ngrx/store";
 import { ProductsActions } from "../../../products/store/products.actions";
 import {
@@ -14,6 +14,7 @@ import {
 } from "../../../products/store/products.selectors";
 import { CarouselModule } from "@openng/optimus-ui/carousel";
 import { TranslatePipe } from "@ngx-translate/core";
+import { ProductCardComponent } from "../../../../shared/components/product-card/product-card";
 
 @Component({
   selector: "app-section-best-selling",
