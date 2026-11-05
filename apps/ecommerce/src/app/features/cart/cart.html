@@ -1,1 +1,153 @@
-<p>cart works!</p>
+<div class="section-container py-8 sm:py-12">
+  @if (!isAuthenticated()) {
+  <!-- Unauthenticated State -->
+  <div
+    class="rounded-2xl border border-zinc-200 bg-white p-8 sm:p-12 text-center max-w-lg mx-auto shadow-xs"
+  >
+    <div
+      class="size-16 sm:size-20 rounded-full bg-zinc-50 border border-zinc-200 text-zinc-400 mx-auto flex items-center justify-center mb-5"
+    >
+      <svg lucideShoppingCart class="size-8 sm:size-10"></svg>
+    </div>
+
+    <h2 class="text-xl sm:text-2xl font-bold text-zinc-900 mb-2">
+      {{ 'cart.login-required-title' | translate }}
+    </h2>
+    <p class="text-sm sm:text-base text-zinc-500 mb-6">
+      {{ 'cart.login-required-desc' | translate }}
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+      <a
+        appButton
+        variant="primary"
+        routerLink="/login"
+        class="inline-flex items-center gap-2 w-full sm:w-auto"
+      >
+        <svg lucideLogIn class="size-4"></svg>
+        {{ 'cart.login' | translate }}
+      </a>
+      <a
+        appButton
+        variant="outline"
+        routerLink="/products"
+        class="w-full sm:w-auto"
+      >
+        {{ 'cart.continue-shopping' | translate }}
+      </a>
+    </div>
+  </div>
+  } @else if (isLoading() && items().length === 0) {
+  <!-- Loading State -->
+  <div class="space-y-4 max-w-4xl mx-auto py-12">
+    <div class="h-8 w-48 bg-zinc-200 rounded-md animate-pulse"></div>
+    <div class="rounded-xl border border-zinc-200 bg-white p-6 space-y-6">
+      <div class="h-20 bg-zinc-100 rounded-lg animate-pulse"></div>
+      <div class="h-20 bg-zinc-100 rounded-lg animate-pulse"></div>
+    </div>
+  </div>
+  } @else if (items().length === 0) {
+  <!-- Empty Cart State -->
+  <div
+    class="rounded-2xl border border-zinc-200 bg-white p-8 sm:p-12 text-center max-w-lg mx-auto shadow-xs"
+  >
+    <div
+      class="size-16 sm:size-20 rounded-full bg-zinc-50 border border-zinc-200 text-zinc-400 mx-auto flex items-center justify-center mb-5"
+    >
+      <svg lucideShoppingCart class="size-8 sm:size-10"></svg>
+    </div>
+
+    <h2 class="text-xl sm:text-2xl font-bold text-zinc-900 mb-2">
+      {{ 'cart.empty-title' | translate }}
+    </h2>
+    <p class="text-sm sm:text-base text-zinc-500 mb-6">
+      {{ 'cart.empty-desc' | translate }}
+    </p>
+
+    <a
+      appButton
+      variant="primary"
+      routerLink="/products"
+      class="inline-flex items-center gap-2"
+    >
+      {{ 'cart.start-shopping' | translate }}
+    </a>
+  </div>
+  } @else {
+  <!-- Populated Cart Page -->
+  <div
+    class="grid grid-cols-1 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_400px] gap-8 items-start"
+  >
+    <!-- Left: Cart Items & Header -->
+    <div class="space-y-4">
+      <!-- Top Title & Clear Cart Row -->
+      <div
+        class="flex items-center justify-between pb-2 border-b border-zinc-200"
+      >
+        <div class="flex items-baseline gap-2">
+          <h1 class="text-2xl sm:text-3xl font-bold text-zinc-900">
+            {{ 'cart.title' | translate }}
+          </h1>
+          <span class="text-sm sm:text-base text-zinc-500 font-medium">
+            ({{ itemsCount() }} {{ (itemsCount() === 1 ? 'cart.item' :
+            'cart.items') | translate }})
+          </span>
+        </div>
+
+        <button
+          type="button"
+          (click)="onClearCart()"
+          [disabled]="isMutating()"
+          class="text-red-500 hover:text-red-700 flex items-center gap-1.5 text-sm font-semibold transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+          [attr.aria-label]="'cart.clear-cart' | translate"
+        >
+          <svg lucideTrash2 class="size-4"></svg>
+          <span>{{ 'cart.clear-cart' | translate }}</span>
+        </button>
+      </div>
+
+      <!-- Bordered Cart Container -->
+      <div
+        class="rounded-xl border border-zinc-200 bg-white p-4 sm:p-6 shadow-xs"
+      >
+        @for (item of items(); track item.id) {
+        <app-cart-item
+          [item]="item"
+          [disabled]="isMutating()"
+          (quantityChange)="onQuantityChange(item.id, $event)"
+          (remove)="onRemoveItem(item.id)"
+        />
+        }
+      </div>
+
+      <!-- Continue Shopping Button Below Items -->
+      <div>
+        <a
+          appButton
+          variant="outline"
+          routerLink="/products"
+          class="inline-flex items-center gap-2"
+        >
+          <svg lucideArrowLeft class="size-4 rtl:rotate-180"></svg>
+          <span>{{ 'cart.continue-shopping' | translate }}</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Summary Panel -->
+    <aside class="sticky top-24">
+      <app-cart-summary
+        [subtotal]="subtotal()"
+        [discount]="discount()"
+        [total]="total()"
+        [appliedCoupon]="appliedCoupon()"
+        [couponError]="couponError()"
+        [isCouponLoading]="isCouponLoading()"
+        [isCheckoutDisabled]="items().length === 0 || isMutating()"
+        (applyCoupon)="onApplyCoupon($event)"
+        (removeCoupon)="onRemoveCoupon()"
+      />
+    </aside>
+  </div>
+  }
+</div>

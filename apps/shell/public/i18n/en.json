@@ -197,5 +197,34 @@
       "error-required": "Please enter your email address",
       "error-invalid": "Please enter a valid email address"
     }
+  },
+  "cart": {
+    "title": "Cart",
+    "items": "Items",
+    "item": "Item",
+    "clear-cart": "Clear Cart",
+    "remove": "Remove",
+    "summary": "Summary",
+    "coupon-code": "Coupon Code",
+    "coupon-placeholder": "Enter coupon code",
+    "apply-coupon": "Apply",
+    "remove-coupon": "Remove",
+    "no-coupon-applied": "No coupons applied yet",
+    "coupon-applied": "Coupon {{code}} applied successfully!",
+    "coupon-invalid": "Invalid or expired coupon code",
+    "coupon-min-purchase": "Minimum purchase required for this coupon",
+    "coupon-limit-reached": "This coupon has reached its usage limit",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "total": "Total",
+    "checkout": "Checkout",
+    "continue-shopping": "Continue Shopping",
+    "empty-title": "Your cart is empty",
+    "empty-desc": "Looks like you haven't added anything to your cart yet.",
+    "start-shopping": "Start Shopping",
+    "login-required-title": "Sign in to view your cart",
+    "login-required-desc": "Please log in to your account to view and manage your cart items.",
+    "login": "Sign In",
+    "error-loading": "Failed to load cart. Please try again."
   }
 }
