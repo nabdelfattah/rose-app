@@ -22,7 +22,7 @@
         appButton
         variant="primary"
         routerLink="/login"
-        class="inline-flex items-center gap-2 w-full sm:w-auto"
+        class="inline-flex items-center gap-2 w-full sm:w-auto cursor-pointer"
       >
         <svg lucideLogIn class="size-4"></svg>
         {{ 'cart.login' | translate }}
@@ -31,7 +31,7 @@
         appButton
         variant="outline"
         routerLink="/products"
-        class="w-full sm:w-auto"
+        class="w-full sm:w-auto cursor-pointer"
       >
         {{ 'cart.continue-shopping' | translate }}
       </a>
@@ -68,7 +68,7 @@
       appButton
       variant="primary"
       routerLink="/products"
-      class="inline-flex items-center gap-2"
+      class="inline-flex items-center gap-2 cursor-pointer"
     >
       {{ 'cart.start-shopping' | translate }}
     </a>
@@ -126,7 +126,7 @@
           appButton
           variant="outline"
           routerLink="/products"
-          class="inline-flex items-center gap-2"
+          class="inline-flex items-center gap-2 cursor-pointer"
         >
           <svg lucideArrowLeft class="size-4 rtl:rotate-180"></svg>
           <span>{{ 'cart.continue-shopping' | translate }}</span>

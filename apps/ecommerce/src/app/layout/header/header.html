@@ -350,16 +350,18 @@
         <a
           routerLink="/cart"
           (click)="closeAllOverlays()"
-          class="relative p-1 sm:p-2 rounded-lg text-zinc-700 dark:text-zinc-200 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition focus:outline-none shrink-0"
+          class="relative p-1 sm:p-2 rounded-lg text-zinc-700 dark:text-zinc-200 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition focus:outline-none shrink-0 cursor-pointer"
           [attr.aria-label]="isArabic() ? 'سلة التسوق' : 'Cart'"
           title="Cart"
         >
           <svg lucideShoppingCart class="w-4.5 h-4.5 sm:w-5 sm:h-5"></svg>
+          @if (cartItemsCount() > 0) {
           <span
             class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#d91d36] text-white text-[10px] font-bold flex items-center justify-center leading-none pointer-events-none"
           >
-            8
+            {{ cartItemsCount() }}
           </span>
+          }
         </a>
 
         <!-- 4. Notifications Bell with Unread Badge -->

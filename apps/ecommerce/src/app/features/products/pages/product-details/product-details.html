@@ -1,6 +1,6 @@
 <div class="container section-container">
   @if (selectedProduct(); as current) {
-  <app-product-details-info [product]="current" />
+  <app-product-details-info [product]="current" (addToCart)="onAddToCart($event)" />
   }
   <!-- ----------------------------------------------------------------- -->
   <!-- Reviews -->

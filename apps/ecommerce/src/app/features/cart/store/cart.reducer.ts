@@ -25,6 +25,25 @@ export const initialCartState: CartState = {
 export const cartReducer = createReducer(
   initialCartState,
 
+  // Add Item To Cart
+  on(CartActions.addItemToCart, (state) => ({
+    ...state,
+    isMutating: true,
+    error: null,
+  })),
+  on(CartActions.addItemToCartSuccess, (state) => ({
+    // State is refreshed by the subsequent loadCart dispatched from the effect.
+    // Here we only clear the mutating flag.
+    ...state,
+    isMutating: false,
+    error: null,
+  })),
+  on(CartActions.addItemToCartFailure, (state, { error }) => ({
+    ...state,
+    isMutating: false,
+    error,
+  })),
+
   // Load Cart
   on(CartActions.loadCart, (state) => ({
     ...state,

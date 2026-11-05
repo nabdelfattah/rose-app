@@ -31,6 +31,7 @@
         (click)="onApply()"
         [loading]="isCouponLoading()"
         [disabled]="!couponCodeInput().trim() || !!appliedCoupon()"
+        class="cursor-pointer disabled:cursor-not-allowed"
       >
         {{ 'cart.apply-coupon' | translate }}
       </button>
@@ -101,7 +102,7 @@
     size="full"
     routerLink="/checkout"
     [disabled]="isCheckoutDisabled()"
-    class="mt-6 w-full text-center"
+    class="mt-6 w-full text-center cursor-pointer"
   >
     {{ 'cart.checkout' | translate }}
   </a>

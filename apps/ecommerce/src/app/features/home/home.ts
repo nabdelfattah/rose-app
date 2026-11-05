@@ -21,6 +21,8 @@ import { Router, RouterLink } from "@angular/router";
 import { TranslatePipe } from "@ngx-translate/core";
 import { Testimonials } from "./components/section-testimonials/testimonials";
 import { PromotionalBanners } from "./components/promotional-banners/promotional-banners";
+import { Product } from "../products/model/product";
+import { CartActions } from "../cart/store/cart.actions";
 
 @Component({
   selector: "app-home",
@@ -65,6 +67,12 @@ export class Home implements OnInit {
 
   viewMore() {
     this.router.navigate(["/products"]);
+  }
+
+  onAddToCart(product: Product): void {
+    this.store.dispatch(
+      CartActions.addItemToCart({ productId: product.id, quantity: 1 })
+    );
   }
 
   ngOnInit(): void {

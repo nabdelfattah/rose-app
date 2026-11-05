@@ -92,7 +92,10 @@
 
       <button
         type="button"
-        class="flex size-10.5 items-center justify-center rounded-full bg-maroon-600 dark:bg-maroon-500 text-[#fff] cursor-pointer"
+        class="flex size-10.5 items-center justify-center rounded-full bg-maroon-600 dark:bg-maroon-500 text-[#fff] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+        [disabled]="isOutOfStock()"
+        (click)="onAddToCart()"
+        [attr.aria-label]="'Add to cart'"
       >
         <svg lucideShoppingCart class="size-6"></svg>
       </button>

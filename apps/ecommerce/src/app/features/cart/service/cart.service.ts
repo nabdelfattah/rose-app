@@ -9,9 +9,7 @@ import {
   UpdateQuantityRequest,
 } from '../models/cart';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CartService {
   private readonly http = inject(HttpClient);
   private readonly cartUrl = `${BASE_URL}/cart`;

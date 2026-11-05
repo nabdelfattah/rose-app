@@ -26,6 +26,7 @@ import { ReviewsService } from "../../service/reviews.service";
 import { selectToken } from "../../../auth/store/user.selector";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Store } from "@ngrx/store";
+import { CartActions } from "../../../cart/store/cart.actions";
 
 type ReviewField = "rating" | "headline" | "content";
 
@@ -143,6 +144,12 @@ export class ProductDetails {
   ngOnInit() {
     this.store.dispatch(
       ProductsActions.loadSelectedProduct({ id: this.productId! }),
+    );
+  }
+
+  onAddToCart(product: Product): void {
+    this.store.dispatch(
+      CartActions.addItemToCart({ productId: product.id, quantity: 1 })
     );
   }
 

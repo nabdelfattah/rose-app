@@ -225,6 +225,8 @@
     "login-required-title": "Sign in to view your cart",
     "login-required-desc": "Please log in to your account to view and manage your cart items.",
     "login": "Sign In",
-    "error-loading": "Failed to load cart. Please try again."
+    "error-loading": "Failed to load cart. Please try again.",
+    "added-success": "Item added to cart successfully",
+    "add-failed": "Failed to add item to cart"
   }
 }

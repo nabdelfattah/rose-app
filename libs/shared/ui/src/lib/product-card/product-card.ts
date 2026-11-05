@@ -24,6 +24,14 @@ export class ProductCardComponent {
    stars = [1, 2, 3, 4, 5];
    readonly isOutOfStock = computed(() => Number(this.product().stock) <= 0);
 
+   readonly addToCart = output<Product>();
+
+   onAddToCart(): void {
+    if (!this.isOutOfStock()) {
+      this.addToCart.emit(this.product());
+    }
+  }
+
    badges = computed<ProductBadge[]>(() => {
     const product = this.product();
     const badges: ProductBadge[] = [];

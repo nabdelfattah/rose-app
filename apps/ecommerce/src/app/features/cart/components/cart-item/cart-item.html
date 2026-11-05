@@ -55,7 +55,7 @@
         type="button"
         (click)="onDecrement()"
         [disabled]="disabled() || item().quantity <= 1"
-        class="size-8 sm:size-9 flex items-center justify-center text-zinc-600 hover:text-maroon-600 hover:bg-zinc-50 rounded-s-lg transition disabled:opacity-40 disabled:cursor-not-allowed"
+        class="size-8 sm:size-9 flex items-center justify-center text-zinc-600 hover:text-maroon-600 hover:bg-zinc-50 rounded-s-lg transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
         [attr.aria-label]="'Decrease quantity'"
       >
         <svg lucideMinus class="size-3.5"></svg>
@@ -69,7 +69,7 @@
         type="button"
         (click)="onIncrement()"
         [disabled]="disabled()"
-        class="size-8 sm:size-9 flex items-center justify-center text-zinc-600 hover:text-maroon-600 hover:bg-zinc-50 rounded-e-lg transition disabled:opacity-40 disabled:cursor-not-allowed"
+        class="size-8 sm:size-9 flex items-center justify-center text-zinc-600 hover:text-maroon-600 hover:bg-zinc-50 rounded-e-lg transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
         [attr.aria-label]="'Increase quantity'"
       >
         <svg lucidePlus class="size-3.5"></svg>

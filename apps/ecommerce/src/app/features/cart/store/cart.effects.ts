@@ -1,9 +1,61 @@
 import { inject } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { MessageService } from '@openng/optimus-ui/api';
 import { CartService } from '../service/cart.service';
 import { CartActions } from './cart.actions';
+import { userActions } from '../../auth/store/user.actions';
+
+export const addItemToCart = createEffect(
+  (actions$ = inject(Actions), cartService = inject(CartService)) =>
+    actions$.pipe(
+      ofType(CartActions.addItemToCart),
+      switchMap(({ productId, quantity }) =>
+        cartService.addToCart({ productId, quantity }).pipe(
+          // POST succeeds → fire addItemToCartSuccess carrying the raw response (for the message),
+          // then immediately re-fetch the full cart so state is authoritative.
+          switchMap((response) => [
+            CartActions.addItemToCartSuccess({ response }),
+            CartActions.loadCart(),
+          ]),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              CartActions.addItemToCartFailure({
+                error: error.error?.message || error.message || 'Failed to add item to cart',
+              })
+            )
+          )
+        )
+      )
+    ),
+  { functional: true }
+);
+
+/** Show success toast after adding an item. Uses the API message when available. */
+export const addItemToCartSuccessToast = createEffect(
+  (actions$ = inject(Actions), messageService = inject(MessageService)) =>
+    actions$.pipe(
+      ofType(CartActions.addItemToCartSuccess),
+      tap(({ response }) => {
+        const detail = response?.message || 'cart.added-success';
+        messageService.add({ severity: 'success', detail });
+      })
+    ),
+  { functional: true, dispatch: false }
+);
+
+/** Show error toast when add-to-cart fails. */
+export const addItemToCartFailureToast = createEffect(
+  (actions$ = inject(Actions), messageService = inject(MessageService)) =>
+    actions$.pipe(
+      ofType(CartActions.addItemToCartFailure),
+      tap(({ error }) => {
+        messageService.add({ severity: 'error', detail: error || 'cart.add-failed' });
+      })
+    ),
+  { functional: true, dispatch: false }
+);
 
 export const loadCart = createEffect(
   (actions$ = inject(Actions), cartService = inject(CartService)) =>
@@ -138,6 +190,16 @@ export const applyCoupon = createEffect(
           )
         );
       })
+    ),
+  { functional: true }
+);
+
+/** Reload the cart after the user logs in so the Navbar badge is correct immediately. */
+export const loadCartOnLogin = createEffect(
+  (actions$ = inject(Actions)) =>
+    actions$.pipe(
+      ofType(userActions.loginSuccessfully),
+      map(() => CartActions.loadCart())
     ),
   { functional: true }
 );
