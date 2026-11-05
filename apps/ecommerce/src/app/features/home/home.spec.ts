@@ -12,6 +12,8 @@ import {
 import { Component } from "@angular/core";
 import { SectionBestSelling } from "./components/section-best-selling/section-best-selling";
 import { SectionFeatures } from "./components/section-features/section-features";
+import { By } from "@angular/platform-browser";
+import { provideTranslateService } from "@ngx-translate/core";
 
 // Fake child sections
 @Component({ selector: "app-section-best-selling", template: "" })

@@ -1,1 +1,23 @@
-<p>products works!</p>
+<section class="container mx-auto py-10">
+  <div class="grid grid-cols-1 gap-8 lg:grid-cols-[240px_1fr]">
+    <aside class="hidden lg:block"></aside>
+    <div>
+      @if (products().length > 0) {
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 mx-3 md:mx-0">
+        @for (product of products(); track product.id) {
+        <app-product-card [product]="product" />
+        }
+      </div>
+      @if(showPagination()){
+        <div class="mt-4">
+            <app-paginator (pageChange)="onPageChange($event)"  [totalPages]="totalPages()" [page]="page()"></app-paginator>
+        </div>
+      }
+    } @else {
+      <p class="text-zinc-500 dark:text-zinc-400 text-center">
+        {{"products.products-page.no-products"|translate}}
+      </p>
+      }
+    </div>
+  </div>
+</section>
