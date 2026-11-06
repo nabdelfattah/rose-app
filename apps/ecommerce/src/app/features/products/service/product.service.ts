@@ -16,9 +16,7 @@ export class ProductService {
   }
 
   getPaginatedProducts(page: number, limit: number): Observable<ProductRes> {
-    const params = new HttpParams()
-      .set("page", page)
-      .set("limit", limit);
+    const params = new HttpParams().set("page", page).set("limit", limit);
 
     return this.httpClient.get<ProductRes>(this.apiUrl, { params });
   }
@@ -32,5 +30,14 @@ export class ProductService {
     return this.httpClient.get<ProductRes>(
       `${this.apiUrl}/?page=1&limit=6&sortBy=rating`,
     );
+  }
+
+  getRecommendedProducts(limit = 10): Observable<ProductRes> {
+    const params = new HttpParams()
+      .set("page", 1)
+      .set("limit", limit)
+      .set("sortBy", "mostPopular");
+
+    return this.httpClient.get<ProductRes>(this.apiUrl, { params });
   }
 }

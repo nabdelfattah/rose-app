@@ -21,7 +21,6 @@ export class ProductCardComponent {
 
   product = input.required<Product>();
   wishlistToggle = output<Product>();
-  addToCart = output<Product>();
 
    stars = [1, 2, 3, 4, 5];
    readonly isOutOfStock = computed(() => Number(this.product().stock) <= 0);
