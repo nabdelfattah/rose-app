@@ -59,6 +59,7 @@ import {
   selectuserName,
   selectUserState,
 } from '../../features/auth/store/user.selector';
+import { selectCartItemsCount } from '../../features/cart/store/cart.selectors';
 
 @Component({
   selector: 'app-header',
@@ -119,6 +120,8 @@ export class Header implements OnInit {
   readonly userFirstName = this.store.selectSignal(selectFirstName);
   readonly userName = this.store.selectSignal(selectuserName);
   readonly isAuthLoading = this.store.selectSignal(selectLoading);
+
+  readonly cartItemsCount = this.store.selectSignal(selectCartItemsCount);
 
   readonly isAuthenticated = computed(() => {
     return !!this.userId() || this.session.hasToken();

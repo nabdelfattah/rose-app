@@ -21,6 +21,9 @@ import { productsReducer } from "./features/products/store/products.reducer";
 import * as productsEffects from "./features/products/store/products.effects";
 import * as wishlistEffect from "./features/wishlist/store/wishlist.effects";
 import { ReviewsService } from "./features/products/service/reviews.service";
+import { cartReducer } from "./features/cart/store/cart.reducer";
+import * as cartEffects from "./features/cart/store/cart.effects";
+import { CartService } from "./features/cart/service/cart.service";
 import {
   ngxSpinnerInterceptor,
   provideNgxSpinnerHttpConfig,
@@ -57,6 +60,9 @@ export const appRoutes: Route[] = [
       provideEffects(productsEffects),
       provideState({ name: "wishlist", reducer: wishlistReducer }),
       provideEffects(wishlistEffect),
+      provideState({ name: "cart", reducer: cartReducer }),
+      provideEffects(cartEffects),
+      CartService,
       MessageService,
       // Translation
       provideTranslateService({
