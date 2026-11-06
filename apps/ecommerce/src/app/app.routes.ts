@@ -20,6 +20,9 @@ import * as userEffects from "./features/auth/store/user.effects";
 import { productsReducer } from "./features/products/store/products.reducer";
 import * as productsEffects from "./features/products/store/products.effects";
 import { ReviewsService } from "./features/products/service/reviews.service";
+import { cartReducer } from "./features/cart/store/cart.reducer";
+import * as cartEffects from "./features/cart/store/cart.effects";
+import { CartService } from "./features/cart/service/cart.service";
 import {
   ngxSpinnerInterceptor,
   provideNgxSpinnerHttpConfig,
@@ -50,6 +53,9 @@ export const appRoutes: Route[] = [
       provideEffects(userEffects),
       provideState({ name: "products", reducer: productsReducer }),
       provideEffects(productsEffects),
+      provideState({ name: "cart", reducer: cartReducer }),
+      provideEffects(cartEffects),
+      CartService,
       MessageService,
       // Translation
       provideTranslateService({

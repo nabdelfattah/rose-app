@@ -1,0 +1,110 @@
+<div class="rounded-xl border border-zinc-200 bg-white p-5 sm:p-6 shadow-xs">
+  <h2 class="text-xl font-bold text-zinc-800 border-b border-zinc-100 pb-3 mb-5">
+    {{ 'cart.summary' | translate }}
+  </h2>
+
+  <!-- Coupon Code Section -->
+  <div class="space-y-2 mb-6">
+    <label for="coupon-code-input" class="block text-sm font-medium text-zinc-700">
+      {{ 'cart.coupon-code' | translate }}
+    </label>
+
+    <div class="flex items-center gap-2">
+      <div class="relative flex-1">
+        <input
+          id="coupon-code-input"
+          type="text"
+          [placeholder]="'cart.coupon-placeholder' | translate"
+          [ngModel]="couponCodeInput()"
+          (ngModelChange)="couponCodeInput.set($event)"
+          (keydown.enter)="onApply()"
+          [disabled]="isCouponLoading() || !!appliedCoupon()"
+          class="w-full rounded-lg border border-zinc-300 bg-white px-3.5 py-2 text-sm text-zinc-800 uppercase placeholder:normal-case placeholder:text-zinc-400 focus:border-maroon-600 focus:outline-none focus:ring-1 focus:ring-maroon-600 disabled:bg-zinc-50 disabled:text-zinc-400 disabled:cursor-not-allowed"
+        />
+      </div>
+
+      <button
+        appButton
+        variant="primary"
+        size="sm"
+        type="button"
+        (click)="onApply()"
+        [loading]="isCouponLoading()"
+        [disabled]="!couponCodeInput().trim() || !!appliedCoupon()"
+        class="cursor-pointer disabled:cursor-not-allowed"
+      >
+        {{ 'cart.apply-coupon' | translate }}
+      </button>
+    </div>
+
+    <!-- Coupon Feedback / State Area -->
+    @if (appliedCoupon(); as coupon) {
+      <div
+        class="flex items-center justify-between text-xs sm:text-sm text-emerald-700 bg-emerald-50 px-3 py-2 rounded-lg border border-emerald-200 mt-2"
+      >
+        <div class="flex items-center gap-1.5 font-medium">
+          <svg lucideTag class="size-4 shrink-0 text-emerald-600"></svg>
+          <span>{{ 'cart.coupon-applied' | translate: { code: coupon.code } }}</span>
+        </div>
+        <button
+          type="button"
+          (click)="onRemove()"
+          class="text-emerald-700 hover:text-red-500 font-semibold p-1 transition cursor-pointer"
+          [title]="'cart.remove-coupon' | translate"
+          [attr.aria-label]="'cart.remove-coupon' | translate"
+        >
+          <svg lucideX class="size-4"></svg>
+        </button>
+      </div>
+    } @else if (couponError(); as err) {
+      <p class="text-xs text-red-600 mt-1 font-medium">
+        {{ err | translate }}
+      </p>
+    } @else {
+      <p class="text-xs text-zinc-400 mt-1">
+        {{ 'cart.no-coupon-applied' | translate }}
+      </p>
+    }
+  </div>
+
+  <div class="border-t border-zinc-100 pt-4 space-y-3">
+    <!-- Subtotal -->
+    <div class="flex items-center justify-between text-sm sm:text-base text-zinc-600">
+      <span>{{ 'cart.subtotal' | translate }}</span>
+      <span class="font-semibold text-zinc-800">
+        {{ subtotal() | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+    </div>
+
+    <!-- Discount (if applicable) -->
+    @if (discount() > 0) {
+      <div class="flex items-center justify-between text-sm sm:text-base text-emerald-600 font-medium">
+        <span>{{ 'cart.discount' | translate }}</span>
+        <span>-{{ discount() | currency:'USD':'symbol':'1.2-2' }}</span>
+      </div>
+    }
+
+    <!-- Total -->
+    <div
+      class="border-t border-zinc-200 pt-3 flex items-baseline justify-between text-zinc-900 font-bold"
+    >
+      <span class="text-base sm:text-lg">{{ 'cart.total' | translate }}</span>
+      <span class="text-xl sm:text-2xl text-maroon-600">
+        {{ total() | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Checkout Button -->
+  <a
+    appButton
+    variant="primary"
+    size="full"
+    routerLink="/checkout"
+    [disabled]="isCheckoutDisabled()"
+    class="mt-6 w-full text-center cursor-pointer"
+  >
+    {{ 'cart.checkout' | translate }}
+  </a>
+</div>
+

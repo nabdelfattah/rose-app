@@ -1,8 +1,11 @@
-import { Component, input } from "@angular/core";
+import { Component, inject, input } from "@angular/core";
 import { CarouselModule } from "@openng/optimus-ui/carousel";
 import { Product } from "../../model/product";
 import { ProductCardComponent, SectionTitleComponent } from "@rose-app/ui";
 import { TranslatePipe } from "@ngx-translate/core";
+import { Store } from "@ngrx/store";
+import { CartActions } from "../../../cart/store/cart.actions";
+
 @Component({
   selector: "app-related-products",
   standalone: true,
@@ -16,6 +19,8 @@ import { TranslatePipe } from "@ngx-translate/core";
   styleUrl: "./related-products.css",
 })
 export class RelatedProducts {
+  private readonly store = inject(Store);
+
   products = input<Product[]>([]);
   responsiveOptions = [
     {
@@ -44,4 +49,10 @@ export class RelatedProducts {
       numScroll: 1,
     },
   ];
+
+  onAddToCart(product: Product): void {
+    this.store.dispatch(
+      CartActions.addItemToCart({ productId: product.id, quantity: 1 })
+    );
+  }
 }

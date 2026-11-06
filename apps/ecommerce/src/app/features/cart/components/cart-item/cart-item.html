@@ -1,0 +1,92 @@
+<article
+  class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-4 sm:py-5 border-b border-zinc-100 last:border-b-0"
+>
+  <!-- Left: Image + Info -->
+  <div class="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+    <a
+      [routerLink]="['/products', productId()]"
+      class="shrink-0 group overflow-hidden rounded-lg bg-zinc-50 border border-zinc-200"
+    >
+      <img
+        [src]="cover()"
+        [alt]="title()"
+        class="size-20 sm:size-24 object-cover object-center transition duration-300 group-hover:scale-105"
+        loading="lazy"
+      />
+    </a>
+
+    <div class="flex flex-col gap-1 min-w-0">
+      <a
+        [routerLink]="['/products', productId()]"
+        class="text-base sm:text-lg font-semibold text-zinc-800 hover:text-maroon-600 transition truncate"
+        [title]="title()"
+      >
+        {{ title() }}
+      </a>
+
+      <!-- Rating summary -->
+      <div class="flex items-center gap-1.5 text-xs text-zinc-500">
+        <app-rating [rating]="rating()" [readonly]="true" />
+        <span class="font-medium text-zinc-700">{{ rating() | number:'1.1-1' }}</span>
+        @if (ratingsCount() > 0) {
+          <span class="text-zinc-400">({{ ratingsCount() }})</span>
+        }
+      </div>
+
+      <!-- Price x Quantity -->
+      <div class="mt-1 flex items-baseline gap-2">
+        <span class="text-sm text-zinc-500">
+          {{ item().quantity }} × {{ unitPrice() | currency:'USD':'symbol':'1.2-2' }}
+        </span>
+        <span class="text-base font-bold text-maroon-600">
+          = {{ totalPrice() | currency:'USD':'symbol':'1.2-2' }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Quantity Controls + Remove Button -->
+  <div
+    class="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-zinc-100"
+  >
+    <!-- Quantity Counter -->
+    <div class="flex items-center rounded-lg border border-zinc-200 bg-white">
+      <button
+        type="button"
+        (click)="onDecrement()"
+        [disabled]="disabled() || item().quantity <= 1"
+        class="size-8 sm:size-9 flex items-center justify-center text-zinc-600 hover:text-maroon-600 hover:bg-zinc-50 rounded-s-lg transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+        [attr.aria-label]="'Decrease quantity'"
+      >
+        <svg lucideMinus class="size-3.5"></svg>
+      </button>
+
+      <span class="w-9 sm:w-10 text-center text-sm font-semibold text-zinc-800 select-none">
+        {{ item().quantity }}
+      </span>
+
+      <button
+        type="button"
+        (click)="onIncrement()"
+        [disabled]="disabled()"
+        class="size-8 sm:size-9 flex items-center justify-center text-zinc-600 hover:text-maroon-600 hover:bg-zinc-50 rounded-e-lg transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+        [attr.aria-label]="'Increase quantity'"
+      >
+        <svg lucidePlus class="size-3.5"></svg>
+      </button>
+    </div>
+
+    <!-- Remove Item Button -->
+    <button
+      type="button"
+      (click)="onRemove()"
+      [disabled]="disabled()"
+      class="p-2 text-zinc-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+      [title]="'cart.remove' | translate"
+      [attr.aria-label]="'cart.remove' | translate"
+    >
+      <svg lucideTrash2 class="size-4.5"></svg>
+    </button>
+  </div>
+</article>
+

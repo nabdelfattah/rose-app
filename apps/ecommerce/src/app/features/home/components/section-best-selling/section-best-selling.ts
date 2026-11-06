@@ -14,6 +14,8 @@ import {
 } from "../../../products/store/products.selectors";
 import { CarouselModule } from "@openng/optimus-ui/carousel";
 import { TranslatePipe } from "@ngx-translate/core";
+import { Product } from "../../../products/model/product";
+import { CartActions } from "../../../cart/store/cart.actions";
 
 @Component({
   selector: "app-section-best-selling",
@@ -47,6 +49,12 @@ export class SectionBestSelling implements OnInit {
       numScroll: 1,
     },
   ];
+
+  onAddToCart(product: Product): void {
+    this.store.dispatch(
+      CartActions.addItemToCart({ productId: product.id, quantity: 1 })
+    );
+  }
 
   ngOnInit() {
     this.store.dispatch(ProductsActions.loadBestProducts());
