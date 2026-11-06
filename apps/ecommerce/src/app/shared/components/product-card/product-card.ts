@@ -60,6 +60,11 @@ export class ProductCardComponent {
     }
   }
   addToCart = output<Product>();
+  onAddToCart(): void {
+    if (!this.isOutOfStock()) {
+      this.addToCart.emit(this.product());
+    }
+  }
 
   stars = [1, 2, 3, 4, 5];
   readonly isOutOfStock = computed(() => Number(this.product().stock) <= 0);

@@ -23,7 +23,7 @@
             class="flex items-center gap-1.5 rounded-md py-1 px-1.5 bg-yellow-500 text-[#27272a]"
           >
             <svg class="size-4 text-[#27272a] fill-current" lucideStar></svg>
-            {{ item().product.rating }}/5
+            {{ item().product.rating | number: "1.1-1" }}/5
           </p>
           <p class="text-blue-600 text-sm">
             {{ item().product.ratings }} ratings
@@ -41,15 +41,25 @@
     </div>
   </div>
   <div class="flex flex-col justify-between items-center self-stretch">
-    <button appButton variant="secondary" class="ml-auto p-3.">
+    <button
+      appButton
+      variant="secondary"
+      class="ml-auto p-3."
+      (click)="removeItem(item().id)"
+    >
       <svg class="" lucideTrash></svg>
     </button>
     @if (item().product.stock > 0) {
-      <button appButton variant="primary" class="">
+      <button appButton variant="primary" class="" (click)="addToCart()">
         <svg class="" lucideShoppingCart></svg> Add to Cart
       </button>
     } @else {
-      <button appButton variant="secondary" class="">
+      <button
+        appButton
+        variant="secondary"
+        class=""
+        (click)="exploreSimilarProducts()"
+      >
         Explore Similar Products
       </button>
     }

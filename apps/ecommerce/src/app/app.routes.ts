@@ -3,7 +3,7 @@ import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { AuthService, provideIamAuth } from "@nabdelfattah/ngx-iam-auth";
 import { provideState } from "@ngrx/store";
 import { provideEffects } from "@ngrx/effects";
-import { MessageService } from "@openng/optimus-ui/api";
+import { ConfirmationService, MessageService } from "@openng/optimus-ui/api";
 import { provideTranslateService } from "@ngx-translate/core";
 import { provideTranslateHttpLoader } from "@ngx-translate/http-loader";
 import { LanguageService } from "@rose-app/ui";
@@ -54,6 +54,7 @@ export const appRoutes: Route[] = [
       // Their endpoints need the token from headerInterceptor.
       ReviewsService,
       WishlistService,
+      ConfirmationService,
       provideState({ name: "user", reducer: userReducer }),
       provideEffects(userEffects),
       provideState({ name: "products", reducer: productsReducer }),
