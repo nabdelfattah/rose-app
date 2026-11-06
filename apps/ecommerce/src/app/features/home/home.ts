@@ -16,11 +16,12 @@ import { ProductsActions } from "../products/store/products.actions";
 import { SectionFeatures } from "./components/section-features/section-features";
 import { SectionBestSelling } from "./components/section-best-selling/section-best-selling";
 import { TrustedCompanies } from "./components/trusted-companies/trusted-companies";
-import { Button, ProductCardComponent, SubTitleComponent } from "@rose-app/ui";
+import { Button, SubTitleComponent } from "@rose-app/ui";
 import { Router, RouterLink } from "@angular/router";
 import { TranslatePipe } from "@ngx-translate/core";
 import { Testimonials } from "./components/section-testimonials/testimonials";
 import { PromotionalBanners } from "./components/promotional-banners/promotional-banners";
+import { ProductCardComponent } from "../../shared/components/product-card/product-card";
 import { Product } from "../products/model/product";
 import { CartActions } from "../cart/store/cart.actions";
 
@@ -41,7 +42,7 @@ import { CartActions } from "../cart/store/cart.actions";
     ButtonModule,
     SectionTitleComponent,
     ProductCardComponent,
-    Testimonials
+    Testimonials,
   ],
   templateUrl: "./home.html",
   styleUrl: "./home.css",
@@ -71,7 +72,7 @@ export class Home implements OnInit {
 
   onAddToCart(product: Product): void {
     this.store.dispatch(
-      CartActions.addItemToCart({ productId: product.id, quantity: 1 })
+      CartActions.addItemToCart({ productId: product.id, quantity: 1 }),
     );
   }
 

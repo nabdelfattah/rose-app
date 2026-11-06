@@ -8,6 +8,7 @@
   "targets": {
     "build": {
       "executor": "@angular-architects/native-federation:build",
+      "defaultConfiguration": "production",
       "options": {
         "cacheExternalArtifacts": true,
         "tsConfig": "apps/shell/tsconfig.federation.json",
@@ -21,8 +22,7 @@
           "target": "shell:esbuild:development",
           "dev": true
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "serve": {
       "executor": "@angular-architects/native-federation:build",
@@ -56,7 +56,9 @@
     },
     "esbuild": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/shell",
@@ -87,9 +89,13 @@
           "entry": "apps/shell/src/server.ts"
         },
         "outputMode": "server",
-        "polyfills": ["es-module-shims"],
+        "polyfills": [
+          "es-module-shims"
+        ],
         "security": {
-          "allowedHosts": ["localhost"]
+          "allowedHosts": [
+            "localhost"
+          ]
         }
       },
       "configurations": {
@@ -119,6 +125,9 @@
       "continuous": true,
       "executor": "@angular/build:dev-server",
       "defaultConfiguration": "development",
+      "options": {
+        "port": 4200
+      },
       "configurations": {
         "production": {
           "buildTarget": "shell:esbuild:production"
@@ -126,9 +135,6 @@
         "development": {
           "buildTarget": "shell:esbuild:development"
         }
-      },
-      "options": {
-        "port": 4200
       }
     }
   }

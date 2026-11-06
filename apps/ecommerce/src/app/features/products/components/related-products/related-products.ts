@@ -1,8 +1,9 @@
 import { Component, inject, input } from "@angular/core";
 import { CarouselModule } from "@openng/optimus-ui/carousel";
 import { Product } from "../../model/product";
-import { ProductCardComponent, SectionTitleComponent } from "@rose-app/ui";
+import { SectionTitleComponent } from "@rose-app/ui";
 import { TranslatePipe } from "@ngx-translate/core";
+import { ProductCardComponent } from "../../../../shared/components/product-card/product-card";
 import { Store } from "@ngrx/store";
 import { CartActions } from "../../../cart/store/cart.actions";
 
@@ -52,7 +53,7 @@ export class RelatedProducts {
 
   onAddToCart(product: Product): void {
     this.store.dispatch(
-      CartActions.addItemToCart({ productId: product.id, quantity: 1 })
+      CartActions.addItemToCart({ productId: product.id, quantity: 1 }),
     );
   }
 }

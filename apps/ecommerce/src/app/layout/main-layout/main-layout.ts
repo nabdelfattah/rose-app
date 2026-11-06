@@ -6,8 +6,7 @@ import { Header } from "../header/header";
 
 @Component({
   selector: "app-main-layout",
-  imports: [RouterOutlet, RouterLink, Button, Footer, Header],
+  imports: [RouterOutlet, Footer, Header],
   templateUrl: "./main-layout.html",
 })
 export class MainLayout {}
-

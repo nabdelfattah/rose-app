@@ -339,11 +339,18 @@
         <a
           routerLink="/wishlist"
           (click)="closeAllOverlays()"
-          class="p-1 sm:p-2 rounded-lg text-zinc-700 dark:text-zinc-200 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition focus:outline-none shrink-0"
+          class="relative p-1 sm:p-2 rounded-lg text-zinc-700 dark:text-zinc-200 hover:text-maroon-700 dark:hover:text-soft-pink-300 transition focus:outline-none shrink-0"
           [attr.aria-label]="isArabic() ? 'المفضلة' : 'Wishlist'"
           title="Wishlist"
         >
           <svg lucideHeart class="w-4.5 h-4.5 sm:w-5 sm:h-5"></svg>
+          @if (selectWishlistProducts().length > 0) {
+          <span
+            class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#d91d36] text-white text-[10px] font-bold flex items-center justify-center leading-none pointer-events-none"
+          >
+            {{ selectWishlistProducts().length }}
+          </span>
+          }
         </a>
 
         <!-- 3. Cart Icon with Badge -->

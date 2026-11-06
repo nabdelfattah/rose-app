@@ -44,7 +44,7 @@ const VARIANTS: Record<Variant, string> = {
     "disabled:bg-zinc-100 disabled:text-zinc-400 " +
     "aria-disabled:bg-zinc-100 aria-disabled:text-zinc-400",
   destructive:
-    "bg-red-600 hover:bg-red-800 text-white " +
+    "bg-red-600 hover:bg-red-800 text-[#ffffff] " +
     "disabled:bg-zinc-300 disabled:text-zinc-500 " +
     "aria-disabled:bg-zinc-300 aria-disabled:text-zinc-500",
 };
