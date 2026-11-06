@@ -147,6 +147,19 @@
     }
   },
   "products": {
+    "products-page":{
+      "no-products":"No products are currently available.",
+      "sidebar":{
+        "categories":"Categories",
+        "occasions":"Occasions",
+        "rating":"Rating",
+        "price":"Price",
+        "from":"From",
+        "to":"To",
+        "reset":"Reset",
+        "reset-all":"Reset All"
+      }
+    },
     "product-details": {
       "related-products": "Related Products",
       "add-to-cart": "Add to Cart",

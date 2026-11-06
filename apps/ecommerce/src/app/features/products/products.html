@@ -1,1 +1,202 @@
-<p>products works!</p>
+<section class="container mx-auto py-10">
+  <div class="grid grid-cols-1 gap-8 lg:grid-cols-[301px_1fr]">
+    <aside class="hidden lg:block h-full pe-6 border-e border-e-zinc-100">
+      <!-- Categories -->
+      <div
+        class="categories border-b border-b-zinc-100 pt-2.5 pb-5 flex flex-col gap-2.5"
+      >
+        <div class="categories-head flex justify-between items-center">
+          <h3 class="categories-title text-zinc-800 text-lg font-semibold">
+          {{"products.products-page.sidebar.categories"|translate}}
+          </h3>
+          <button
+            (click)="resetCategories()"
+            type="reset"
+            class="categories-clear flex items-center gap-1 text-red-600 cursor-pointer"
+          >
+            <svg lucideX size="15"></svg>
+            <span>{{"products.products-page.sidebar.reset"|translate}}</span>
+          </button>
+        </div>
+        <div class="categories-body h-49.75 flex flex-col gap-1 overflow-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <ul class="categories-items flex flex-col gap-2.5">
+            @for (category of [...categories()].sort((a,b) =>
+            a.title.localeCompare(b.title)); track category.id) {
+            <li
+              (click)="toggleCategory(category.id)"
+              [class.bg-zinc-200]="!selectedCategories().includes(category.id)"
+              [class.dark:bg-zinc-700]="!selectedCategories().includes(category.id)"
+              [class.bg-maroon-50]="selectedCategories().includes(category.id)"
+              [class.dark:bg-soft-pink-100]="selectedCategories().includes(category.id)"
+              class="rounded flex items-center gap-2.5 overflow-hidden group hover:bg-zinc-300 hover:dark:bg-zinc-600 cursor-pointer transition-colors duration-200"
+            >
+              <div
+                class="category-icon size-9 flex items-center justify-center"
+                [class]="{
+                    'bg-[#71717A]': !selectedCategories().includes(category.id),
+                    'bg-maroon-600': selectedCategories().includes(category.id),
+                    'dark:bg-soft-pink-300': selectedCategories().includes(category.id)
+                }"
+              >
+                <svg [lucideIcon]="setCategoryIcon(category.title)" class="text-[#fff]"></svg>
+              </div>
+
+              <span
+                class="category-name text-zinc-800 group-hover:text-[#27272a]"
+                [class.dark:text-[#27272a]]="selectedCategories().includes(category.id)"
+              >
+                {{ category.title }}
+              </span>
+            </li>
+            }
+          </ul>
+        </div>
+      </div>
+      <!-- Occasions -->
+      <div
+        class="occasions border-b border-b-zinc-100 pt-2.5 pb-5 flex flex-col gap-2.5"
+      >
+        <div class="occasions-head flex justify-between items-center">
+          <h3 class="occasions-title text-zinc-800 text-lg font-semibold">
+            {{"products.products-page.sidebar.occasions"|translate}}
+          </h3>
+          <button
+            (click)="resetOccasions()"
+            type="reset"
+            class="occasions-clear flex items-center gap-1 text-red-600 cursor-pointer"
+          >
+            <svg lucideX size="15"></svg>
+            <span>{{"products.products-page.sidebar.reset"|translate}}</span>
+          </button>
+        </div>
+        <div
+          class="occasions-body h-60.5 flex flex-col gap-1 overflow-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        >
+          <div class="occasions-items grid grid-cols-2 gap-2.5">
+            @for(occasion of occasions(); track occasion.id){
+            <div
+              (click)="toggleOccasion(occasion.id)"
+              class="item relative w-33.25 h-18.5 rounded-lg overflow-hidden cursor-pointer pe-2.5 flex items-center justify-center bg-cover bg-center"
+              [class.active]="selectedOccasions().includes(occasion.id)"
+              [style.background-image]="'url(' + (occasion.image || 'https://rose-app.elevate-bootcamp.cloud/storage/entities/product/product-a22067cabc17-1789637133863.jpeg') + ')'"
+            >
+              <h3 class="text-[#FAFAFA] font-medium text-sm text-center z-10">
+                {{occasion.title}}
+              </h3>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+      <!-- Rating -->
+      <div
+        class="rating border-b border-b-zinc-100 pt-2.5 pb-5 flex flex-col gap-2.5"
+      >
+        <div class="rating-head flex justify-between items-center">
+          <h3 class="rating-title text-zinc-800 text-lg font-semibold">
+            {{"products.products-page.sidebar.rating"|translate}}
+          </h3>
+          <button
+            (click)="resetRating()"
+            type="reset"
+            class="rating-clear flex items-center gap-1 text-red-600 cursor-pointer"
+          >
+            <svg lucideX size="15"></svg>
+            <span>{{"products.products-page.sidebar.reset"|translate}}</span>
+          </button>
+        </div>
+        <div class="rating-body flex gap-2">
+          @for (star of stars; track star) {
+          <svg
+            lucideStar
+            size="25"
+            class="text-[#FBA707] cursor-pointer"
+            [class]="star <= (selectedRating() ?? 0) ? 'text-[#FBA707] fill-[#FBA707]' : 'text-[#FBA707] fill-none'"
+            (click)="selectRating(star)"
+          ></svg>
+          }
+        </div>
+      </div>
+      <!-- Price -->
+      <div
+        class="price border-b border-b-zinc-100 pt-2.5 pb-5 flex flex-col gap-2.5"
+      >
+        <div class="price-head flex justify-between items-center">
+          <h3 class="price-title text-zinc-800 text-lg font-semibold">{{"products.products-page.sidebar.price"|translate}}</h3>
+          <button
+            (click)="resetPrice()"
+            type="reset"
+            class="price-clear flex items-center gap-1 text-red-600 cursor-pointer"
+          >
+            <svg lucideX size="15"></svg>
+            <span>{{"products.products-page.sidebar.reset"|translate}}</span>
+          </button>
+        </div>
+        <div class="price-body flex items-center gap-2">
+          <div class="min-price flex-1 min-w-0 text-zinc-800">
+            <label for="minPrice">{{"products.products-page.sidebar.from"|translate}}</label>
+            <input
+              id="minPrice"
+              #minInput
+              type="number"
+              placeholder="0"
+              [value]="minPrice() ?? ''"
+              (input)="onMinPriceChange(minInput.value)"
+              class="border border-zinc-300 p-4 rounded-[10px] w-full min-w-0"
+            />
+          </div>
+          <div class="max-price flex-1 min-w-0 text-zinc-800">
+            <label for="maxPrice">{{"products.products-page.sidebar.to"|translate}}</label>
+            <input
+              id="maxPrice"
+              #maxInput
+              type="number"
+              placeholder="1000000"
+              [value]="maxPrice() ?? ''"
+              (input)="onMaxPriceChange(maxInput.value)"
+              class="border border-zinc-300 p-4 rounded-[10px] w-full min-w-0"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- Reset All -->
+      <div class="reset-all py-4">
+        <button
+          class="reset-all py-2.5 px-4 flex items-center gap-2.5"
+          appButton
+          variant="secondary"
+          size="full"
+          (click)="resetAll()"
+        >
+          <svg lucideRotateCcw size="18"></svg>
+          {{"products.products-page.sidebar.reset-all"|translate}}
+        </button>
+      </div>
+    </aside>
+    <div>
+      @if ( (hasActiveFilters() ? filteredProducts() : products()).length > 0 )
+      {
+      <div
+        class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 mx-3 md:mx-0"
+      >
+        @for (product of (hasActiveFilters() ? paginatedFilteredProducts() :
+        products()); track product.id) {
+        <app-product-card [product]="product" />
+        }
+      </div>
+      @if(hasActiveFilters() ? filteredTotalPages() > 1 : showPagination()){
+      <div class="mt-4">
+        <app-paginator
+          (pageChange)="hasActiveFilters() ? onFilteredPageChange($event) : onPageChange($event)"
+          [totalPages]="hasActiveFilters() ? filteredTotalPages() : totalPages()"
+          [page]="hasActiveFilters() ? filteredPage() : page()"
+        ></app-paginator>
+      </div>
+      } } @else {
+      <p class="text-zinc-500 dark:text-zinc-400 text-center">
+        {{"products.products-page.no-products"|translate}}
+      </p>
+      }
+    </div>
+  </div>
+</section>

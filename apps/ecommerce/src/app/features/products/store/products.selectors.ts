@@ -4,6 +4,7 @@ import { ProductsState } from "../model/products-state";
 export const selectProductsState =
   createFeatureSelector<ProductsState>("products");
 
+// Home Page / Products Per Page
 export const selectAllProducts = createSelector(
   selectProductsState,
   (state) => state.products,
@@ -17,6 +18,28 @@ export const selectLoading = createSelector(
 export const selectError = createSelector(
   selectProductsState,
   (state) => state.error,
+);
+
+export const selectProductsMetadata = createSelector(
+  selectProductsState,
+  (state) => state.metadata,
+);
+
+// Select All Products
+export const selectAllProductsForFiltering = createSelector(selectProductsState, (state)=> state.allProducts);
+
+// Categories Selectors
+
+export const selectAllCategories = createSelector(
+  selectProductsState,
+  (state) => state.categories.items,
+);
+
+// Occasions Selectors
+
+export const selectAllOccasions = createSelector(
+  selectProductsState,
+  (state) => state.occasions.items,
 );
 
 //////////////////////////////////////////////////////////////////////
