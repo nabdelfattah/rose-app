@@ -1,1 +1,18 @@
-<p>wishlist works!</p>
+<div class="section-container my-16">
+  <header class="flex justify-between items-center mb-4">
+    <div class="flex items-end gap-2.5">
+      <svg class="size-15" lucideFolderHeart></svg>
+      <p class="text-5xl font-bold text-zinc-800">Wishlist</p>
+      <p class="text-zinc-500">{{itemsCount()}} items</p>
+    </div>
+    <button appButton variant="destructive" (click)="clearWishlist()">
+      <svg class="" lucideBrushCleaning></svg>Clear Wishlist
+    </button>
+  </header>
+
+  <ul>
+    @for (item of wishlistitems(); track item.productId) {
+    <app-wishlist-item [item]="item" />
+    }
+  </ul>
+</div>

@@ -1,0 +1,57 @@
+<article
+  class="flex justify-between items-center py-5 border-y border-y-zinc-200"
+>
+  <div class="flex gap-3.5">
+    <img
+      [src]="item().product.cover"
+      [alt]="item().product.title"
+      class="w-29 h-36 object-cover object-center rounded-xl"
+      [class.opacity-25]="!(item().product.stock > 0)"
+    />
+    <div class="flex flex-col justify-between">
+      <div class="flex flex-col gap-1.5">
+        @if (item().product.stock > 0) {
+          <p class="font-semibold text-sm text-emerald-600">In Stock</p>
+        } @else {
+          <p class="font-semibold text-sm text-red-600">Out of Stock</p>
+        }
+        <p class="font-semibold text-xl text-zinc-800">
+          {{ item().product.title }}
+        </p>
+        <div class="flex gap-1.5 items-center">
+          <p
+            class="flex items-center gap-1.5 rounded-md py-1 px-1.5 bg-yellow-500 text-[#27272a]"
+          >
+            <svg class="size-4 text-[#27272a] fill-current" lucideStar></svg>
+            {{ item().product.rating }}/5
+          </p>
+          <p class="text-blue-600 text-sm">
+            {{ item().product.ratings }} ratings
+          </p>
+        </div>
+      </div>
+      <div class="flex gap-2.5 items-end">
+        <p class="text-3xl text-zinc-800 font-semibold">
+          {{ item().product.price }}
+        </p>
+        <p class="text-sm text-zinc-400 font-medium line-through">
+          {{ discountedPrice() }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col justify-between items-center self-stretch">
+    <button appButton variant="secondary" class="ml-auto p-3.">
+      <svg class="" lucideTrash></svg>
+    </button>
+    @if (item().product.stock > 0) {
+      <button appButton variant="primary" class="">
+        <svg class="" lucideShoppingCart></svg> Add to Cart
+      </button>
+    } @else {
+      <button appButton variant="secondary" class="">
+        Explore Similar Products
+      </button>
+    }
+  </div>
+</article>
