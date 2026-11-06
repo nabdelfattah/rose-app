@@ -1,5 +1,11 @@
 import { TranslatePipe } from "@ngx-translate/core";
-import { Component, computed, inject, signal } from "@angular/core";
+import {
+  Component,
+  computed,
+  inject,
+  linkedSignal,
+  signal,
+} from "@angular/core";
 import { Store } from "@ngrx/store";
 import {
   selectAllCategories,
@@ -11,8 +17,9 @@ import {
   selectProductsMetadata,
 } from "./store/products.selectors";
 import { ProductsActions } from "./store/products.actions";
-import { Button, ProductCardComponent } from "@rose-app/ui";
+import { Button } from "@rose-app/ui";
 import { Paginator } from "@rose-app/ui";
+import { ProductCardComponent } from "../../shared/components/product-card/product-card";
 import {
   LucideX,
   LucideDock,
@@ -25,6 +32,9 @@ import {
   LucideDynamicIcon,
 } from "@lucide/angular";
 import { Product } from "./model/product";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { map } from "rxjs";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-products",
@@ -45,6 +55,7 @@ import { Product } from "./model/product";
 })
 export class Products {
   private readonly store = inject(Store);
+  private readonly route = inject(ActivatedRoute);
   readonly products = this.store.selectSignal(selectAllProducts);
   readonly allProducts = this.store.selectSignal(selectAllProductsForFiltering);
   readonly categories = this.store.selectSignal(selectAllCategories);
@@ -56,7 +67,10 @@ export class Products {
   readonly totalPages = computed(() => this.metadata()?.totalPages ?? 1);
   readonly showPagination = computed(() => this.totalPages() > 1);
   // Filters
-  readonly selectedCategories = signal<string[]>([]);
+  readonly selectedCategories = linkedSignal<string[]>(() => {
+    const category = this.categoryParam(); // Starts from the URL, still writable by toggleCategory()
+    return category ? [category] : [];
+  });
   readonly selectedOccasions = signal<string[]>([]);
   readonly selectedRating = signal<number | null>(null);
   readonly stars = [1, 2, 3, 4, 5];
@@ -64,6 +78,11 @@ export class Products {
   readonly maxPrice = signal<number | null>(null);
   readonly filteredPage = signal(1);
   readonly filteredLimit = 12;
+
+  // Category from the URL
+  private readonly categoryParam = toSignal(
+    this.route.queryParamMap.pipe(map((p) => p.get("category"))),
+  );
 
   // Calculate The Number Of Pages Of Filtered Products
   readonly filteredTotalPages = computed(() =>

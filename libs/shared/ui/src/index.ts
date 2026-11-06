@@ -9,6 +9,5 @@ export * from "./lib/theme-button/theme-button";
 export * from "./lib/link/link";
 export * from "./lib/section-title/section-title";
 export * from "./lib/sub-title/sub-title";
-export * from "./lib/product-card/product-card";
 export * from "./lib/avatar/avatar";
-export * from "./lib/paginator/paginator"
+export * from "./lib/paginator/paginator";

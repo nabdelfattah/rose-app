@@ -65,5 +65,13 @@ export const ProductsActions = createActionGroup({
     "Load Selected Product Failure": props<{
       error: string;
     }>(),
+
+    //////////////////////////////////////////////////////////////////////
+    // Product Details
+    //////////////////////////////////////////////////////////////////////
+    "Search Products": props<{ query: string }>(),
+    "Search Products Success": props<{ response: ProductRes }>(),
+    "Search Products Failure": props<{ error: string }>(),
+    "Clear Search": emptyProps(),
   },
 });

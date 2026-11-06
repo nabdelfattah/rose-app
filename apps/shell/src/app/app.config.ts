@@ -3,7 +3,7 @@ import {
   isDevMode,
   provideBrowserGlobalErrorListeners,
 } from "@angular/core";
-import { provideRouter } from "@angular/router";
+import { provideRouter, withComponentInputBinding } from "@angular/router";
 import { appRoutes } from "./app.routes";
 import {
   provideClientHydration,
@@ -22,7 +22,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
-    provideRouter(appRoutes),
+    provideRouter(appRoutes, withComponentInputBinding()),
 
     provideOptimus({
       theme: {

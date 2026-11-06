@@ -1,6 +1,9 @@
 <div class="container section-container">
   @if (selectedProduct(); as current) {
-  <app-product-details-info [product]="current" (addToCart)="onAddToCart($event)" />
+  <app-product-details-info
+    [product]="current"
+    (addToCart)="onAddToCart($event)"
+  />
   }
   <!-- ----------------------------------------------------------------- -->
   <!-- Reviews -->
@@ -27,7 +30,7 @@
       <app-rating [rating]="selectedProduct()?.rating || 0" [readonly]="true" />
     </div>
     <!-- reviews -->
-    <div class="mt-4 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-5">
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_auto] gap-5">
       <!-- reviews loop -->
       <div
         class="max-h-92 overflow-y-auto no-scrollbar md:pr-7 md:border-r md:border-r-zinc-200"
@@ -64,7 +67,7 @@
         }
       </div>
       <!-- reviews entery -->
-      <div class="w-121 relative">
+      <div class="w-full md:w-121 relative">
         <form
           [formGroup]="form"
           (ngSubmit)="submitHandler()"
