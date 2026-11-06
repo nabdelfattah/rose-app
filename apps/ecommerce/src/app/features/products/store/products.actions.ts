@@ -1,10 +1,14 @@
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
 import { ProductDetailRes, ProductRes } from "../model/product";
+import { CategoryRes } from "../model/categories";
+import { OccasionRes } from "../model/occasions";
 
 export const ProductsActions = createActionGroup({
   source: "Products",
   events: {
+    // Home Page
     "Load Products": emptyProps(),
+    // Products Per Page
     "Load Products Page": props<{
       page: number;
       limit: number;
@@ -18,6 +22,24 @@ export const ProductsActions = createActionGroup({
       error: string;
     }>(),
 
+    // All Products To Filter
+    "Load All Products": emptyProps(),
+    "Load All Products Success": props<{ response: ProductRes }>(),
+    "Load All Products Failure": props<{ error: string }>(),
+    // Categories
+    "Load Categories": emptyProps(),
+
+    "Load Categories Success": props<{ response: CategoryRes }>(),
+
+    "Load Categories Failure": props<{ error: string }>(),
+
+    // Occasions
+
+    "Load Occasions": emptyProps(),
+
+    "Load Occasions Success": props<{ response: OccasionRes }>(),
+
+    "Load Occasions Failure": props<{ error: string }>(),
     //////////////////////////////////////////////////////////////////////
     // for best selling products
     //////////////////////////////////////////////////////////////////////

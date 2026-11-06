@@ -8,6 +8,17 @@ export const initialProductsState: ProductsState = {
   metadata: null,
   isLoading: false,
   error: null,
+  allProducts: [],
+  categories: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
+  occasions: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
   bestSelling: {
     items: [],
     isLoading: false,
@@ -23,7 +34,7 @@ export const initialProductsState: ProductsState = {
 
 export const productsReducer = createReducer(
   initialProductsState,
-
+  // Home Page
   on(ProductsActions.loadProducts, (state) => ({
     ...state,
     isLoading: true,
@@ -42,6 +53,77 @@ export const productsReducer = createReducer(
     ...state,
     isLoading: false,
     error,
+  })),
+
+  // Load All Products To Filter in Product Page
+  on(ProductsActions.loadAllProductsSuccess, (state, { response }) => ({
+    ...state,
+    allProducts: response.payload.data,
+  })),
+
+  on(ProductsActions.loadAllProductsSuccess, (state, { response }) => ({
+    ...state,
+    allProducts: response.payload.data,
+  })),
+
+  on(ProductsActions.loadAllProductsFailure, (state) => ({
+    ...state,
+  })),
+
+  // Categories
+  on(ProductsActions.loadCategories, (state) => ({
+    ...state,
+    categories: {
+      ...state.categories,
+      isLoading: true,
+      error: null,
+    },
+  })),
+
+  on(ProductsActions.loadCategoriesSuccess, (state, { response }) => ({
+    ...state,
+    categories: {
+      items: response.payload.data,
+      isLoading: false,
+      error: null,
+    },
+  })),
+
+  on(ProductsActions.loadCategoriesFailure, (state, { error }) => ({
+    ...state,
+    categories: {
+      ...state.categories,
+      isLoading: false,
+      error,
+    },
+  })),
+
+  // Occasions
+
+  on(ProductsActions.loadOccasions, (state) => ({
+    ...state,
+    occasions: {
+      ...state.occasions,
+      isLoading: true,
+      error: null,
+    },
+  })),
+
+  on(ProductsActions.loadOccasionsSuccess, (state, { response }) => ({
+    ...state,
+    occasions: {
+      items: response.payload.data,
+      isLoading: false,
+      error: null,
+    },
+  })),
+
+  on(ProductsActions.loadOccasionsFailure, (state, { error }) => ({
+    ...state,
+    occasions: {
+      ...state.occasions,
+      error,
+    },
   })),
 
   //////////////////////////////////////////////////////////////////////

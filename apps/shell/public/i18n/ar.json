@@ -148,7 +148,17 @@
   },
   "products": {
     "products-page":{
-      "no-products":"لا تتوفر أي منتجات حالياً."
+      "no-products":"لا تتوفر أي منتجات حالياً.",
+      "sidebar": {
+        "categories": "التصنيفات",
+        "occasions": "المناسبات",
+        "rating": "التقييم",
+        "price": "السعر",
+        "from":"من",
+        "to":"إلى",
+        "reset": "إعادة تعيين",
+        "reset-all": "إعادة تعيين الكل"
+      }
     },
     "product-details": {
       "related-products": "منتجات ذات صلة",
