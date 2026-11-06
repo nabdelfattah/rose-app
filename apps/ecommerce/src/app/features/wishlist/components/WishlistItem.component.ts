@@ -9,10 +9,18 @@ import { Store } from "@ngrx/store";
 import { Router } from "@angular/router";
 import { wishlistActions } from "../store/wishlist.actions";
 import { DecimalPipe } from "@angular/common";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: "app-wishlist-item",
-  imports: [Button, LucideTrash, LucideShoppingCart, LucideStar, DecimalPipe],
+  imports: [
+    Button,
+    LucideTrash,
+    LucideShoppingCart,
+    LucideStar,
+    DecimalPipe,
+    TranslatePipe,
+  ],
   templateUrl: "./WishlistItem.component.html",
 })
 export class WishlistItemComponent {

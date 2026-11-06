@@ -241,5 +241,21 @@
     "error-loading": "Failed to load cart. Please try again.",
     "added-success": "Item added to cart successfully",
     "add-failed": "Failed to add item to cart"
+  },
+  "wishlist": {
+    "title": "Wishlist",
+    "items": "items",
+    "item": "item",
+    "clear-wishlist": "Clear Wishlist",
+    "clear-confirm": "Are you sure you want to clear your Wishlist?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "remove": "Remove",
+    "in-stock": "In Stock",
+    "out-of-stock": "Out of Stock",
+    "ratings": "{{count}} ratings",
+    "add-to-cart": "Add to Cart",
+    "explore-similar": "Explore Similar Products"
   }
 }

@@ -11,10 +11,12 @@ import { Button } from "@rose-app/ui";
 import { WishlistItemComponent } from "./components/WishlistItem.component";
 import { ConfirmationService } from "@openng/optimus-ui/api";
 import { ConfirmDialog } from "@openng/optimus-ui/confirmdialog";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: "app-wishlist",
   imports: [
+    TranslatePipe,
     ConfirmDialog,
     LucideFolderHeart,
     LucideBrushCleaning,
@@ -38,7 +40,8 @@ export class Wishlist implements OnInit {
   clearWishlist() {
     this.confirmationService.confirm({
       key: "clearWishlist",
-      message: "Are you sure you want to clear your Wishlist?",
+      // a translation key, the dialog template translates it so it follows language changes
+      message: "wishlist.clear-confirm",
       accept: () => this.store.dispatch(wishlistActions.deleteBulk()),
     });
   }

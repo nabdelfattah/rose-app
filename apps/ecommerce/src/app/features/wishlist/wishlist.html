@@ -6,13 +6,19 @@
         lucideFolderHeart
         stroke="currentColor"
       ></svg>
-      <p class="text-5xl font-bold text-zinc-800">Wishlist</p>
-      <p class="text-zinc-500">{{itemsCount()}} items</p>
+      <p class="text-5xl font-bold text-zinc-800">
+        {{ "wishlist.title" | translate }}
+      </p>
+      <p class="text-zinc-500">
+        {{ itemsCount() }}
+        {{ (itemsCount() === 1 ? "wishlist.item" : "wishlist.items") | translate }}
+      </p>
     </div>
     @if(itemsCount()>0){
 
     <button appButton variant="destructive" (click)="clearWishlist()">
-      <svg class="" lucideBrushCleaning></svg>Clear Wishlist
+      <svg class="" lucideBrushCleaning></svg>
+      {{ "wishlist.clear-wishlist" | translate }}
     </button>
     }
   </header>
@@ -37,7 +43,7 @@
       <button
         type="button"
         class="absolute top-4 end-4 text-zinc-500 hover:text-zinc-800"
-        aria-label="Close"
+        [attr.aria-label]="'wishlist.close' | translate"
         (click)="onReject()"
       >
         <svg class="size-5" lucideX></svg>
@@ -54,7 +60,7 @@
       </div>
 
       <p class="text-center text-lg font-medium text-zinc-900">
-        {{ message.message }}
+        {{ message.message | translate }}
       </p>
 
       <div class="flex w-full gap-3">
@@ -64,14 +70,14 @@
           class="flex-1"
           (click)="onReject()"
         >
-          Cancel
+          {{ "wishlist.cancel" | translate }}
         </button>
         <button
           appButton
           class="flex-1 bg-red-600 text-white hover:bg-red-700"
           (click)="onAccept()"
         >
-          Confirm
+          {{ "wishlist.confirm" | translate }}
         </button>
       </div>
     </div>
