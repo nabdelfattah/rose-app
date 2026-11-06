@@ -2,13 +2,17 @@ import { Category, Occasion, Product } from "./product";
 import { Metadata } from "./product";
 import { OccasionItem } from "../model/occasions";
 
-
 export interface ProductsState {
   products: Product[];
   metadata: Metadata | null;
   isLoading: boolean;
   error: string | null;
   allProducts: Product[];
+  search: {
+    query: string;
+    items: Product[];
+    error: string | null;
+  };
   categories: {
     items: Category[];
     isLoading: boolean;

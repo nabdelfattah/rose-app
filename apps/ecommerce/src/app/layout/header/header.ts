@@ -41,6 +41,7 @@ import {
   LucideSun,
   LucideTrash,
   LucideUser,
+  LucideStar,
 } from "@lucide/angular";
 
 import { Popover } from "@openng/optimus-ui/popover";
@@ -61,16 +62,28 @@ import {
 } from "../../features/auth/store/user.selector";
 import { selectCartItemsCount } from "../../features/cart/store/cart.selectors";
 import { selectWishlistProducts } from "../../features/wishlist/store/wishlist.selector";
+import { selectSearchResults } from "../../features/products/store/products.selectors";
+import { ProductsActions } from "../../features/products/store/products.actions";
+import { Product } from "../../features/products/model/product";
+import {
+  AutoComplete,
+  AutoCompleteCompleteEvent,
+  AutoCompleteSelectEvent,
+} from "@openng/optimus-ui/autocomplete";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: "app-header",
   standalone: true,
   imports: [
+    TranslatePipe,
+    AutoComplete,
     CommonModule,
     RouterLink,
     RouterLinkActive,
     FormsModule,
     Popover,
+    LucideStar,
     LucideBell,
     LucideBellOff,
     LucideCheck,
@@ -115,6 +128,8 @@ export class Header implements OnInit {
   readonly themeService = inject(ThemeService);
   readonly notificationService = inject(NotificationService);
 
+  readonly searchResults = this.store.selectSignal(selectSearchResults);
+
   // Auth State from NgRx Store & Session
   readonly userState = this.store.selectSignal(selectUserState);
   readonly userId = this.store.selectSignal(selectID);
@@ -145,6 +160,23 @@ export class Header implements OnInit {
     () => this.languageService.currentLang() === "ar",
   );
 
+  //search
+  onSearch(event: AutoCompleteCompleteEvent): void {
+    this.store.dispatch(ProductsActions.searchProducts({ query: event.query }));
+  }
+
+  onSelect(event: AutoCompleteSelectEvent): void {
+    const product = event.value as Product;
+    this.closeAllOverlays();
+    this.searchQuery.set("");
+    this.clear();
+    this.router.navigate(["/products", product.id]);
+  }
+
+  clear(): void {
+    this.store.dispatch(ProductsActions.clearSearch());
+  }
+
   // Mobile Drawer State
   readonly isMobileDrawerOpen = signal(false);
 
@@ -164,8 +196,8 @@ export class Header implements OnInit {
   readonly unreadCount = signal(0);
   readonly isLoadingNotifications = signal(false);
 
-  // Search Query
-  readonly searchQuery = signal("");
+  // Search Query (string while typing; the Product once a suggestion is picked)
+  readonly searchQuery = signal<string | Product>("");
 
   constructor() {
     // Listen for Auth events to update local Header state
@@ -376,10 +408,14 @@ export class Header implements OnInit {
     this.notificationService.deleteNotification(id).subscribe();
   }
 
+  // Enter without picking a suggestion → go to the products listing with the query.
+  // (If Enter picked a suggestion, onSelect already reset searchQuery to "".)
   onSearchSubmit(): void {
-    const query = this.searchQuery().trim();
+    const value = this.searchQuery();
+    const query = typeof value === "string" ? value.trim() : "";
     if (query) {
       this.closeAllOverlays();
+      this.clear();
       this.router.navigate(["/products"], { queryParams: { q: query } });
     }
   }

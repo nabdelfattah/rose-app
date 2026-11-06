@@ -1,7 +1,7 @@
 import { inject } from "@angular/core";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, of, switchMap } from "rxjs";
+import { catchError, debounceTime, map, of, switchMap } from "rxjs";
 import { ProductService } from "../service/product.service";
 import { ProductsActions } from "./products.actions";
 import { CategoryService } from "../service/categories/categories.service";
@@ -173,6 +173,35 @@ export const loadSelectedProduct = createEffect(
             ),
           ),
         ),
+      ),
+    ),
+  { functional: true },
+);
+
+//////////////////////////////////////////////////////////////////////
+// for search
+//////////////////////////////////////////////////////////////////////
+export const searchProducts = createEffect(
+  (actions$ = inject(Actions), productsService = inject(ProductService)) =>
+    actions$.pipe(
+      ofType(ProductsActions.searchProducts),
+      debounceTime(400),
+      map(({ query }) => query.trim()),
+      switchMap((query) =>
+        !query
+          ? of(ProductsActions.clearSearch())
+          : productsService.searchProducts(query).pipe(
+              map((response) =>
+                ProductsActions.searchProductsSuccess({ response }),
+              ),
+              catchError((error) =>
+                of(
+                  ProductsActions.searchProductsFailure({
+                    error: error.message,
+                  }),
+                ),
+              ),
+            ),
       ),
     ),
   { functional: true },

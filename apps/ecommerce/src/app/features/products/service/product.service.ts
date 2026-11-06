@@ -3,6 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { BASE_URL } from "../../../core/constants/apiUrl";
 import { ProductDetailRes, ProductRes } from "../model/product";
 import { Observable } from "rxjs";
+import { environment } from "../../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -16,9 +17,7 @@ export class ProductService {
   }
 
   getPaginatedProducts(page: number, limit: number): Observable<ProductRes> {
-    const params = new HttpParams()
-      .set("page", page)
-      .set("limit", limit);
+    const params = new HttpParams().set("page", page).set("limit", limit);
 
     return this.httpClient.get<ProductRes>(this.apiUrl, { params });
   }
@@ -32,5 +31,12 @@ export class ProductService {
     return this.httpClient.get<ProductRes>(
       `${this.apiUrl}/?page=1&limit=6&sortBy=rating`,
     );
+  }
+
+  // for search
+  searchProducts(query: string) {
+    return this.httpClient.get<ProductRes>(`${environment.baseUrl}products`, {
+      params: { search: query },
+    });
   }
 }

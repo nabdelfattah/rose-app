@@ -26,7 +26,10 @@ export const selectProductsMetadata = createSelector(
 );
 
 // Select All Products
-export const selectAllProductsForFiltering = createSelector(selectProductsState, (state)=> state.allProducts);
+export const selectAllProductsForFiltering = createSelector(
+  selectProductsState,
+  (state) => state.allProducts,
+);
 
 // Categories Selectors
 
@@ -72,4 +75,12 @@ export const selectSelectedProductLoading = createSelector(
 export const selectSelectedProductError = createSelector(
   selectProductsState,
   (state) => state.selectedProduct.error,
+);
+
+//////////////////////////////////////////////////////////////////////
+// for Search
+//////////////////////////////////////////////////////////////////////
+export const selectSearchResults = createSelector(
+  selectProductsState,
+  (state) => state.search.items,
 );
