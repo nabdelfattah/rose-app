@@ -91,6 +91,7 @@ export const appRoutes: Route[] = [
           },
           {
             path: "cart",
+            canActivate: [authGuard],
             loadComponent: () =>
               import("./features/cart/cart").then((c) => c.Cart),
           },
@@ -118,6 +119,7 @@ export const appRoutes: Route[] = [
           },
           {
             path: "wishlist",
+            canActivate: [authGuard],
             loadComponent: () =>
               import("./features/wishlist/wishlist").then((c) => c.Wishlist),
           },
