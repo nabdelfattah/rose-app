@@ -1,6 +1,6 @@
 <div class="section-container my-16 min-h-56">
   <header
-    class="flex flex-col md:flex-row gap-3 justify-between items-center mb-4"
+    class="flex flex-col md:flex-row gap-3 justify-between md:items-center mb-4"
   >
     <div class="flex items-end gap-2.5">
       <svg
@@ -17,7 +17,12 @@
       </p>
     </div>
     @if(itemsCount()>0){
-    <button appButton variant="destructive" (click)="clearWishlist()">
+    <button
+      appButton
+      variant="destructive"
+      class="w-fit"
+      (click)="clearWishlist()"
+    >
       <svg class="" lucideBrushCleaning></svg>
       {{ "wishlist.clear-wishlist" | translate }}
     </button>
@@ -60,7 +65,7 @@
         </div>
       </div>
 
-      <p class="text-center text-lg font-medium text-zinc-900">
+      <p class="text-center text-lg font-medium text-zinc-800">
         {{ message.message | translate }}
       </p>
 
