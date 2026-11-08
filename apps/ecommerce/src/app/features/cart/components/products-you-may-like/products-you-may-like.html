@@ -1,0 +1,53 @@
+@if (isLoading() || filteredProducts().length > 0) {
+<section
+  class="products-you-may-like"
+  [attr.aria-label]="'cart.products-you-may-like' | translate"
+>
+  <div class="mb-6">
+    <app-section-title>
+      {{ 'cart.products-you-may-like' | translate }}
+    </app-section-title>
+  </div>
+
+  @if (isLoading()) {
+  <!-- Lightweight skeleton grid matching 4 columns on desktop -->
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+  >
+    @for (placeholder of [1, 2, 3, 4]; track placeholder) {
+    <div
+      class="rounded-xl border border-zinc-200 bg-white p-3 space-y-3 animate-pulse"
+    >
+      <div class="h-68 bg-zinc-100 rounded-lg"></div>
+      <div class="h-4 bg-zinc-100 rounded w-3/4"></div>
+      <div class="h-4 bg-zinc-100 rounded w-1/2"></div>
+    </div>
+    }
+  </div>
+  } @else {
+  <p-carousel
+    [value]="filteredProducts()"
+    [numVisible]="4"
+    [numScroll]="1"
+    [responsiveOptions]="responsiveOptions"
+    [showIndicators]="false"
+    [showNavigators]="true"
+    [circular]="filteredProducts().length > 4"
+    [pt]="{
+        pcPrevButton: {
+          root: { class: 'rounded-full bg-maroon-500! dark:bg-soft-pink-300! text-zinc-50! size-[33px]! cursor-pointer disabled:cursor-not-allowed' }
+        },
+        pcNextButton: {
+          root: { class: 'rounded-full bg-maroon-500! dark:bg-soft-pink-300! text-zinc-50! size-[33px]! cursor-pointer disabled:cursor-not-allowed' }
+        }
+      }"
+  >
+    <ng-template pTemplate="item" let-product>
+      <div class="px-2 pb-2">
+        <app-product-card [product]="product" />
+      </div>
+    </ng-template>
+  </p-carousel>
+  }
+</section>
+}

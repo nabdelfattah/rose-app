@@ -85,6 +85,44 @@
     "searchPdt": "Search products..."
   },
   "home": {
+    "banners": {
+      "leftBanner": {
+        "pill": "Starting from 10.99 EGP",
+        "heading": "Special Gifts For The\nPeople You Love",
+        "cta": "Shop Now"
+      },
+      "slides": {
+        "slide1": {
+          "heading": "Say It with Flowers",
+          "subtitle": "Elegant gifts for every special moment.",
+          "cta": "I’m buying!"
+        },
+        "slide2": {
+          "heading": "Blooms That Brighten Every Day",
+          "subtitle": "Handcrafted floral arrangements designed to delight.",
+          "cta": "I’m buying!"
+        },
+        "slide3": {
+          "heading": "Cherish Every Milestone",
+          "subtitle": "Luxury arrangements crafted with passion and love.",
+          "cta": "I’m buying!"
+        }
+      },
+      "occasions": {
+        "wedding": {
+          "pill": "Wedding",
+          "title": "Celebrate Her Forever with a Gift\nShe’ll Always Remember"
+        },
+        "engagement": {
+          "pill": "Engagement",
+          "title": "Honor the Beginning of a\nBeautiful Journey Together"
+        },
+        "anniversary": {
+          "pill": "Anniversary",
+          "title": "Mark Every Year of Love with a\nMeaningful Surprise"
+        }
+      }
+    },
     "feature": {
       "delivery": {
         "title": "Free Delivery",
@@ -244,7 +282,8 @@
     "login": "Sign In",
     "error-loading": "Failed to load cart. Please try again.",
     "added-success": "Item added to cart successfully",
-    "add-failed": "Failed to add item to cart"
+    "add-failed": "Failed to add item to cart",
+    "products-you-may-like": "Products You May Like"
   },
   "wishlist": {
     "title": "Wishlist",

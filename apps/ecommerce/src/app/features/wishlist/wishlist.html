@@ -1,21 +1,22 @@
 <div class="section-container my-16 min-h-56">
-  <header class="flex justify-between items-center mb-4">
+  <header
+    class="flex flex-col md:flex-row gap-3 justify-between items-center mb-4"
+  >
     <div class="flex items-end gap-2.5">
       <svg
-        class="size-15 text-zinc-800"
+        class="size-10 md:size-13 lg:size-15 text-zinc-800"
         lucideFolderHeart
         stroke="currentColor"
       ></svg>
-      <p class="text-5xl font-bold text-zinc-800">
+      <p class="text-xl md:text-2xl lg:text-5xl font-bold text-zinc-800">
         {{ "wishlist.title" | translate }}
       </p>
       <p class="text-zinc-500">
-        {{ itemsCount() }}
-        {{ (itemsCount() === 1 ? "wishlist.item" : "wishlist.items") | translate }}
+        {{ itemsCount() }} {{ (itemsCount() === 1 ? "wishlist.item" :
+        "wishlist.items") | translate }}
       </p>
     </div>
     @if(itemsCount()>0){
-
     <button appButton variant="destructive" (click)="clearWishlist()">
       <svg class="" lucideBrushCleaning></svg>
       {{ "wishlist.clear-wishlist" | translate }}

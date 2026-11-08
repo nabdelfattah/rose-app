@@ -39,4 +39,13 @@ export class ProductService {
       params: { search: query },
     });
   }
+
+  getRecommendedProducts(limit = 10): Observable<ProductRes> {
+    const params = new HttpParams()
+      .set("page", 1)
+      .set("limit", limit)
+      .set("sortBy", "mostPopular");
+
+    return this.httpClient.get<ProductRes>(this.apiUrl, { params });
+  }
 }

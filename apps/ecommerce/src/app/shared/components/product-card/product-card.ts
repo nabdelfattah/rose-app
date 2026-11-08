@@ -19,6 +19,7 @@ import { Product } from "../../../features/products/model/product";
 import { Store } from "@ngrx/store";
 import { wishlistActions } from "../../../features/wishlist/store/wishlist.actions";
 import { WishlistItem } from "../../../features/wishlist/models/wishlist";
+import { CartActions } from "../../../features/cart/store/cart.actions";
 
 type BadgeType = "new" | "hot" | "out-of-stock";
 
@@ -59,11 +60,15 @@ export class ProductCardComponent {
       this.store.dispatch(wishlistActions.addItem({ id: this.product().id }));
     }
   }
-  addToCart = output<Product>();
+  // addToCart = output<Product>();
   onAddToCart(): void {
-    if (!this.isOutOfStock()) {
-      this.addToCart.emit(this.product());
-    }
+    // if (!this.isOutOfStock()) {
+    //   this.addToCart.emit(this.product());
+    // }
+    console.log("add to cart");
+    this.store.dispatch(
+      CartActions.addItemToCart({ productId: this.product().id, quantity: 1 }),
+    );
   }
 
   stars = [1, 2, 3, 4, 5];

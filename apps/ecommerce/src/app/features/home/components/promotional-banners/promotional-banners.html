@@ -25,24 +25,24 @@
           <span
             class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#fbeaea] text-[#501419] shadow-xs"
           >
-            {{ leftBanner.pill }}
+            {{ leftBanner.pill | translate }}
           </span>
 
           <!-- Heading -->
           <h2
             class="text-xl sm:text-2xl font-bold text-[#fff] tracking-tight leading-snug whitespace-pre-line"
           >
-            {{ leftBanner.heading }}
+            {{ leftBanner.heading | translate }}
           </h2>
 
           <!-- CTA: Shop Now with Arrow -->
           <a
             [routerLink]="leftBanner.link"
-            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-soft-pink-100 hover:bg-white text-[#501419] font-semibold text-sm transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-soft-pink-300"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-soft-pink-100 hover:bg-white text-[#501419] font-semibold text-sm transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-soft-pink-300 cursor-pointer whitespace-nowrap w-fit"
           >
-            <span>{{ leftBanner.ctaText }}</span>
+            <span>{{ leftBanner.ctaText | translate }}</span>
             <svg
-              class="w-4 h-4 rtl:rotate-180 transition-transform group-hover:translate-x-1"
+              class="w-4 h-4 rtl:rotate-180 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
               fill="none"
               stroke="currentColor"
               stroke-width="2.5"
@@ -85,24 +85,24 @@
           ></div>
 
           <!-- Slide Content (Bottom-Left) -->
-          <div class="relative z-10 flex flex-col items-start gap-3 max-w-xl">
+          <div class="relative z-10 flex flex-col items-start gap-3 max-w-xl rtl:pe-24 sm:rtl:pe-28">
             <h2
               class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#fff] tracking-tight leading-tight"
             >
-              {{ slide.heading }}
+              {{ slide.heading | translate }}
             </h2>
             @if (slide.subtitle) {
             <p
               class="text-sm sm:text-base text-[#fff] font-normal leading-relaxed"
             >
-              {{ slide.subtitle }}
+              {{ slide.subtitle | translate }}
             </p>
             }
             <a
               [routerLink]="slide.ctaRoute"
-              class="inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-soft-pink-100 hover:bg-white text-[#501419] font-semibold text-sm transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-soft-pink-300 mt-1"
+              class="inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-soft-pink-100 hover:bg-white text-[#501419] font-semibold text-sm transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-soft-pink-300 mt-1 cursor-pointer whitespace-nowrap w-fit shrink-0"
             >
-              {{ slide.ctaText }}
+              {{ slide.ctaText | translate }}
             </a>
           </div>
         </div>
@@ -110,7 +110,7 @@
 
         <!-- Carousel Pagination Indicators (Top-Right) -->
         <div
-          class="absolute top-5 right-5 sm:top-6 sm:right-6 z-20 flex items-center gap-1.5"
+          class="absolute top-5 right-5 sm:top-6 sm:right-6 rtl:right-auto rtl:left-5 rtl:sm:left-6 z-20 flex items-center gap-1.5"
           role="tablist"
           aria-label="Carousel pagination"
         >
@@ -133,7 +133,7 @@
 
         <!-- Carousel Navigation Controls (Bottom-Right) -->
         <div
-          class="absolute bottom-5 right-5 sm:bottom-6 sm:right-6 z-20 flex items-center"
+          class="absolute bottom-5 right-5 sm:bottom-6 sm:right-6 rtl:right-auto rtl:left-5 rtl:sm:left-6 z-20 flex items-center"
         >
           <div
             class="inline-flex items-center gap-1 bg-soft-pink-100/90 backdrop-blur-xs rounded-full p-1 shadow-md"
@@ -187,7 +187,7 @@
       @for (card of occasionCards; track card.pill) {
       <a
         [routerLink]="card.link"
-        class="group relative overflow-hidden rounded-3xl min-h-[220px] sm:min-h-[250px] lg:min-h-[280px] bg-zinc-950 shadow-sm flex flex-col justify-end p-5 sm:p-6 transition-transform duration-300 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-maroon-400"
+        class="group relative overflow-hidden rounded-3xl min-h-[220px] sm:min-h-[250px] lg:min-h-[280px] bg-zinc-950 shadow-sm flex flex-col justify-end p-5 sm:p-6 transition-transform duration-300 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-maroon-400 cursor-pointer"
       >
         <img
           [src]="card.imageUrl"
@@ -205,14 +205,14 @@
           <span
             class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#fbeaea] text-[#501419] shadow-xs mb-2 w-fit"
           >
-            {{ card.pill }}
+            {{ card.pill | translate }}
           </span>
 
           <!-- Occasion Title (strictly NO Shop Now CTA) -->
           <h3
             class="text-base sm:text-lg lg:text-xl font-bold text-[#fff] leading-snug whitespace-pre-line"
           >
-            {{ card.title }}
+            {{ card.title | translate }}
           </h3>
         </div>
       </a>

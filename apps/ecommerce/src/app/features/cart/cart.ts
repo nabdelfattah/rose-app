@@ -18,6 +18,7 @@ import { Button } from '@rose-app/ui';
 import { Session } from '../../core/services/session';
 import { CartItemComponent } from './components/cart-item/cart-item';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary';
+import { ProductsYouMayLike } from './components/products-you-may-like/products-you-may-like';
 import { CartActions } from './store/cart.actions';
 import {
   selectAppliedCoupon,
@@ -42,6 +43,7 @@ import {
     Button,
     CartItemComponent,
     CartSummaryComponent,
+    ProductsYouMayLike,
     LucideArrowLeft,
     LucideLogIn,
     LucideShoppingCart,

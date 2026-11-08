@@ -1,6 +1,56 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { TranslateLoader, TranslationObject, provideTranslateService } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { PromotionalBanners } from './promotional-banners';
+
+class MockTranslateLoader implements TranslateLoader {
+  getTranslation(): Observable<TranslationObject> {
+    return of({
+      home: {
+        banners: {
+          leftBanner: {
+            pill: 'Starting from 10.99 EGP',
+            heading: 'Special Gifts For The\nPeople You Love',
+            cta: 'Shop Now',
+          },
+          slides: {
+            slide1: {
+              heading: 'Say It with Flowers',
+              subtitle: 'Elegant gifts for every special moment.',
+              cta: 'I’m buying!',
+            },
+            slide2: {
+              heading: 'Blooms That Brighten Every Day',
+              subtitle: 'Handcrafted floral arrangements designed to delight.',
+              cta: 'I’m buying!',
+            },
+            slide3: {
+              heading: 'Cherish Every Milestone',
+              subtitle: 'Luxury arrangements crafted with passion and love.',
+              cta: 'I’m buying!',
+            },
+          },
+          occasions: {
+            wedding: {
+              pill: 'Wedding',
+              title: "Celebrate Her Forever with a Gift\nShe’ll Always Remember",
+            },
+            engagement: {
+              pill: 'Engagement',
+              title: 'Honor the Beginning of a\nBeautiful Journey Together',
+            },
+            anniversary: {
+              pill: 'Anniversary',
+              title: 'Mark Every Year of Love with a\nMeaningful Surprise',
+            },
+          },
+        },
+      },
+    });
+  }
+}
 
 describe('PromotionalBanners', () => {
   let fixture: ComponentFixture<PromotionalBanners>;
@@ -9,7 +59,13 @@ describe('PromotionalBanners', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PromotionalBanners],
-      providers: [provideRouter([])],
+      providers: [
+        provideRouter([]),
+        provideTranslateService({
+          loader: { provide: TranslateLoader, useClass: MockTranslateLoader },
+          fallbackLang: 'en',
+        }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PromotionalBanners);
@@ -65,26 +121,47 @@ describe('PromotionalBanners', () => {
     });
   });
 
+  it('should have proper RTL-aware layout classes on carousel controls and indicators', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const pagination = compiled.querySelector('[aria-label="Carousel pagination"]');
+    expect(pagination?.className).toContain('rtl:right-auto');
+    expect(pagination?.className).toContain('rtl:left-5');
+
+    const navControls = compiled.querySelector('[aria-label="Carousel navigation"]')?.parentElement;
+    expect(navControls?.className).toContain('rtl:right-auto');
+    expect(navControls?.className).toContain('rtl:left-5');
+  });
+
+  it('should apply whitespace-nowrap and cursor-pointer to CTA buttons', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const leftCta = compiled.querySelector('article a');
+    expect(leftCta?.className).toContain('cursor-pointer');
+    expect(leftCta?.className).toContain('whitespace-nowrap');
+
+    const carouselCta = compiled.querySelector('[aria-roledescription="carousel"] a');
+    expect(carouselCta?.className).toContain('cursor-pointer');
+    expect(carouselCta?.className).toContain('whitespace-nowrap');
+  });
+
   afterEach(() => {
     fixture.destroy();
   });
 
   it('should advance slide on autoplay interval and loop', () => {
-    jasmine.clock().install();
+    vi.useFakeTimers();
     const localFixture = TestBed.createComponent(PromotionalBanners);
     const localComp = localFixture.componentInstance;
     localFixture.detectChanges();
 
     expect(localComp.currentSlide()).toBe(0);
-    jasmine.clock().tick(5001);
+    vi.advanceTimersByTime(5001);
     expect(localComp.currentSlide()).toBe(1);
-    jasmine.clock().tick(5001);
+    vi.advanceTimersByTime(5001);
     expect(localComp.currentSlide()).toBe(2);
-    jasmine.clock().tick(5001);
+    vi.advanceTimersByTime(5001);
     expect(localComp.currentSlide()).toBe(0);
 
     localFixture.destroy();
-    jasmine.clock().uninstall();
+    vi.useRealTimers();
   });
 });
-
