@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { BannerSlide } from './promotional-banners.interface';
 
 export interface OccasionCard {
@@ -22,7 +23,7 @@ export interface OccasionCard {
 @Component({
   selector: 'app-promotional-banners',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './promotional-banners.html',
   styleUrl: './promotional-banners.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,9 +38,9 @@ export class PromotionalBanners implements OnInit, OnDestroy {
 
   // Top Left: Static promotional card (not part of the carousel)
   readonly leftBanner = {
-    pill: 'Starting from 10.99 EGP',
-    heading: 'Special Gifts For The\nPeople You Love',
-    ctaText: 'Shop Now',
+    pill: 'home.banners.leftBanner.pill',
+    heading: 'home.banners.leftBanner.heading',
+    ctaText: 'home.banners.leftBanner.cta',
     link: '/products',
     imageUrl:
       'https://rose-app.elevate-bootcamp.cloud/storage/entities/product/product-3454bd6fe74a-1784745925012.jpeg',
@@ -49,27 +50,27 @@ export class PromotionalBanners implements OnInit, OnDestroy {
   // Top Right: Main promotional carousel
   readonly slides: BannerSlide[] = [
     {
-      heading: 'Say It with Flowers',
-      subtitle: 'Elegant gifts for every special moment.',
-      ctaText: 'I’m buying!',
+      heading: 'home.banners.slides.slide1.heading',
+      subtitle: 'home.banners.slides.slide1.subtitle',
+      ctaText: 'home.banners.slides.slide1.cta',
       ctaRoute: '/products',
       imageUrl:
         'https://rose-app.elevate-bootcamp.cloud/storage/entities/product/product-2b1cb9dfe154-1784745922942.jpeg',
       alt: 'Say It with Flowers - Premium Red Roses Bouquet',
     },
     {
-      heading: 'Blooms That Brighten Every Day',
-      subtitle: 'Handcrafted floral arrangements designed to delight.',
-      ctaText: 'I’m buying!',
+      heading: 'home.banners.slides.slide2.heading',
+      subtitle: 'home.banners.slides.slide2.subtitle',
+      ctaText: 'home.banners.slides.slide2.cta',
       ctaRoute: '/products',
       imageUrl:
         'https://rose-app.elevate-bootcamp.cloud/storage/entities/product/product-f32e57ca382f-1790837522209.webp',
       alt: 'Blooms That Brighten Every Day - Mega Bouquet',
     },
     {
-      heading: 'Cherish Every Milestone',
-      subtitle: 'Luxury arrangements crafted with passion and love.',
-      ctaText: 'I’m buying!',
+      heading: 'home.banners.slides.slide3.heading',
+      subtitle: 'home.banners.slides.slide3.subtitle',
+      ctaText: 'home.banners.slides.slide3.cta',
       ctaRoute: '/products',
       imageUrl:
         'https://rose-app.elevate-bootcamp.cloud/storage/entities/product/product-7ef81d0c9782-1784745924181.jpeg',
@@ -80,24 +81,24 @@ export class PromotionalBanners implements OnInit, OnDestroy {
   // Bottom Row: 3 Occasion Cards (Wedding, Engagement, Anniversary - NO CTA button)
   readonly occasionCards: OccasionCard[] = [
     {
-      pill: 'Wedding',
-      title: "Celebrate Her Forever with a Gift\nShe’ll Always Remember",
+      pill: 'home.banners.occasions.wedding.pill',
+      title: 'home.banners.occasions.wedding.title',
       imageUrl:
         'https://rose-app.elevate-bootcamp.cloud/storage/entities/product/product-ba7e649bda9a-1784745923881.jpeg',
       alt: "Wedding Gift - Celebrate Her Forever with a Gift She'll Always Remember",
       link: '/products',
     },
     {
-      pill: 'Engagement',
-      title: 'Honor the Beginning of a\nBeautiful Journey Together',
+      pill: 'home.banners.occasions.engagement.pill',
+      title: 'home.banners.occasions.engagement.title',
       imageUrl:
         'https://rose-app.elevate-bootcamp.cloud/storage/entities/product/product-d4da3bb0c97c-1784745923489.jpeg',
       alt: 'Engagement Gift - Honor the Beginning of a Beautiful Journey Together',
       link: '/products',
     },
     {
-      pill: 'Anniversary',
-      title: 'Mark Every Year of Love with a\nMeaningful Surprise',
+      pill: 'home.banners.occasions.anniversary.pill',
+      title: 'home.banners.occasions.anniversary.title',
       imageUrl:
         'https://rose-app.elevate-bootcamp.cloud/storage/entities/product/product-323b37fd5f67-1784745922993.jpeg',
       alt: 'Anniversary Gift - Mark Every Year of Love with a Meaningful Surprise',
