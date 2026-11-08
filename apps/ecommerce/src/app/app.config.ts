@@ -4,7 +4,7 @@ import {
   provideBrowserGlobalErrorListeners,
 } from "@angular/core";
 
-import { provideRouter } from "@angular/router";
+import { provideRouter, withComponentInputBinding } from "@angular/router";
 import { appRoutes } from "./app.routes";
 import {
   provideClientHydration,
@@ -19,16 +19,16 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
-    provideRouter(appRoutes),
+    provideRouter(appRoutes, withComponentInputBinding()),
     provideStore(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideTranslateService({
-      loader:provideTranslateHttpLoader({
-        prefix:"http://localhost:4200/i18n/",
+      loader: provideTranslateHttpLoader({
+        prefix: "http://localhost:4200/i18n/",
         suffix: ".json",
       }),
-      fallbackLang:"en",
-      lang:"en"
+      fallbackLang: "en",
+      lang: "en",
     }),
   ],
 };

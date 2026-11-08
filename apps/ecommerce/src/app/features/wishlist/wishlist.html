@@ -1,1 +1,86 @@
-<p>wishlist works!</p>
+<div class="section-container my-16 min-h-56">
+  <header
+    class="flex flex-col md:flex-row gap-3 justify-between items-center mb-4"
+  >
+    <div class="flex items-end gap-2.5">
+      <svg
+        class="size-10 md:size-13 lg:size-15 text-zinc-800"
+        lucideFolderHeart
+        stroke="currentColor"
+      ></svg>
+      <p class="text-xl md:text-2xl lg:text-5xl font-bold text-zinc-800">
+        {{ "wishlist.title" | translate }}
+      </p>
+      <p class="text-zinc-500">
+        {{ itemsCount() }} {{ (itemsCount() === 1 ? "wishlist.item" :
+        "wishlist.items") | translate }}
+      </p>
+    </div>
+    @if(itemsCount()>0){
+    <button appButton variant="destructive" (click)="clearWishlist()">
+      <svg class="" lucideBrushCleaning></svg>
+      {{ "wishlist.clear-wishlist" | translate }}
+    </button>
+    }
+  </header>
+
+  <ul>
+    @for (item of wishlistitems(); track item.productId) {
+    <app-wishlist-item [item]="item" />
+    }
+  </ul>
+</div>
+
+<p-confirmdialog key="clearWishlist">
+  <ng-template
+    #headless
+    let-message
+    let-onAccept="onAccept"
+    let-onReject="onReject"
+  >
+    <div
+      class="relative flex w-[26rem] max-w-[90vw] flex-col items-center gap-6 rounded-2xl bg-white p-6"
+    >
+      <button
+        type="button"
+        class="absolute top-4 end-4 text-zinc-500 hover:text-zinc-800"
+        [attr.aria-label]="'wishlist.close' | translate"
+        (click)="onReject()"
+      >
+        <svg class="size-5" lucideX></svg>
+      </button>
+
+      <div
+        class="mt-6 flex size-24 items-center justify-center rounded-full bg-zinc-100"
+      >
+        <div
+          class="flex size-16 items-center justify-center rounded-full bg-zinc-200"
+        >
+          <svg class="size-6 text-zinc-800" lucideBrushCleaning></svg>
+        </div>
+      </div>
+
+      <p class="text-center text-lg font-medium text-zinc-900">
+        {{ message.message | translate }}
+      </p>
+
+      <div class="flex w-full gap-3">
+        <button
+          appButton
+          variant="secondary"
+          class="flex-1"
+          (click)="onReject()"
+        >
+          {{ "wishlist.cancel" | translate }}
+        </button>
+        <button
+          appButton
+          class="flex-1 bg-red-600 text-white hover:bg-red-700"
+          (click)="onAccept()"
+        >
+          {{ "wishlist.confirm" | translate }}
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmdialog>

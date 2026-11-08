@@ -9,6 +9,11 @@ export const initialProductsState: ProductsState = {
   isLoading: false,
   error: null,
   allProducts: [],
+  search: {
+    query: "",
+    items: [],
+    error: null,
+  },
   categories: {
     items: [],
     isLoading: false,
@@ -187,5 +192,28 @@ export const productsReducer = createReducer(
       isLoading: false,
       error,
     },
+  })),
+
+  //////////////////////////////////////////////////////////////////////
+  // search
+  //////////////////////////////////////////////////////////////////////
+  on(ProductsActions.searchProducts, (state, { query }) => ({
+    ...state,
+    search: { ...state.search, query, error: null },
+  })),
+
+  on(ProductsActions.searchProductsSuccess, (state, { response }) => ({
+    ...state,
+    search: { ...state.search, items: response.payload.data },
+  })),
+
+  on(ProductsActions.searchProductsFailure, (state, { error }) => ({
+    ...state,
+    search: { ...state.search, items: [], error },
+  })),
+
+  on(ProductsActions.clearSearch, (state) => ({
+    ...state,
+    search: initialProductsState.search,
   })),
 );

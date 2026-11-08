@@ -3,6 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { BASE_URL } from "../../../core/constants/apiUrl";
 import { ProductDetailRes, ProductRes } from "../model/product";
 import { Observable } from "rxjs";
+import { environment } from "../../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -30,6 +31,13 @@ export class ProductService {
     return this.httpClient.get<ProductRes>(
       `${this.apiUrl}/?page=1&limit=6&sortBy=rating`,
     );
+  }
+
+  // for search
+  searchProducts(query: string) {
+    return this.httpClient.get<ProductRes>(`${environment.baseUrl}products`, {
+      params: { search: query },
+    });
   }
 
   getRecommendedProducts(limit = 10): Observable<ProductRes> {

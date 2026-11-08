@@ -80,6 +80,10 @@
     "password-special": "يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل",
     "match": "كلمة المرور غير مطابقة"
   },
+  "header": {
+    "nopdtFound": "لم يتم العثور على منتجات",
+    "searchPdt": "البحث عن منتجات..."
+  },
   "home": {
     "banners": {
       "leftBanner": {
@@ -185,15 +189,15 @@
     }
   },
   "products": {
-    "products-page":{
-      "no-products":"لا تتوفر أي منتجات حالياً.",
+    "products-page": {
+      "no-products": "لا تتوفر أي منتجات حالياً.",
       "sidebar": {
         "categories": "التصنيفات",
         "occasions": "المناسبات",
         "rating": "التقييم",
         "price": "السعر",
-        "from":"من",
-        "to":"إلى",
+        "from": "من",
+        "to": "إلى",
         "reset": "إعادة تعيين",
         "reset-all": "إعادة تعيين الكل"
       }
@@ -279,5 +283,21 @@
     "added-success": "تمت إضافة المنتج إلى سلة التسوق بنجاح",
     "add-failed": "فشل إضافة المنتج إلى سلة التسوق",
     "products-you-may-like": "منتجات قد تعجبك"
+  },
+  "wishlist": {
+    "title": "المفضلة",
+    "items": "منتجات",
+    "item": "منتج",
+    "clear-wishlist": "مسح المفضلة",
+    "clear-confirm": "هل أنت متأكد أنك تريد مسح قائمة المفضلة؟",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "close": "إغلاق",
+    "remove": "حذف",
+    "in-stock": "متوفر في المخزون",
+    "out-of-stock": "غير متوفر",
+    "ratings": "{{count}} تقييم",
+    "add-to-cart": "أضف إلى السلة",
+    "explore-similar": "استكشف منتجات مشابهة"
   }
 }

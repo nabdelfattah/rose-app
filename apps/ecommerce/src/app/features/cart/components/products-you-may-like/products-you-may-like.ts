@@ -5,18 +5,19 @@ import {
   computed,
   inject,
   signal,
-} from '@angular/core';
-import { Store } from '@ngrx/store';
-import { CarouselModule } from '@openng/optimus-ui/carousel';
-import { TranslatePipe } from '@ngx-translate/core';
-import { ProductCardComponent, SectionTitleComponent } from '@rose-app/ui';
-import { ProductService } from '../../../products/service/product.service';
-import { Product } from '../../../products/model/product';
-import { CartActions } from '../../store/cart.actions';
-import { selectCartItems } from '../../store/cart.selectors';
+} from "@angular/core";
+import { Store } from "@ngrx/store";
+import { CarouselModule } from "@openng/optimus-ui/carousel";
+import { TranslatePipe } from "@ngx-translate/core";
+import { SectionTitleComponent } from "@rose-app/ui";
+import { ProductService } from "../../../products/service/product.service";
+import { Product } from "../../../products/model/product";
+import { CartActions } from "../../store/cart.actions";
+import { selectCartItems } from "../../store/cart.selectors";
+import { ProductCardComponent } from "../../../../shared/components/product-card/product-card";
 
 @Component({
-  selector: 'app-products-you-may-like',
+  selector: "app-products-you-may-like",
   standalone: true,
   imports: [
     CarouselModule,
@@ -24,8 +25,8 @@ import { selectCartItems } from '../../store/cart.selectors';
     SectionTitleComponent,
     TranslatePipe,
   ],
-  templateUrl: './products-you-may-like.html',
-  styleUrl: './products-you-may-like.css',
+  templateUrl: "./products-you-may-like.html",
+  styleUrl: "./products-you-may-like.css",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsYouMayLike implements OnInit {
@@ -42,7 +43,7 @@ export class ProductsYouMayLike implements OnInit {
     return new Set(
       this.cartItems()
         .map((item) => item.productId || item.product?.id)
-        .filter((id): id is string => !!id)
+        .filter((id): id is string => !!id),
     );
   });
 
@@ -53,22 +54,22 @@ export class ProductsYouMayLike implements OnInit {
 
   readonly responsiveOptions = [
     {
-      breakpoint: '1280px',
+      breakpoint: "1280px",
       numVisible: 4,
       numScroll: 1,
     },
     {
-      breakpoint: '1024px',
+      breakpoint: "1024px",
       numVisible: 3,
       numScroll: 1,
     },
     {
-      breakpoint: '768px',
+      breakpoint: "768px",
       numVisible: 2,
       numScroll: 1,
     },
     {
-      breakpoint: '575px',
+      breakpoint: "575px",
       numVisible: 1,
       numScroll: 1,
     },
@@ -89,7 +90,7 @@ export class ProductsYouMayLike implements OnInit {
         this.isLoading.set(false);
       },
       error: (err) => {
-        this.error.set(err?.message || 'Failed to load recommendations');
+        this.error.set(err?.message || "Failed to load recommendations");
         this.isLoading.set(false);
       },
     });
@@ -97,8 +98,7 @@ export class ProductsYouMayLike implements OnInit {
 
   onAddToCart(product: Product): void {
     this.store.dispatch(
-      CartActions.addItemToCart({ productId: product.id, quantity: 1 })
+      CartActions.addItemToCart({ productId: product.id, quantity: 1 }),
     );
   }
 }
-

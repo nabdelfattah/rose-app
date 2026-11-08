@@ -28,7 +28,7 @@
         </div>
         <div class="grid md:grid-cols-2 gap-6 lg:grid-cols-3 xl:grid-cols-4">
           @for (product of filtered().slice(0,12); track product.id) {
-          <app-product-card [product]="product" (addToCart)="onAddToCart($event)" />
+          <app-product-card [product]="product" />
           }
         </div>
         @if(filtered().length === 0){
