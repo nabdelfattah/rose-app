@@ -1,4 +1,4 @@
 export const environment = {
   baseUrl: "https://rose-app.elevate-bootcamp.cloud/api/",
-  googleMapKey: "AIzaSyAnP_JdVSxjryeorlSmDbj2YYPqoqMMQ4o"
+  googleMapKey: "AIzaSyCr07jcOmN0i63_QFqItenu8pgRNBsIeFc"
 };
