@@ -1,0 +1,30 @@
+<p-dialog
+  [visible]="visible()"
+  (visibleChange)="changeVisibility.emit($event)"
+  [modal]="true"
+  [style]="{ width: '29.625rem', height: '23.3125rem', 'border-radius': '16px' }"
+  [pt]="{
+    content: {
+      style: {
+        overflow: 'auto'
+      }
+    }
+  }"
+  styleClass="bg-white!"
+>
+ 
+  <div class="flex flex-col items-center gap-6">
+    <div class="icon size-26.25 rounded-full bg-[#2E2E300D] dark:bg-zinc-200/50 flex justify-center items-center">
+      <div class="inside-circle rounded-full size-17.5 bg-[#2E2E3026] dark:bg-zinc-400/50 flex justify-center items-center">
+        <svg lucideTrash size="29" class="text-zinc-800"></svg>
+      </div>
+    </div>
+    <div class="message">
+      <p class="text-zinc-800 text-[20px] font-semibold">{{'address.confirm-modal.message'|translate}}</p>
+    </div>
+    <div class="buttons w-full flex gap-2.5">
+      <button (click)="cancel.emit()" class="cancel grow" appButton variant="subtle">{{'address.confirm-modal.cancel'|translate}}</button>
+      <button (click)="confirm.emit()" class="confirm grow" appButton>{{'address.confirm-modal.confirm'|translate}}</button>
+    </div>
+  </div>
+</p-dialog>

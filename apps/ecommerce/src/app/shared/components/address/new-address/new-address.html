@@ -1,0 +1,130 @@
+<p-dialog
+  [visible]="visible()"
+  (visibleChange)="changeVisibility.emit($event)"
+  [modal]="true"
+  [style]="{ width: '53.125rem', padding: '24px', gap: '16px' }"
+  [pt]="{
+    pcCloseButton: {
+      root: {
+        style: {
+          display: 'none'
+        }
+      }
+    }
+  }"
+  styleClass="bg-white!"
+>
+  <ng-template #header>
+    <h3 class="text-3xl font-bold text-zinc-800">{{title() | translate}}</h3>
+  </ng-template>
+
+  <div class="stepper">
+    <app-payment-stepper
+      [steps]="2"
+      [current]="currentStep()"
+    ></app-payment-stepper>
+  </div>
+  <!-- Step 1 -->
+  @if(currentStep() == 1){
+  <div class="info flex flex-col gap-4">
+    <h3 class="title border-b border-b-zinc-200 text-2xl pb-3 text-maroon-600">
+      {{"address.new-address.enter-details"|translate}}
+    </h3>
+    <form [formGroup]="addressForm" class="flex flex-col gap-4">
+      <div class="inputs flex flex-col gap-4">
+        <div class="title">
+          <app-input
+            type="text"
+            label="address.new-address.title"
+            id="title"
+            placeholder="Home, Work, Family"
+            [control]="titleControl"
+          ></app-input>
+        </div>
+        <div class="city">
+          <app-input
+            type="text"
+            label="address.new-address.city"
+            id="city"
+            placeholder="Enter City Name"
+            [control]="cityControl"
+          ></app-input>
+        </div>
+        <div class="address">
+          <app-input
+            type="textarea"
+            label="address.new-address.address"
+            id="address"
+            placeholder="Enter Your Full Address"
+            [control]="streetControl"
+          ></app-input>
+        </div>
+        <div class="phone">
+          <app-input
+            [type]="'tel'"
+            label="address.new-address.phone"
+            id="phone"
+            placeholder="Phone Number"
+            [control]="phoneControl"
+          ></app-input>
+        </div>
+        <div class="primary flex items-center gap-2">
+          <input
+            id="isPrimary"
+            type="checkbox"
+            formControlName="isPrimary"
+            class="size-4 accent-maroon-600"
+          />
+
+          <label for="isPrimary" class="text-sm text-zinc-800">
+            {{"address.new-address.primary"|translate}}
+          </label>
+        </div>
+      </div>
+      <button (click)="nextStep()" type="button" appButton size="full">
+        {{"address.new-address.next"|translate}}
+      </button>
+    </form>
+  </div>
+  } @if(currentStep() == 2){
+  <div class="map-container flex flex-col gap-4">
+    <div
+      class="map-head flex items-center gap-4 pb-3 border-b border-b-zinc-200"
+    >
+      <span
+        (click)="back()"
+        class="back-icon size-8.75 rounded-full bg-maroon-600 flex justify-center items-center cursor-pointer"
+      >
+        <svg lucideArrowLeft size="20" class="rtl:rotate-180 text-white"></svg>
+      </span>
+      <h3 class="text-maroon-600 font-medium text-2xl">{{"address.new-address.find-location"|translate}}</h3>
+    </div>
+    <div class="map relative">
+      @if (mapsReady()) {
+      <google-map
+        height="349px"
+        width="100%"
+        [center]="center"
+        [zoom]="zoom"
+        (mapClick)="onMapClick($event)"
+      >
+        @if (marker(); as pos) {
+        <map-marker [position]="pos" />
+        }
+      </google-map>
+      }
+      <button
+        appButton
+        variant="secondary"
+        class="flex items-center gap-2.5 border border-maroon-600 absolute top-3 inset-e-3"
+        (click)="findMyLocation()"
+        [disabled]="isLocating()"
+      >
+        <svg lucideMapPinHouse></svg>
+        {{ (isLocating() ? "address.new-address.locating" : "address.new-address.find-location-btn") |translate}}
+      </button>
+    </div>
+    <button (click)="addAddress()" appButton size="full">{{"address.new-address.add-address"|translate}}</button>
+  </div>
+  }
+</p-dialog>
