@@ -31,6 +31,9 @@ import {
 import { environment } from "../environments/environment";
 import { wishlistReducer } from "./features/wishlist/store/wishlist.reducer";
 import { WishlistService } from "./features/wishlist/services/wishlist.service";
+import { addressReducer } from "./shared/components/address/store/address.reducer";
+import * as addressEffects from './shared/components/address/store/address.effects'
+import { AddressService } from "./shared/components/address/services/address-service/address.service";
 
 export const appRoutes: Route[] = [
   {
@@ -63,7 +66,10 @@ export const appRoutes: Route[] = [
       provideEffects(wishlistEffect),
       provideState({ name: "cart", reducer: cartReducer }),
       provideEffects(cartEffects),
+      provideState({name: 'address', reducer: addressReducer}),
+      provideEffects(addressEffects),
       CartService,
+      AddressService,
       MessageService,
       // Translation
       provideTranslateService({
