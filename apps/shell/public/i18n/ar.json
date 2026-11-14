@@ -82,7 +82,8 @@
   },
   "header": {
     "nopdtFound": "لم يتم العثور على منتجات",
-    "searchPdt": "البحث عن منتجات..."
+    "searchPdt": "البحث عن منتجات...",
+    "select-address":"اختر العنوان"
   },
   "home": {
     "banners": {
@@ -356,6 +357,44 @@
       "mismatch": "كلمتا المرور غير متطابقتين.",
       "required": "هذا الحقل مطلوب.",
       "minLength": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل."
+    }
+},
+  "address": {
+    "addresses-list": {
+      "my-addresses": "عناويني",
+      "add-address": "إضافة عنوان جديد"
+    },
+    "confirm-modal": {
+      "message": "هل أنت متأكد أنك تريد حذف هذا العنوان؟",
+      "cancel": "إلغاء",
+      "confirm": "تأكيد"
+    },
+    "new-address": {
+      "update-title": "تعديل بيانات العنوان",
+      "add-title": "إضافة عنوان جديد",
+      "enter-details": "أدخل تفاصيل العنوان",
+      "title": "اسم العنوان",
+      "city": "المدينة",
+      "address": "العنوان",
+      "phone": "رقم الهاتف",
+      "primary": "تعيين كعنوان رئيسي",
+      "next": "التالي",
+      "find-location": "تحديد موقعك",
+      "locating": "جارٍ تحديد الموقع...",
+      "find-location-btn": "تحديد موقعي",
+      "add-address": "إضافة العنوان"
+    },
+    "toast": {
+      "success": "تم بنجاح",
+      "created": "تم إضافة العنوان بنجاح",
+      "updated": "تم تحديث العنوان بنجاح",
+      "deleted": "تم حذف العنوان بنجاح",
+      "error": "خطأ",
+      "loadFailed": "فشل تحميل العناوين",
+      "loadByIdFailed": "فشل تحميل العنوان",
+      "createFailed": "فشل إضافة العنوان",
+      "updateFailed": "فشل تحديث العنوان",
+      "deleteFailed": "فشل حذف العنوان"
     }
   }
 }

@@ -71,6 +71,11 @@ import {
   AutoCompleteSelectEvent,
 } from "@openng/optimus-ui/autocomplete";
 import { TranslatePipe } from "@ngx-translate/core";
+import { AddressModal } from "../../shared/components/address/addresses-list/address-modal";
+import { NewAddress } from "../../shared/components/address/new-address/new-address";
+import { Address } from "../../shared/components/address/model/address.model";
+import { selectSelectedAddress } from "../../shared/components/address/store/address.selector";
+import { AddressActions } from "../../shared/components/address/store/address.actions";
 
 @Component({
   selector: "app-header",
@@ -110,6 +115,8 @@ import { TranslatePipe } from "@ngx-translate/core";
     LucideSun,
     LucideTrash,
     LucideUser,
+    AddressModal,
+    NewAddress
   ],
   providers: [NotificationService],
   templateUrl: "./header.html",
@@ -129,6 +136,18 @@ export class Header implements OnInit {
   readonly notificationService = inject(NotificationService);
 
   readonly searchResults = this.store.selectSignal(selectSearchResults);
+
+  // my addresses modal
+  addressModalVisibile = signal<boolean>(false);
+
+  // Add New Address modal
+  addAddressModalVisible = signal(false);
+
+  // Edit Address
+  selectedEditAddress = signal<Address | null>(null);
+
+  // Selected Address
+  selectedAddress = this.store.selectSignal(selectSelectedAddress)
 
   // Auth State from NgRx Store & Session
   readonly userState = this.store.selectSignal(selectUserState);
@@ -234,6 +253,7 @@ export class Header implements OnInit {
     if (this.isAuthenticated()) {
       this.loadNotifications();
     }
+    this.store.dispatch(AddressActions.loadAddresses());
   }
 
   // Overlay Management (Ensures only one overlay is open at a time)
@@ -419,4 +439,21 @@ export class Header implements OnInit {
       this.router.navigate(["/products"], { queryParams: { q: query } });
     }
   }
+
+  // Show Addresses Modal 
+
+  onAddressModalChange(visible:boolean){
+    this.addressModalVisibile.set(visible);
+  }
+
+  openAddAddressModal() {
+    this.addressModalVisibile.set(false);
+    this.addAddressModalVisible.set(true);
+  }
+
+  onEdit(address: Address) {
+  this.selectedEditAddress.set(address); 
+  this.addressModalVisibile.set(false);
+  this.addAddressModalVisible.set(true);
+}
 }

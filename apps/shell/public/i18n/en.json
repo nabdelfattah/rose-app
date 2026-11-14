@@ -82,7 +82,8 @@
   },
   "header": {
     "nopdtFound": "No products found",
-    "searchPdt": "Search products..."
+    "searchPdt": "Search products...",
+    "select-address":"Select Address"
   },
   "home": {
     "banners": {
@@ -357,6 +358,44 @@
       "mismatch": "Passwords do not match.",
       "required": "This field is required.",
       "minLength": "Password must be at least 6 characters long."
+    }
+  },
+  "address":{
+    "addresses-list":{
+      "my-addresses": "My Addresses",
+      "add-address": "Add New Address"
+    },
+    "confirm-modal":{
+      "message":"Are you sure you want to delete this address?",
+      "cancel":"Cancel",
+      "confirm":"Confirm"
+    },
+    "new-address":{
+      "update-title":"Update Address Info",
+      "add-title":"Add a New Address",
+      "enter-details":"Enter Address Details",
+      "title":"Title",
+      "city":"City",
+      "address":"Address",
+      "phone":"Phone",
+      "primary":"Set as primary address",
+      "next":"Next",
+      "find-location":"Find Your Location",
+      "locating":"Locating...",
+      "find-location-btn":"Find My Location",
+      "add-address":"Add Address"
+    },
+    "toast": {
+      "success": "Success",
+      "created": "Address added successfully",
+      "updated": "Address updated successfully",
+      "deleted": "Address deleted successfully",
+      "error": "Error",
+      "loadFailed": "Failed to load addresses",
+      "loadByIdFailed": "Failed to load address",
+      "createFailed": "Failed to add address",
+      "updateFailed": "Failed to update address",
+      "deleteFailed": "Failed to delete address"
     }
   }
 }
