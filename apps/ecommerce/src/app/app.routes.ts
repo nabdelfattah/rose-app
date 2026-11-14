@@ -31,6 +31,7 @@ import {
 import { environment } from "../environments/environment";
 import { wishlistReducer } from "./features/wishlist/store/wishlist.reducer";
 import { WishlistService } from "./features/wishlist/services/wishlist.service";
+import { AccountService } from "./features/account/service/account.service";
 import { addressReducer } from "./shared/components/address/store/address.reducer";
 import * as addressEffects from './shared/components/address/store/address.effects'
 import { AddressService } from "./shared/components/address/services/address-service/address.service";
@@ -57,6 +58,7 @@ export const appRoutes: Route[] = [
       // Their endpoints need the token from headerInterceptor.
       ReviewsService,
       WishlistService,
+      AccountService,
       ConfirmationService,
       provideState({ name: "user", reducer: userReducer }),
       provideEffects(userEffects),
@@ -92,6 +94,7 @@ export const appRoutes: Route[] = [
           { path: "", component: Home, pathMatch: "full" },
           {
             path: "account",
+            canActivate: [authGuard],
             loadComponent: () =>
               import("./features/account/account").then((c) => c.Account),
           },
