@@ -300,5 +300,63 @@
     "ratings": "{{count}} ratings",
     "add-to-cart": "Add to Cart",
     "explore-similar": "Explore Similar Products"
+  },
+  "account": {
+    "title": "Account Settings",
+    "tabs": {
+      "profile": "Profile",
+      "changePassword": "Change Password"
+    },
+    "logout": "Log out",
+    "profile": {
+      "title": "Profile",
+      "photo": {
+        "upload": "Upload Photo",
+        "change": "Change Photo",
+        "helper": "Allowed JPG, PNG or WEBP. Max size of 5MB",
+        "sizeError": "File size exceeds the 5MB limit.",
+        "typeError": "Unsupported file format. Please upload JPG, PNG, GIF, or WEBP.",
+        "uploadSuccess": "Profile photo uploaded successfully.",
+        "uploadError": "Failed to upload photo. Please try again."
+      },
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "selectGender": "Select Gender",
+      "saveChanges": "Save Changes",
+      "saving": "Saving...",
+      "deleteAccount": "Delete My Account",
+      "success": "Profile updated successfully.",
+      "error": "Failed to update profile. Please try again."
+    },
+    "deleteModal": {
+      "title": "Are you sure you want to delete your account?",
+      "warning": "This action is permanent and cannot be undone. All your data and orders will be permanently removed.",
+      "cancel": "Cancel",
+      "confirm": "Yes, Delete",
+      "deleting": "Deleting...",
+      "success": "Account deleted successfully.",
+      "error": "Failed to delete account. Please try again."
+    },
+    "password": {
+      "title": "Change Password",
+      "oldPassword": "Old Password",
+      "oldPasswordPlaceholder": "Enter old password",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Enter new password",
+      "confirmPassword": "Confirm New Password",
+      "confirmPasswordPlaceholder": "Re-enter new password",
+      "submit": "Change Password",
+      "submitting": "Changing...",
+      "success": "Password changed successfully.",
+      "error": "Failed to change password. Please check your old password.",
+      "mismatch": "Passwords do not match.",
+      "required": "This field is required.",
+      "minLength": "Password must be at least 6 characters long."
+    }
   }
 }

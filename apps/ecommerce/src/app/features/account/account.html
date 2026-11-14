@@ -1,1 +1,138 @@
-<p>account works!</p>
+<div class="account-page py-6 sm:py-8 lg:py-10">
+  <div class="container mx-auto px-4 max-w-7xl flex flex-col gap-6 lg:gap-8">
+    <!-- Page Heading -->
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+        {{ 'account.title' | translate }}
+      </h1>
+    </div>
+
+    <!-- Main Layout Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      <!-- Left Navigation Card -->
+      <nav
+        class="lg:col-span-3 bg-white dark:bg-[#202124] rounded-2xl border border-zinc-200 dark:border-zinc-800 p-3 sm:p-4 flex flex-col justify-between gap-6 shadow-xs lg:min-h-[380px]"
+        aria-label="Account Settings Navigation"
+      >
+        <!-- Nav Items -->
+        <div class="flex flex-row lg:flex-col gap-1.5 overflow-x-auto lg:overflow-visible">
+          <!-- Profile Tab -->
+          <button
+            type="button"
+            (click)="selectTab('profile')"
+            [class.bg-maroon-50]="activeTab() === 'profile'"
+            [class.text-maroon-700]="activeTab() === 'profile'"
+            [class.dark:bg-maroon-950/40]="activeTab() === 'profile'"
+            [class.dark:text-soft-pink-300]="activeTab() === 'profile'"
+            [class.font-semibold]="activeTab() === 'profile'"
+            [class.text-zinc-600]="activeTab() !== 'profile'"
+            [class.dark:text-zinc-400]="activeTab() !== 'profile'"
+            [class.hover:bg-zinc-50]="activeTab() !== 'profile'"
+            [class.dark:hover:bg-zinc-800/60]="activeTab() !== 'profile'"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition cursor-pointer whitespace-nowrap text-start w-full"
+          >
+            <svg class="w-4 h-4 shrink-0" lucideUser></svg>
+            <span>{{ 'account.tabs.profile' | translate }}</span>
+          </button>
+
+          <!-- Change Password Tab -->
+          <button
+            type="button"
+            (click)="selectTab('password')"
+            [class.bg-maroon-50]="activeTab() === 'password'"
+            [class.text-maroon-700]="activeTab() === 'password'"
+            [class.dark:bg-maroon-950/40]="activeTab() === 'password'"
+            [class.dark:text-soft-pink-300]="activeTab() === 'password'"
+            [class.font-semibold]="activeTab() === 'password'"
+            [class.text-zinc-600]="activeTab() !== 'password'"
+            [class.dark:text-zinc-400]="activeTab() !== 'password'"
+            [class.hover:bg-zinc-50]="activeTab() !== 'password'"
+            [class.dark:hover:bg-zinc-800/60]="activeTab() !== 'password'"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition cursor-pointer whitespace-nowrap text-start w-full"
+          >
+            <svg class="w-4 h-4 shrink-0" lucideLock></svg>
+            <span>{{ 'account.tabs.changePassword' | translate }}</span>
+          </button>
+        </div>
+
+        <!-- Logout Action (Pinned at Bottom on Desktop) -->
+        <div class="pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
+          <button
+            type="button"
+            (click)="logout()"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition cursor-pointer text-start w-full"
+          >
+            <svg class="w-4 h-4 shrink-0 rtl:rotate-180" lucideLogOut></svg>
+            <span>{{ 'account.logout' | translate }}</span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Right Content Card -->
+      <main
+        class="lg:col-span-9 bg-white dark:bg-[#202124] rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 sm:p-8 lg:p-10 shadow-xs"
+      >
+        @if (activeTab() === 'profile') {
+        <app-profile (deleteAccountRequested)="onDeleteAccountRequested()" />
+        } @else {
+        <app-change-password />
+        }
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Account Confirmation Modal -->
+<p-confirmdialog key="deleteAccount">
+  <ng-template #headless let-onAccept="onAccept" let-onReject="onReject">
+    <div
+      class="relative flex w-[28rem] max-w-[92vw] flex-col items-center gap-5 rounded-2xl bg-white dark:bg-[#202124] p-6 sm:p-8 shadow-2xl border border-zinc-200 dark:border-zinc-800"
+    >
+      <!-- Close Button -->
+      <button
+        type="button"
+        class="absolute top-4 end-4 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition cursor-pointer"
+        (click)="onReject()"
+        aria-label="Close dialog"
+      >
+        <svg class="size-5" lucideX></svg>
+      </button>
+
+      <!-- Circular Trash Icon Badge -->
+      <div
+        class="mt-2 flex size-20 items-center justify-center rounded-full bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400"
+      >
+        <svg class="size-9" lucideTrash2></svg>
+      </div>
+
+      <!-- Title -->
+      <h3 class="text-center text-lg sm:text-xl font-bold text-zinc-900 dark:text-zinc-100">
+        {{ 'account.deleteModal.title' | translate }}
+      </h3>
+
+      <!-- Warning Message -->
+      <p class="text-center text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+        {{ 'account.deleteModal.warning' | translate }}
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex w-full gap-3 pt-2">
+        <button
+          type="button"
+          class="flex-1 py-2.5 px-4 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 font-medium text-sm transition cursor-pointer"
+          (click)="onReject()"
+        >
+          {{ 'account.deleteModal.cancel' | translate }}
+        </button>
+        <button
+          type="button"
+          [disabled]="deletingAccount()"
+          class="flex-1 py-2.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-medium text-sm transition shadow-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+          (click)="onAccept()"
+        >
+          {{ (deletingAccount() ? 'account.deleteModal.deleting' : 'account.deleteModal.confirm') | translate }}
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmdialog>

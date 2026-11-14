@@ -131,18 +131,16 @@
                   >
                 </a>
 
-                <a
-                  routerLink="/account"
-                  fragment="addresses"
+                <div
                   (click)="closeAllOverlays()"
-                  class="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-700 hover:bg-zinc-100 transition"
+                  class="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-700 hover:bg-zinc-100 transition cursor-pointer"
                 >
                   <svg
                     lucideMapPin
                     class="w-4 h-4 text-zinc-500 shrink-0"
                   ></svg>
                   <span>{{ isArabic() ? 'العناوين' : 'Addresses' }}</span>
-                </a>
+                </div>
 
                 <a
                   routerLink="/orders"
