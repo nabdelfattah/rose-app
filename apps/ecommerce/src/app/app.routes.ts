@@ -38,6 +38,7 @@ import * as addressEffects from "./shared/components/address/store/address.effec
 import { AddressService } from "./shared/components/address/services/address-service/address.service";
 import { NotificationsService } from "./features/notification/services/notifications.service";
 import { notificationsReducer } from "./features/notification/store/notifications.reducer";
+import { OrdersService } from "./features/orders/services/orders.service";
 
 export const appRoutes: Route[] = [
   {
@@ -62,6 +63,7 @@ export const appRoutes: Route[] = [
       ReviewsService,
       WishlistService,
       AccountService,
+      OrdersService,
       ConfirmationService,
       NotificationsService,
       provideState({ name: "user", reducer: userReducer }),
@@ -117,6 +119,7 @@ export const appRoutes: Route[] = [
           },
           {
             path: "orders",
+            canActivate: [authGuard],
             loadComponent: () =>
               import("./features/orders/orders").then((c) => c.Orders),
           },
