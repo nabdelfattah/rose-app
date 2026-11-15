@@ -23,6 +23,7 @@ import * as wishlistEffect from "./features/wishlist/store/wishlist.effects";
 import { ReviewsService } from "./features/products/service/reviews.service";
 import { cartReducer } from "./features/cart/store/cart.reducer";
 import * as cartEffects from "./features/cart/store/cart.effects";
+import * as notificationsEffect from "./features/notification/store/notifications.effects";
 import { CartService } from "./features/cart/service/cart.service";
 import {
   ngxSpinnerInterceptor,
@@ -33,8 +34,10 @@ import { wishlistReducer } from "./features/wishlist/store/wishlist.reducer";
 import { WishlistService } from "./features/wishlist/services/wishlist.service";
 import { AccountService } from "./features/account/service/account.service";
 import { addressReducer } from "./shared/components/address/store/address.reducer";
-import * as addressEffects from './shared/components/address/store/address.effects'
+import * as addressEffects from "./shared/components/address/store/address.effects";
 import { AddressService } from "./shared/components/address/services/address-service/address.service";
+import { NotificationsService } from "./features/notification/services/notifications.service";
+import { notificationsReducer } from "./features/notification/store/notifications.reducer";
 
 export const appRoutes: Route[] = [
   {
@@ -60,6 +63,7 @@ export const appRoutes: Route[] = [
       WishlistService,
       AccountService,
       ConfirmationService,
+      NotificationsService,
       provideState({ name: "user", reducer: userReducer }),
       provideEffects(userEffects),
       provideState({ name: "products", reducer: productsReducer }),
@@ -68,8 +72,10 @@ export const appRoutes: Route[] = [
       provideEffects(wishlistEffect),
       provideState({ name: "cart", reducer: cartReducer }),
       provideEffects(cartEffects),
-      provideState({name: 'address', reducer: addressReducer}),
+      provideState({ name: "address", reducer: addressReducer }),
       provideEffects(addressEffects),
+      provideState({ name: "notifications", reducer: notificationsReducer }),
+      provideEffects(notificationsEffect),
       CartService,
       AddressService,
       MessageService,

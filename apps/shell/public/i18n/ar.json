@@ -83,7 +83,7 @@
   "header": {
     "nopdtFound": "لم يتم العثور على منتجات",
     "searchPdt": "البحث عن منتجات...",
-    "select-address":"اختر العنوان"
+    "select-address": "اختر العنوان"
   },
   "home": {
     "banners": {
@@ -358,7 +358,7 @@
       "required": "هذا الحقل مطلوب.",
       "minLength": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل."
     }
-},
+  },
   "address": {
     "addresses-list": {
       "my-addresses": "عناويني",
@@ -396,5 +396,17 @@
       "updateFailed": "فشل تحديث العنوان",
       "deleteFailed": "فشل حذف العنوان"
     }
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "new-count": "{{count}} جديد",
+    "mark-all-read": "قراءة الكل",
+    "clear-all": "مسح الكل",
+    "loading": "جاري تحميل الإشعارات...",
+    "empty-title": "لا توجد إشعارات حالياً",
+    "empty-desc": "ستظهر التحديثات والطلبات والعروض هنا عندما تصلك",
+    "options": "خيارات الإشعار",
+    "mark-as-read": "تحديد كمقروء",
+    "delete": "حذف"
   }
 }

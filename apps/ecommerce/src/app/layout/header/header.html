@@ -379,181 +379,23 @@
             type="button"
             (click)="toggleNotificationsPopover($event)"
             class="relative p-1 sm:p-2 rounded-lg text-zinc-700 hover:text-maroon-700 transition focus:outline-none shrink-0"
-            [attr.aria-label]="isArabic() ? 'الإشعارات' : 'Notifications'"
-            title="Notifications"
+            [attr.aria-label]="'notifications.title' | translate"
+            [title]="'notifications.title' | translate"
             id="notifications-trigger"
           >
             <svg lucideBell class="w-4.5 h-4.5 sm:w-5 sm:h-5"></svg>
-            @if (unreadCount() > 0) {
+
+            @if (notificationsCount() > 0) {
             <span
               class="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 rounded-full bg-[#d91d36] text-white text-[10px] font-bold flex items-center justify-center leading-none pointer-events-none animate-pulse"
             >
-              {{ unreadCount() > 99 ? '99+' : unreadCount() }}
+              {{ notificationsCount() > 99 ? '99+' : notificationsCount() }}
             </span>
             }
           </button>
 
           <!-- Optimus UI Popover for Notifications -->
-          <p-popover
-            #notificationsPopover
-            [dismissable]="true"
-            [appendTo]="'body'"
-            styleClass="!p-0 !rounded-2xl !shadow-2xl !border !border-zinc-200 !overflow-hidden"
-          >
-            <div
-              class="w-80 sm:w-96 flex flex-col max-h-[500px] bg-white max-w-[calc(100vw-2rem)]"
-              [dir]="isArabic() ? 'rtl' : 'ltr'"
-            >
-              <!-- Notifications Popover Header -->
-              <div
-                class="flex items-center justify-between px-4 py-3 border-b border-zinc-100 bg-zinc-50/50"
-              >
-                <div class="flex items-center gap-2">
-                  <h3 class="text-sm font-bold text-zinc-900">
-                    {{ isArabic() ? 'الإشعارات' : 'Notifications' }}
-                  </h3>
-                  @if (unreadCount() > 0) {
-                  <span
-                    class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-maroon-100 text-maroon-700"
-                  >
-                    {{ unreadCount() }} {{ isArabic() ? 'جديد' : 'new' }}
-                  </span>
-                  }
-                </div>
-
-                @if (notifications().length > 0) {
-                <div class="flex items-center gap-2 text-xs">
-                  <button
-                    type="button"
-                    (click)="markAllAsRead()"
-                    class="text-maroon-600 hover:underline font-medium"
-                  >
-                    {{ isArabic() ? 'قراءة الكل' : 'Mark All As Read' }}
-                  </button>
-                  <span class="text-zinc-300">|</span>
-                  <button
-                    type="button"
-                    (click)="clearAllNotifications()"
-                    class="text-zinc-500 hover:text-red-600 transition font-medium"
-                  >
-                    {{ isArabic() ? 'مسح الكل' : 'Clear All' }}
-                  </button>
-                </div>
-                }
-              </div>
-
-              <!-- Notifications Popover Body -->
-              <div class="flex-1 overflow-y-auto divide-y divide-zinc-100">
-                @if (isLoadingNotifications()) {
-                <!-- Loading State -->
-                <div
-                  class="py-12 flex flex-col items-center justify-center text-zinc-400 gap-2"
-                >
-                  <svg
-                    lucideLoaderCircle
-                    class="w-6 h-6 animate-spin text-maroon-600"
-                  ></svg>
-                  <span class="text-xs"
-                    >{{ isArabic() ? 'جاري تحميل الإشعارات...' : 'Loading
-                    notifications...' }}</span
-                  >
-                </div>
-                } @else if (notifications().length === 0) {
-                <!-- Empty State -->
-                <div
-                  class="py-12 px-6 flex flex-col items-center justify-center text-center"
-                >
-                  <div
-                    class="w-12 h-12 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-400 mb-3"
-                  >
-                    <svg lucideBellOff class="w-6 h-6"></svg>
-                  </div>
-                  <p class="text-sm font-semibold text-zinc-800">
-                    {{ isArabic() ? 'لا توجد إشعارات حالياً' : 'No notifications
-                    yet' }}
-                  </p>
-                  <p class="text-xs text-zinc-500 mt-1">
-                    {{ isArabic() ? 'ستظهر التحديثات والعروض هنا عندما تصلك' :
-                    'Updates, orders, and offers will appear here.' }}
-                  </p>
-                </div>
-                } @else {
-                <!-- Filled State: List of notifications -->
-                @for (item of notifications(); track item._id || item.id ||
-                $index) {
-                <div
-                  class="p-4 flex items-start gap-3 hover:bg-zinc-50 transition relative group"
-                  [class.bg-maroon-50/30]="!item.isRead"
-                  [class.dark:bg-soft-pink-950/20]="!item.isRead"
-                >
-                  <!-- Unread Indicator Dot -->
-                  <div class="mt-1.5 shrink-0">
-                    @if (!item.isRead) {
-                    <span
-                      class="block w-2 h-2 rounded-full bg-[#d91d36]"
-                    ></span>
-                    } @else {
-                    <span
-                      class="block w-2 h-2 rounded-full bg-transparent"
-                    ></span>
-                    }
-                  </div>
-
-                  <!-- Notification Content -->
-                  <div class="flex-1 min-w-0">
-                    <h4 class="text-xs font-semibold text-zinc-900 truncate">
-                      {{ item.title }}
-                    </h4>
-                    <p class="text-xs text-zinc-600 mt-0.5 line-clamp-2">
-                      {{ item.message || item.body }}
-                    </p>
-                  </div>
-
-                  <!-- Options / Ellipsis Trigger -->
-                  <div class="relative shrink-0">
-                    <button
-                      type="button"
-                      (click)="toggleRowMenu(item._id || item.id || '', $event)"
-                      class="p-1 rounded text-zinc-400 hover:text-zinc-700 focus:outline-none"
-                      aria-label="Notification options"
-                    >
-                      <svg lucideEllipsisVertical class="w-4 h-4"></svg>
-                    </button>
-
-                    <!-- Contextual Row Menu -->
-                    @if (activeRowMenuId() === (item._id || item.id)) {
-                    <div
-                      class="absolute right-0 top-full mt-1 w-36 rounded-xl bg-white shadow-xl border border-zinc-200 py-1 z-30 animate-in fade-in duration-100"
-                    >
-                      @if (!item.isRead) {
-                      <button
-                        type="button"
-                        (click)="markNotificationAsRead(item, $event)"
-                        class="w-full flex items-center gap-2 px-3 py-1.5 text-xs text-zinc-700 hover:bg-zinc-100 text-left focus:outline-none"
-                      >
-                        <svg lucideCheck class="w-3.5 h-3.5"></svg>
-                        <span
-                          >{{ isArabic() ? 'تحديد كمقروء' : 'Mark as read'
-                          }}</span
-                        >
-                      </button>
-                      }
-                      <button
-                        type="button"
-                        (click)="deleteNotification(item, $event)"
-                        class="w-full flex items-center gap-2 px-3 py-1.5 text-xs text-red-600 hover:bg-red-50 text-left focus:outline-none"
-                      >
-                        <svg lucideTrash class="w-3.5 h-3.5"></svg>
-                        <span>{{ isArabic() ? 'حذف' : 'Delete' }}</span>
-                      </button>
-                    </div>
-                    }
-                  </div>
-                </div>
-                } }
-              </div>
-            </div>
-          </p-popover>
+          <app-notifications #notificationsPanel />
         </div>
 
         <!-- Vertical Separator 2 -->
