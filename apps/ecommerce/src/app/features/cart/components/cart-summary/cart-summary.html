@@ -105,14 +105,16 @@
   </div>
 
   <!-- Checkout Button -->
-  <a
-    appButton
-    variant="primary"
-    size="full"
-    routerLink="/checkout"
-    [disabled]="isCheckoutDisabled()"
-    class="mt-6 w-full text-center cursor-pointer"
-  >
-    {{ 'cart.checkout' | translate }}
-  </a>
+   @if(!isCheckoutStep()){
+     <a
+       appButton
+       variant="primary"
+       size="full"
+       [disabled]="isCheckoutDisabled()"
+       class="mt-6 w-full text-center cursor-pointer"
+       (click)="checkoutStep.emit(false)"
+     >
+       {{ 'cart.checkout' | translate }}
+     </a>
+   }
 </div>

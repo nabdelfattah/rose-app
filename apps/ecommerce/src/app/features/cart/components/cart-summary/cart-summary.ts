@@ -37,9 +37,11 @@ export class CartSummaryComponent {
   readonly couponError = input<string | null>(null);
   readonly isCouponLoading = input<boolean>(false);
   readonly isCheckoutDisabled = input<boolean>(false);
+  readonly isCheckoutStep = input<boolean>(false);
 
   readonly applyCoupon = output<string>();
   readonly removeCoupon = output<void>();
+  readonly checkoutStep = output<boolean>();
 
   readonly couponCodeInput = signal<string>('');
 

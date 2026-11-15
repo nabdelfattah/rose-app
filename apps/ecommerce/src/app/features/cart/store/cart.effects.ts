@@ -123,13 +123,24 @@ export const clearCart = createEffect(
   (actions$ = inject(Actions), cartService = inject(CartService)) =>
     actions$.pipe(
       ofType(CartActions.clearCart),
-      switchMap(() =>
+      switchMap(({ source, orderId }) =>
         cartService.clearCart().pipe(
-          map((response) => CartActions.clearCartSuccess({ response })),
+          map((response) =>
+            CartActions.clearCartSuccess({
+              response,
+              source,
+              orderId,
+            })
+          ),
           catchError((error: HttpErrorResponse) =>
             of(
               CartActions.clearCartFailure({
-                error: error.error?.message || error.message || 'Failed to clear cart',
+                error:
+                  error.error?.message ||
+                  error.message ||
+                  'Failed to clear cart',
+                source,
+                orderId,
               })
             )
           )
