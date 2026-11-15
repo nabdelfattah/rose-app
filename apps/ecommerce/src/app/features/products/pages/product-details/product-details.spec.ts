@@ -150,7 +150,7 @@ describe("ProductDetails", () => {
     });
   });
 
-  it('should resolve the current product for ProductDetailsInfo', () => {
-    expect(component.product()?.id).toBe('p2');
+  it("should resolve the current product for ProductDetailsInfo", () => {
+    expect(component.product()?.id).toBe("p2");
   });
 });

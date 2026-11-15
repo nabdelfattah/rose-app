@@ -10,7 +10,7 @@ import {
   selectBestProductsError,
   selectBestProductsLoading,
 } from "../../../products/store/products.selectors";
-import { ProductCardComponent } from "@rose-app/ui";
+import { ProductCardComponent } from "../../../../shared/components/product-card/product-card";
 import { ProductsActions } from "../../../products/store/products.actions";
 
 // Fake card

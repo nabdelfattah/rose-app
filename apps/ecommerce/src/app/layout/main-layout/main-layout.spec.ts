@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { provideTranslateService } from '@ngx-translate/core';
 import { MainLayout } from './main-layout';
 import { Header } from '../header/header';
 
@@ -15,7 +16,8 @@ describe('MainLayout', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MainLayout],
-      providers: [provideRouter([])]
+      // the real Footer is still rendered and uses the translate pipe
+      providers: [provideRouter([]), provideTranslateService({ fallbackLang: 'en' })]
     })
       .overrideComponent(MainLayout, {
         remove: { imports: [Header] },

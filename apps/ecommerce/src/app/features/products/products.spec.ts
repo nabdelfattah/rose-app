@@ -14,7 +14,7 @@ import {
   selectProductsMetadata,
 } from "./store/products.selectors";
 import { ProductsActions } from "./store/products.actions";
-import { ProductCardComponent } from "@rose-app/ui";
+import { ProductCardComponent } from "../../shared/components/product-card/product-card";
 import { Paginator } from "@rose-app/ui";
 import {
   Category,
@@ -24,6 +24,7 @@ import {
   Product,
 } from "./model/product";
 import { provideTranslateService } from "@ngx-translate/core";
+import { provideRouter } from "@angular/router";
 import { OccasionItem } from "./model/occasions";
 
 @Component({ selector: "app-product-card", template: "" })
@@ -164,6 +165,8 @@ describe("Products", () => {
           ],
         }),
         provideTranslateService({ fallbackLang: "en" }),
+        // Products reads ?category= from the route
+        provideRouter([]),
       ],
     })
       .overrideComponent(Products, {
