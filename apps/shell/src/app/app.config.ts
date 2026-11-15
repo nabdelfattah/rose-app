@@ -9,6 +9,8 @@ import {
   provideClientHydration,
   withEventReplay,
 } from "@angular/platform-browser";
+// essentional for ngModel of optimus UI.
+import "@angular/forms";
 import { provideOptimus } from "@openng/optimus-ui/config";
 import Aura from "@openng/optimus-ui-themes/aura";
 import { provideStoreDevtools } from "@ngrx/store-devtools";
@@ -27,6 +29,10 @@ export const appConfig: ApplicationConfig = {
     provideOptimus({
       theme: {
         preset: Aura,
+        options: {
+          // Follow ThemeService's `.dark` class on <html> instead of the OS theme.
+          darkModeSelector: ".dark",
+        },
       },
     }),
     provideLucideConfig({ strokeWidth: 1.5 }),
