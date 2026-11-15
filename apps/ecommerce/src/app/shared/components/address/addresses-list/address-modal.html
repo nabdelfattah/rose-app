@@ -1,0 +1,104 @@
+<!-- Addresses List Modal -->
+<p-dialog
+  [visible]="visible()"
+  (visibleChange)="changeVisibility.emit($event)"
+  [modal]="true"
+  [style]="{ width: '53.125rem', padding: '24px', gap: '16px' }"
+  [pt]="{
+    pcCloseButton: {
+      root: {
+        style: {
+          display: 'none'
+        },
+      }
+    },
+    content: {
+      style: {
+        overflow: 'auto'
+      }
+    }
+  }"
+   styleClass="bg-white!"
+>
+  <ng-template #header>
+    <div
+      class="grow flex justify-between items-center pb-4 border-b border-b-zinc-200 gap-2"
+    >
+      <h3 class="text-3xl font-bold text-zinc-800">{{'address.addresses-list.my-addresses'|translate}}</h3>
+      <button
+        (click)="addAddress.emit()"
+        appButton
+        type="button"
+        variant="secondary"
+      >
+      {{'address.addresses-list.add-address'|translate}}
+      </button>
+    </div>
+  </ng-template>
+
+  <div class="flex flex-col gap-6 pt-3">
+    @for (address of allAddresses(); track address.id) {
+    <div
+      (click)="selectAddress(address.id)"
+      class="address-card cursor-pointer w-full flex flex-col gap-4 pt-6 pe-9 pb-5 ps-4 relative rounded-xl border hover:border-maroon-600"
+      [class.border-maroon-600]="selectedAddressId() === address.id"
+      [class.border-zinc-300]="selectedAddressId() !== address.id"
+    >
+      <div
+        class="title p-1.5 bg-white absolute top-0 inset-s-4 -translate-y-1/2"
+      >
+        <h3 class="text-maroon-600 text-2xl font-semibold">
+          {{address.title}}
+        </h3>
+      </div>
+      <div class="head flex justify-between items-center">
+        <div class="city flex items-center gap-2.5">
+          <span
+            class="location-icon flex justify-center items-center size-8.25 rounded-full bg-emerald-500"
+          >
+            <svg lucideMapPin size="20" class="text-[#fff]"></svg>
+          </span>
+          <h3 class="font-semibold text-2xl text-zinc-800">{{address.city}}</h3>
+        </div>
+        <div class="phone flex items-center text-zinc-600">
+          <span class="phone-icon flex items-center justify-center size-8.25">
+            <svg lucidePhone></svg>
+          </span>
+          <span>{{address.phone}}</span>
+        </div>
+      </div>
+      <div class="address-details">
+        <p
+          class="font-medium w-fit py-1 px-3 rounded-full text-zinc-800 bg-zinc-100"
+        >
+          {{address.street}}
+        </p>
+      </div>
+      <div
+        class="actions absolute inset-e-0 translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col gap-1.5"
+      >
+        <span
+          (click)=" $event.stopPropagation(); editAddress.emit(address)"
+          class="edit-icon bg-zinc-50 text-zinc-800 flex justify-center items-center size-9 rounded-full border border-zinc-400 cursor-pointer"
+        >
+          <svg lucidePenLine size="18"></svg>
+        </span>
+        <span
+          (click)=" $event.stopPropagation(); openDeleteConfirmation(address.id)"
+          class="delete-icon flex justify-center items-center size-9 rounded-full bg-maroon-600 text-[#fff] cursor-pointer"
+        >
+          <svg lucideTrash size="18"></svg>
+        </span>
+      </div>
+    </div>
+    }
+  </div>
+</p-dialog>
+
+<!-- Confirm Delete Modal -->
+<app-confirm-modal
+  [visible]="confirmModalVisible()"
+  (changeVisibility)="confirmModalVisible.set($event)"
+  (confirm)="onConfirmDelete()"
+  (cancel)="confirmModalVisible.set(false)"
+></app-confirm-modal>

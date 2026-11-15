@@ -1,0 +1,28 @@
+<div class="relative w-full py-2">
+  <div
+    class="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-zinc-200"
+  ></div>
+  <div
+    class="absolute inset-s-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-maroon-600 transition-all duration-300"
+    [style.width.%]="progress()"
+  ></div>
+  <div
+    class="relative grid"
+    [style.grid-template-columns]="'repeat(' + steps() + ', minmax(0, 1fr))'"
+  >
+    @for (step of stepsArray(); track step) {
+    <div class="flex justify-center">
+      <div
+        class="flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium transition-colors duration-300"
+        [class]="
+            step <= current()
+              ? 'bg-maroon-600 text-zinc-800'
+              : 'bg-zinc-200 text-zinc-50'
+          "
+      >
+        {{ step }}
+      </div>
+    </div>
+    }
+  </div>
+</div>
