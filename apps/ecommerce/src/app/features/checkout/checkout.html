@@ -1,1 +1,24 @@
-<p>checkout works!</p>
+<section class="flex min-h-[60vh] items-center justify-center px-4 py-12">
+  <div class="flex w-full max-w-lg flex-col items-center text-center">
+    <div
+      class="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-emerald-100"
+    >
+      <svg lucideCircleCheckBig size="40" class="text-emerald-600"></svg>
+    </div>
+    <h1 class="mb-3 text-3xl font-bold text-zinc-800">
+      {{"checkout.success.title"|translate}}
+    </h1>
+    <p class="mb-8 max-w-md text-zinc-500">
+      {{"checkout.success.desc"|translate}}
+    </p>
+    <div class="flex w-full flex-col gap-3 sm:w-auto">
+      <button routerLink="/orders" appButton variant="primary">
+        {{"checkout.success.view"|translate}}
+      </button>
+
+      <button routerLink="/" appButton variant="secondary">
+        {{"checkout.success.continue"|translate}}
+      </button>
+    </div>
+  </div>
+</section>

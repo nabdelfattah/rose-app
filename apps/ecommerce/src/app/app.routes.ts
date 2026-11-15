@@ -33,8 +33,11 @@ import { wishlistReducer } from "./features/wishlist/store/wishlist.reducer";
 import { WishlistService } from "./features/wishlist/services/wishlist.service";
 import { AccountService } from "./features/account/service/account.service";
 import { addressReducer } from "./shared/components/address/store/address.reducer";
-import * as addressEffects from './shared/components/address/store/address.effects'
+import * as addressEffects from "./shared/components/address/store/address.effects";
 import { AddressService } from "./shared/components/address/services/address-service/address.service";
+import { ordersReducer } from "./features/orders/store/orders.reducer";
+import * as ordersEffects from "./features/orders/store/orders.effects";
+import { OrderService } from "./features/orders/services/orders.service";
 
 export const appRoutes: Route[] = [
   {
@@ -68,10 +71,13 @@ export const appRoutes: Route[] = [
       provideEffects(wishlistEffect),
       provideState({ name: "cart", reducer: cartReducer }),
       provideEffects(cartEffects),
-      provideState({name: 'address', reducer: addressReducer}),
+      provideState({ name: "address", reducer: addressReducer }),
       provideEffects(addressEffects),
+      provideState({ name: "orders", reducer: ordersReducer }),
+      provideEffects(ordersEffects),
       CartService,
       AddressService,
+      OrderService,
       MessageService,
       // Translation
       provideTranslateService({
@@ -104,7 +110,7 @@ export const appRoutes: Route[] = [
               import("./features/cart/cart").then((c) => c.Cart),
           },
           {
-            path: "checkout",
+            path: "checkout/success",
             loadComponent: () =>
               import("./features/checkout/checkout").then((c) => c.Checkout),
           },
