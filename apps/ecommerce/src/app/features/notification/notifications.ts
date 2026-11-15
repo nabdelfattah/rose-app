@@ -32,7 +32,6 @@ import {
     MenuModule,
   ],
   templateUrl: "./notifications.html",
-  styleUrl: "./notifications.css",
 })
 export class Notifications implements OnInit {
   private readonly popover = viewChild<Popover>("notificationsPopover");
