@@ -25,10 +25,21 @@ describe("ProductDetails", () => {
     { id: "p3", title: "Product 3" },
   ] as Product[];
 
+  // ProductDetailsInfo renders these fields, so the mock needs them
   const selectedProduct = {
     id: "p2",
+    title: "Product 2",
+    description: "Test description",
+    price: "100",
+    stock: 5,
     rating: 4,
     ratings: 10,
+    discountType: null,
+    discountValue: null,
+    cover: "cover.jpg",
+    gallery: "",
+    category: { id: "cat-1", title: "Flowers" },
+    _count: { reviews: 0, cartItems: 0, wishlistItems: 0, orderItems: 0 },
     reviews: [],
   } as unknown as Product; // as unknown is a work around to force typescript
 
@@ -151,6 +162,6 @@ describe("ProductDetails", () => {
   });
 
   it("should resolve the current product for ProductDetailsInfo", () => {
-    expect(component.product()?.id).toBe("p2");
+    expect(component.selectedProduct()?.id).toBe("p2");
   });
 });
