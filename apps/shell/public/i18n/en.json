@@ -270,6 +270,7 @@
     "coupon-min-purchase": "Minimum purchase required for this coupon",
     "coupon-limit-reached": "This coupon has reached its usage limit",
     "subtotal": "Subtotal",
+    "fees":"Fees",
     "discount": "Discount",
     "total": "Total",
     "checkout": "Checkout",
