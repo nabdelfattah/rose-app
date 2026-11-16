@@ -3,9 +3,10 @@ import { OrderItem } from "./components/orderItem";
 import { Order } from "./models/orders";
 import { OrdersService } from "./services/orders.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { TranslatePipe } from "@ngx-translate/core";
 @Component({
   selector: "app-orders",
-  imports: [OrderItem],
+  imports: [OrderItem, TranslatePipe],
   templateUrl: "./orders.html",
 })
 export class Orders {

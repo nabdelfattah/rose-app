@@ -3,6 +3,8 @@
   [visible]="visible()"
   (visibleChange)="changeVisibility.emit($event)"
   [modal]="true"
+  [dismissableMask]="true"
+  [closable]="true"
   [style]="{ width: '53.125rem', padding: '24px', gap: '16px' }"
   [pt]="{
     pcCloseButton: {
@@ -18,20 +20,22 @@
       }
     }
   }"
-   styleClass="bg-white!"
+  styleClass="bg-white!"
 >
   <ng-template #header>
     <div
       class="grow flex justify-between items-center pb-4 border-b border-b-zinc-200 gap-2"
     >
-      <h3 class="text-3xl font-bold text-zinc-800">{{'address.addresses-list.my-addresses'|translate}}</h3>
+      <h3 class="text-3xl font-bold text-zinc-800">
+        {{'address.addresses-list.my-addresses'|translate}}
+      </h3>
       <button
         (click)="addAddress.emit()"
         appButton
         type="button"
         variant="secondary"
       >
-      {{'address.addresses-list.add-address'|translate}}
+        {{'address.addresses-list.add-address'|translate}}
       </button>
     </div>
   </ng-template>
