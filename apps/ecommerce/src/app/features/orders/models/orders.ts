@@ -107,11 +107,12 @@ export interface CreateOrderResponse {
   status: boolean;
   code: number;
   payload: {
-    order: {
-      id: string;
-      status: string;
-      paymentStatus: string;
-    };
+    order: OrderMainData;
     checkout: Checkout;
   };
+}
+export interface OrderMainData {
+  id: string;
+  status: string;
+  paymentStatus: string;
 }
