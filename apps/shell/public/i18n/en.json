@@ -212,7 +212,6 @@
       "out-of-stock": "Out of Stock",
       "available": "available",
       "currency": "EGP",
-
       "reviews": {
         "title": "Product Reviews",
         "general-rating": "General rating:",
@@ -409,5 +408,34 @@
     "options": "Notification options",
     "mark-as-read": "Mark as read",
     "delete": "Delete"
+  },
+  "orders": {
+    "title": "Orders",
+    "order": "Order",
+    "created-in": "Created in",
+    "at": "at",
+    "total-price": "Total Price",
+    "egp": "EGP",
+    "paid": "Paid",
+    "payment-method": "Payment Method",
+    "cash": "Cash",
+    "credit-card": "Credit Card",
+    "delivery-status": "Delivery Status",
+    "order-items": "Order Items",
+    "show-all": "Show All",
+    "show-less": "Show Less",
+    "status": {
+      "label": "Status",
+      "in-progress": "In Progress",
+      "canceled": "Canceled",
+      "done": "Done"
+    },
+    "delivery": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "canceled": "Canceled"
+    }
   }
 }

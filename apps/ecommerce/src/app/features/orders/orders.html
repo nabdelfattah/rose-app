@@ -5,7 +5,7 @@
     </p>
   </header>
 
-  <ul>
+  <ul class="flex flex-col gap-4">
     @for (item of orders(); track item.id) {
     <app-order-item [item]="item" />
     }
