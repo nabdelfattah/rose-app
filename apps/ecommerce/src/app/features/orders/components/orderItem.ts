@@ -5,7 +5,12 @@ import {
   input,
   signal,
 } from "@angular/core";
-import { DatePipe, DecimalPipe, NgTemplateOutlet } from "@angular/common";
+import {
+  DatePipe,
+  DecimalPipe,
+  NgTemplateOutlet,
+  TitleCasePipe,
+} from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { TranslatePipe } from "@ngx-translate/core";
 import {
@@ -21,20 +26,21 @@ import { Order } from "../models/orders";
 
 import { Tag } from "@openng/optimus-ui/tag";
 
-type Tone = "yellow" | "blue" | "emerald" | "red";
-type TagSeverity = "success" | "info" | "danger";
+type Tone = "yellow" | "emerald" | "red";
+type TagSeverity = "success" | "info" | "warn" | "danger";
 
-/** Number of order items visible before "Show All" is clicked. */
+// Number of order items visible before "Show All" is clicked.
 const PREVIEW_COUNT = 2;
 
-/**
- * Per-instance design tokens for `p-tag`: Aura's default tags are pale,
- * the Figma design uses solid pills with white text.
- */
+// Custom Styling for the p-tag according to the given arguments
 const solidTag = (severity: TagSeverity, fill: string) => {
   const scheme = { [severity]: { background: fill, color: "#ffffff" } };
   return {
-    root: { fontSize: "0.75rem", fontWeight: "500", padding: "0.125rem 0.625rem" },
+    root: {
+      fontSize: "0.75rem",
+      fontWeight: "500",
+      padding: "0.125rem 0.625rem",
+    },
     colorScheme: { light: scheme, dark: scheme },
   };
 };
@@ -42,14 +48,34 @@ const solidTag = (severity: TagSeverity, fill: string) => {
 const TAG_TOKENS: Record<TagSeverity, object> = {
   success: solidTag("success", "var(--color-emerald-500)"),
   info: solidTag("info", "var(--color-blue-500)"),
+  warn: solidTag("warn", "var(--color-yellow-500)"),
   danger: solidTag("danger", "var(--color-red-600)"),
 };
 
 const TONE_TEXT: Record<Tone, string> = {
   yellow: "text-yellow-600",
-  blue: "text-blue-600",
   emerald: "text-emerald-600",
   red: "text-red-600",
+};
+
+// order status
+const STATUS_SEVERITY: Record<Order["status"], TagSeverity> = {
+  PENDING: "info",
+  COMPLETED: "success",
+  CANCELLED: "danger",
+};
+
+// for payment status (in the header)
+const PAYMENT_SEVERITY: Record<Order["paymentStatus"], TagSeverity> = {
+  PROCESSING: "warn",
+  DONE: "success",
+};
+
+// the Delivery Status in the figma (status in the orders interface)
+const DELIVERY_TONE: Record<Order["status"], Tone> = {
+  PENDING: "yellow",
+  COMPLETED: "emerald",
+  CANCELLED: "red",
 };
 
 @Component({
@@ -58,6 +84,7 @@ const TONE_TEXT: Record<Tone, string> = {
     DatePipe,
     DecimalPipe,
     NgTemplateOutlet,
+    TitleCasePipe,
     RouterLink,
     TranslatePipe,
     LucideBanknote,
@@ -85,8 +112,7 @@ export class OrderItem {
       : this.orderItems().slice(0, PREVIEW_COUNT),
   );
 
-  /** Items shown faded under the preview to hint that more exist. */
-  readonly peekItems = computed(() =>
+  readonly fadedItems = computed(() =>
     this.expanded()
       ? []
       : this.orderItems().slice(PREVIEW_COUNT, PREVIEW_COUNT * 2),
@@ -101,45 +127,20 @@ export class OrderItem {
       "",
   );
 
-  readonly isPaid = computed(() => {
-    const s = (this.item().paymentStatus ?? "").toUpperCase();
-    return s === "PAID" || s === "SUCCEEDED" || s === "COMPLETED";
-  });
-
   readonly isCard = computed(() => this.item().paymentMethod === "CREDIT_CARD");
 
-  /** Overall order status shown at the top-right of the card. */
-  readonly orderStatus = computed(() => {
-    const status = this.normalizedStatus();
-    if (status === "cancelled")
-      return { key: "orders.status.canceled", severity: "danger" as const };
-    if (status === "delivered")
-      return { key: "orders.status.done", severity: "success" as const };
-    return { key: "orders.status.in-progress", severity: "info" as const };
-  });
-
-  /** Delivery status shown in the details list. */
-  readonly deliveryStatus = computed(() => {
-    const status = this.normalizedStatus();
-    const map: Record<string, { key: string; tone: Tone }> = {
-      pending: { key: "orders.delivery.pending", tone: "yellow" },
-      processing: { key: "orders.delivery.processing", tone: "yellow" },
-      shipped: { key: "orders.delivery.shipped", tone: "blue" },
-      delivered: { key: "orders.delivery.delivered", tone: "emerald" },
-      cancelled: { key: "orders.delivery.canceled", tone: "red" },
-    };
-    const entry = map[status] ?? map["pending"];
-    return { ...entry, cls: TONE_TEXT[entry.tone] };
-  });
+  readonly statusSeverity = computed(
+    () => STATUS_SEVERITY[this.item().status] ?? "info",
+  );
+  readonly paymentSeverity = computed(
+    () => PAYMENT_SEVERITY[this.item().paymentStatus] ?? "info",
+  );
+  readonly deliveryTone = computed(
+    () => DELIVERY_TONE[this.item().status] ?? "yellow",
+  );
+  protected readonly toneText = TONE_TEXT;
 
   toggleExpanded(): void {
-    this.expanded.update((v) => !v);
-  }
-
-  private normalizedStatus(): string {
-    const s = (this.item().status ?? "").toLowerCase();
-    if (s === "canceled") return "cancelled";
-    if (s === "completed") return "delivered";
-    return s;
+    this.expanded.update((value) => !value);
   }
 }

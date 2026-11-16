@@ -21,6 +21,7 @@
   <div
     class="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-200 px-3 py-2.5"
   >
+    <!-- total -->
     <div class="flex items-center gap-2.5">
       <p class="text-base sm:text-xl text-zinc-800">
         {{ "orders.total-price" | translate }}:
@@ -29,23 +30,27 @@
           }}</span
         >
       </p>
-      @if (isPaid()) {
-      <p-tag severity="success" [rounded]="true" [dt]="tagTokens.success">
+      @if (item().paymentStatus === "DONE") {
+      <p-tag
+        [severity]="paymentSeverity()"
+        [rounded]="true"
+        [dt]="tagTokens[paymentSeverity()]"
+      >
         <svg lucideCheck class="size-3.5"></svg>
-        {{ "orders.paid" | translate }}
+        {{ item().paymentStatus | titlecase }}
       </p-tag>
       }
     </div>
-
+    <!-- status -->
     <div class="flex items-center gap-2 text-sm">
       <span class="font-semibold text-zinc-800"
         >{{ "orders.status.label" | translate }}:</span
       >
       <p-tag
-        [severity]="orderStatus().severity"
-        [value]="orderStatus().key | translate"
+        [severity]="statusSeverity()"
+        [value]="item().status | titlecase"
         [rounded]="true"
-        [dt]="tagTokens[orderStatus().severity]"
+        [dt]="tagTokens[statusSeverity()]"
       />
     </div>
   </div>
@@ -71,13 +76,13 @@
       >
       <span
         class="inline-flex items-center gap-1"
-        [class]="deliveryStatus().cls"
+        [class]="toneText[deliveryTone()]"
       >
-        @switch (deliveryStatus().tone) { @case ("red") {
+        @switch (deliveryTone()) { @case ("red") {
         <svg lucideTriangleAlert class="size-4"></svg> } @case ("emerald") {
         <svg lucideCircleCheck class="size-4"></svg> } @default {
-        <svg lucideTruck class="size-4"></svg> } } {{ deliveryStatus().key |
-        translate }}
+        <svg lucideTruck class="size-4"></svg> } } {{ item().status | titlecase
+        }}
       </span>
     </p>
 
@@ -89,11 +94,12 @@
     <div class="relative mt-1 rounded-lg bg-white p-3">
       <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
         @for (orderItem of visibleItems(); track orderItem.id) {
+        <!-- dynamic components -->
         <ng-container
           [ngTemplateOutlet]="productCard"
           [ngTemplateOutletContext]="{ $implicit: orderItem }"
         />
-        } @for (orderItem of peekItems(); track orderItem.id) {
+        } @for (orderItem of fadedItems(); track orderItem.id) {
         <ng-container
           [ngTemplateOutlet]="productCard"
           [ngTemplateOutletContext]="{ $implicit: orderItem, peek: true }"
@@ -102,6 +108,7 @@
       </ul>
 
       @if (hasMore()) {
+      <!-- white transparent gradient -->
       <div
         class="flex justify-center"
         [class]="expanded() ? 'pt-3' : 'absolute inset-x-0 bottom-0 h-20 items-end pb-1 bg-linear-to-t from-white via-white/80 to-transparent'"
