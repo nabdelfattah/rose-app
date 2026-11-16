@@ -441,7 +441,6 @@
     "at": "في",
     "total-price": "السعر الإجمالي",
     "egp": "ج.م",
-    "paid": "مدفوع",
     "payment-method": "طريقة الدفع",
     "cash": "نقداً",
     "credit-card": "بطاقة ائتمان",
@@ -450,17 +449,7 @@
     "show-all": "عرض الكل",
     "show-less": "عرض أقل",
     "status": {
-      "label": "الحالة",
-      "in-progress": "قيد التنفيذ",
-      "canceled": "ملغي",
-      "done": "مكتمل"
-    },
-    "delivery": {
-      "pending": "قيد الانتظار",
-      "processing": "قيد المعالجة",
-      "shipped": "تم الشحن",
-      "delivered": "تم التوصيل",
-      "canceled": "ملغي"
+      "label": "الحالة"
     }
   }
 }

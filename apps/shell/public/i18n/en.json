@@ -270,7 +270,7 @@
     "coupon-min-purchase": "Minimum purchase required for this coupon",
     "coupon-limit-reached": "This coupon has reached its usage limit",
     "subtotal": "Subtotal",
-    "fees":"Fees",
+    "fees": "Fees",
     "discount": "Discount",
     "total": "Total",
     "checkout": "Checkout",
@@ -441,7 +441,6 @@
     "at": "at",
     "total-price": "Total Price",
     "egp": "EGP",
-    "paid": "Paid",
     "payment-method": "Payment Method",
     "cash": "Cash",
     "credit-card": "Credit Card",
@@ -450,17 +449,7 @@
     "show-all": "Show All",
     "show-less": "Show Less",
     "status": {
-      "label": "Status",
-      "in-progress": "In Progress",
-      "canceled": "Canceled",
-      "done": "Done"
-    },
-    "delivery": {
-      "pending": "Pending",
-      "processing": "Processing",
-      "shipped": "Shipped",
-      "delivered": "Delivered",
-      "canceled": "Canceled"
+      "label": "Status"
     }
   }
 }

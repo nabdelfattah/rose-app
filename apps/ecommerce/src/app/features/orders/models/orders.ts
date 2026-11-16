@@ -12,9 +12,9 @@ export interface Order {
   userId: string;
   addressId: string;
   couponId: string;
-  status: "PENDING";
+  status: "PENDING" | "COMPLETED" | "CANCELLED";
   paymentMethod: "CREDIT_CARD" | "CASH_ON_DELIVERY";
-  paymentStatus: "PROCESSING";
+  paymentStatus: "PROCESSING" | "DONE";
   stripePaymentIntentId: string | null;
   stripeCheckoutSessionId: string;
   subtotal: string;
