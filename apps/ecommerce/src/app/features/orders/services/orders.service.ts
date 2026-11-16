@@ -1,3 +1,4 @@
+import { CreateOrderRequest, CreateOrderResponse } from "./../models/orders";
 import { HttpClient } from "@angular/common/http";
 import { inject, Service } from "@angular/core";
 import { environment } from "../../../../environments/environment";
@@ -11,6 +12,13 @@ export class OrdersService {
   getOrders(): Observable<GetOrdersResponse> {
     return this.httpClient.get<GetOrdersResponse>(
       `${environment.baseUrl}orders`,
+    );
+  }
+
+  createOrder(payload: CreateOrderRequest): Observable<CreateOrderResponse> {
+    return this.httpClient.post<CreateOrderResponse>(
+      `${environment.baseUrl}orders`,
+      payload,
     );
   }
 }

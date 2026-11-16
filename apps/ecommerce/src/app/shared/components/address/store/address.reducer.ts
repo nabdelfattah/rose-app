@@ -22,6 +22,11 @@ export const addressReducer = createReducer(
   on(AddressActions.loadAddressesSuccess, (state, { addresses }) => ({
     ...state,
     addresses,
+    selectedAddressId:
+      state.selectedAddressId ??
+      addresses.find((address) => address.isPrimary)?.id ??
+      addresses[0]?.id ??
+      null,
     loading: false,
   })),
 
@@ -82,7 +87,7 @@ export const addressReducer = createReducer(
   on(AddressActions.updateAddressSuccess, (state, { address }) => ({
     ...state,
     addresses: state.addresses.map((item) =>
-      item.id === address.id ? address : item
+      item.id === address.id ? address : item,
     ),
     submitting: false,
   })),
@@ -123,5 +128,5 @@ export const addressReducer = createReducer(
   on(AddressActions.clearSelectedAddress, (state) => ({
     ...state,
     selectedAddressId: null,
-  }))
+  })),
 );

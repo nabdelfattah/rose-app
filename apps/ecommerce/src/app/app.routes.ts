@@ -36,6 +36,8 @@ import { AccountService } from "./features/account/service/account.service";
 import { addressReducer } from "./shared/components/address/store/address.reducer";
 import * as addressEffects from "./shared/components/address/store/address.effects";
 import { AddressService } from "./shared/components/address/services/address-service/address.service";
+import { ordersReducer } from "./features/orders/store/orders.reducer";
+import * as ordersEffects from "./features/orders/store/orders.effects";
 import { NotificationsService } from "./features/notification/services/notifications.service";
 import { notificationsReducer } from "./features/notification/store/notifications.reducer";
 import { OrdersService } from "./features/orders/services/orders.service";
@@ -75,7 +77,10 @@ export const appRoutes: Route[] = [
       provideState({ name: "cart", reducer: cartReducer }),
       provideEffects(cartEffects),
       provideState({ name: "address", reducer: addressReducer }),
+      provideState({ name: "address", reducer: addressReducer }),
       provideEffects(addressEffects),
+      provideState({ name: "orders", reducer: ordersReducer }),
+      provideEffects(ordersEffects),
       provideState({ name: "notifications", reducer: notificationsReducer }),
       provideEffects(notificationsEffect),
       CartService,
@@ -113,7 +118,7 @@ export const appRoutes: Route[] = [
               import("./features/cart/cart").then((c) => c.Cart),
           },
           {
-            path: "checkout",
+            path: "checkout/success",
             loadComponent: () =>
               import("./features/checkout/checkout").then((c) => c.Checkout),
           },

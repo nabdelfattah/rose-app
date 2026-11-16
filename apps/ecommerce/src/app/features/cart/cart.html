@@ -78,7 +78,8 @@
   <div
     class="grid grid-cols-1 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_400px] gap-8 items-start"
   >
-    <!-- Left: Cart Items & Header -->
+    <!-- Left: Cart Items & Header & Payment Steps-->
+    @if(!isCheckout()){
     <div class="space-y-4">
       <!-- Top Title & Clear Cart Row -->
       <div
@@ -133,7 +134,187 @@
         </a>
       </div>
     </div>
+    }
+    <!-- Payment Steps -->
+    @else {
+    <div class="payment-container flex flex-col gap-6">
+      <app-payment-stepper [current]="currentStep()"></app-payment-stepper>
+      @switch (currentStep()) { @case (1) {
+      <h3 class="shipping-title font-semibold text-3xl text-zinc-800">
+        {{"checkout.shipping-address"|translate}}
+      </h3>
+      <div class="addresses flex flex-col gap-3">
+        @for (address of addresses(); track address.id) {
+        <div
+          (click)="selectAddress(address.id)"
+          class="address-card cursor-pointer w-full flex flex-col gap-4 py-3.5 px-4 rounded-xl border hover:border-maroon-600"
+          [class]="{
+                       'border-zinc-300': selectedAddress().id !== address.id,
+                       'bg-maroon-600': selectedAddress().id == address.id,
+                       'border-none': selectedAddress().id == address.id,
+                      
+                   }"
+        >
+          <div class="city-phone flex items-center justify-between">
+            <h3
+              class="font-semibold text-2xl"
+              [class]="{
+                       'text-zinc-800': selectedAddress().id !== address.id,
+                       'text-zinc-50': selectedAddress().id == address.id
+                   }"
+            >
+              {{address.city}}
+            </h3>
+            <div class="phone flex items-center gap-1.5">
+              <span
+                class="phone-icon flex items-center rounded-full justify-center size-8.25"
+                [class]="{
+                       'bg-maroon-600': selectedAddress().id !== address.id,
+                       'text-zinc-50': selectedAddress().id !== address.id,
+                       'bg-white': selectedAddress().id == address.id,
+                       'text-maroon-600': selectedAddress().id == address.id,
+                     }"
+              >
+                <svg lucidePhone size="20"></svg>
+              </span>
+              <span
+                [class]="{
+                     'text-zinc-50': selectedAddress().id == address.id,
+                     'text-zinc-600': selectedAddress().id !== address.id,
 
+                   }"
+                >{{address.phone}}</span
+              >
+            </div>
+          </div>
+          <div class="street">
+            <p
+              class="font-medium w-fit py-1 px-3 rounded-full"
+              [class]="{
+                  'text-zinc-800': selectedAddress().id !== address.id,
+                  'bg-zinc-100': selectedAddress().id !== address.id,
+                   'text-zinc-50': selectedAddress().id == address.id,
+                   'bg-zinc-800': selectedAddress().id == address.id
+                 }"
+            >
+              {{address.street}}
+            </p>
+          </div>
+        </div>
+        }
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="flex-1 h-px bg-zinc-100"></span>
+        <p class="text-center text-zinc-500">{{ "checkout.or" | translate }}</p>
+        <span class="flex-1 h-px bg-zinc-100"></span>
+      </div>
+      <div class="addAddressBtn" class="pb-6 border-b border-b-zinc-100">
+        <button
+          (click)="addressModalVisibile.set(true)"
+          class="addAddress"
+          appButton
+          variant="secondary"
+          size="full"
+        >
+          {{"checkout.add-new"|translate}}
+        </button>
+      </div>
+      <div class="nextBtn w-fit self-end mt-4">
+        <button
+          (click)="nextStep()"
+          appButton
+          class="flex items-center gap-2.5"
+        >
+          <span>{{"checkout.next"|translate}}</span>
+          <svg lucideMoveRight size="20" class="rtl:rotate-180"></svg>
+        </button>
+      </div>
+      <app-address-modal
+        (changeVisibility)="onAddressModalChange($event)"
+        [visible]="addressModalVisibile()"
+        (addAddress)="openAddAddressModal()"
+        (editAddress)="onEdit($event)"
+      ></app-address-modal>
+      <app-new-address
+        [visible]="addAddressModalVisible()"
+        (changeVisibility)="addAddressModalVisible.set($event)"
+        [address]="selectedEditAddress()"
+      ></app-new-address>
+      } @case (2) {
+      <div class="payment-container flex flex-col gap-6">
+        <div class="payment-head flex items-center gap-4">
+          <button
+            (click)="prevStep()"
+            type="button"
+            class="backBtn flex justify-center items-center gap-1 rounded-[10px] p-2.5 bg-zinc-100 text-zinc-800 cursor-pointer"
+          >
+            <svg lucideArrowLeft class="rtl:rotate-180"></svg>
+            <span>{{"checkout.back"|translate}}</span>
+          </button>
+          <h3 class="payment-title font-semibold text-3xl text-zinc-800">
+            {{"checkout.payment-method"|translate}}
+          </h3>
+        </div>
+        <div
+          class="payment-methods p-2.5 pb-4 flex flex-col md:flex-row items-center gap-4 border-b border-b-zinc-100"
+        >
+          <button
+            (click)="selectCash()"
+            class="cash w-full h-76 bg-white rounded-xl border border-zinc-200 p-3 flex flex-col gap-2 cursor-pointer"
+          >
+            <div class="icon flex items-center justify-center">
+              <img src="images/cash.webp" alt="Cash" class="w-48.75 h-49 dark:brightness-0 dark:invert" />
+            </div>
+            <h3
+              class="title text-zinc-800 text-2xl font-semibold text-center"
+              [class]="{
+              'text-zinc-800': !isCashSelected(),
+              'text-maroon-600': isCashSelected()
+            }"
+            >
+              {{"checkout.cash"|translate}}
+            </h3>
+            <p class="desc font-semibold text-[14px] text-zinc-500 text-center">
+              {{"checkout.cash-desc"|translate}}
+            </p>
+          </button>
+          <button
+            (click)="selectCredit()"
+            class="credit w-full h-76 bg-white rounded-xl border border-zinc-200 p-3 flex flex-col gap-2 cursor-pointer"
+          >
+            <div class="icon flex items-center justify-center">
+              <img src="images/credit.webp" alt="Credit" class="w-48.75 h-49 dark:brightness-0 dark:invert" />
+            </div>
+            <h3
+              class="title text-2xl font-semibold text-center"
+              [class]="{
+              'text-zinc-800': !isCreditSelected(),
+              'text-maroon-600': isCreditSelected(),
+
+            }"
+            >
+              {{"checkout.credit"|translate}}
+            </h3>
+            <p class="desc font-semibold text-[14px] text-zinc-500 text-center">
+              {{"checkout.credit-desc"|translate}}
+            </p>
+          </button>
+        </div>
+        <div class="w-fit self-end">
+          <button
+            (click)="placeOrder()"
+            [disabled]="selectOrderLoading()"
+            appButton
+            class="flex items-center gap-2.5"
+          >
+            <span>{{"checkout.checkout"|translate}}</span>
+            <svg lucideMoveRight class="rtl:rotate-180"></svg>
+          </button>
+        </div>
+      </div>
+      } }
+    </div>
+    }
     <!-- Right: Summary Panel -->
     <aside class="sticky top-24">
       <app-cart-summary
@@ -144,8 +325,10 @@
         [couponError]="couponError()"
         [isCouponLoading]="isCouponLoading()"
         [isCheckoutDisabled]="items().length === 0 || isMutating()"
+        [isCheckoutStep]="isCheckout()"
         (applyCoupon)="onApplyCoupon($event)"
         (removeCoupon)="onRemoveCoupon()"
+        (checkoutStep)="isCheckout.set(true)"
       />
     </aside>
   </div>

@@ -397,6 +397,25 @@
       "deleteFailed": "Failed to delete address"
     }
   },
+  "checkout": {
+    "shipping-address": "Shipping Address",
+    "or": "OR",
+    "add-new": "Add a New Address",
+    "next": "Next",
+    "back": "Back",
+    "payment-method": "Payment Method",
+    "cash": "Cash on Delivery",
+    "cash-desc": "You’ll pay in cash when your order is delivered.",
+    "credit": "Credit Card",
+    "credit-desc": "You’ll be securely redirected to Stripe to complete your payment.",
+    "checkout": "Checkout",
+    "success": {
+      "title": "Order Placed Successfully!",
+      "desc": "Thank you for your purchase! Your order has been placed successfully. You can track your order status from your orders page.",
+      "view": "View My Orders",
+      "continue": "Continue Shopping"
+    }
+  },
   "notifications": {
     "title": "Notifications",
     "new-count": "{{count}} new",
@@ -410,6 +429,11 @@
     "delete": "Delete"
   },
   "orders": {
+    "toast": {
+      "success": "Success",
+      "created": "Your order has been placed successfully.",
+      "error": "Order Failed"
+    },
     "title": "Orders",
     "order": "Order",
     "created-in": "Created in",
