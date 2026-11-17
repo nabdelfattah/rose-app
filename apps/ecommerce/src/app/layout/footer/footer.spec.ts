@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { provideTranslateService } from '@ngx-translate/core';
 import { Footer } from './footer';
 
 describe('Footer', () => {
@@ -9,7 +10,7 @@ describe('Footer', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Footer],
-      providers: [provideRouter([])],
+      providers: [provideRouter([]), provideTranslateService({ fallbackLang: 'en' })],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Footer);

@@ -16,11 +16,8 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 import {
   LucideBell,
-  LucideBellOff,
-  LucideCheck,
   LucideChevronDown,
   LucideClipboardList,
-  LucideEllipsisVertical,
   LucideEye,
   LucideEyeOff,
   LucideGift,
@@ -39,7 +36,6 @@ import {
   LucideSearch,
   LucideShoppingCart,
   LucideSun,
-  LucideTrash,
   LucideUser,
   LucideStar,
 } from "@lucide/angular";
@@ -48,10 +44,6 @@ import { Popover } from "@openng/optimus-ui/popover";
 
 import { LanguageService, ThemeService } from "@rose-app/ui";
 import { Session } from "../../core/services/session";
-import {
-  NotificationItem,
-  NotificationService,
-} from "../../core/services/notification.service";
 import { userActions } from "../../features/auth/store/user.actions";
 import {
   selectFirstName,
@@ -76,11 +68,14 @@ import { NewAddress } from "../../shared/components/address/new-address/new-addr
 import { Address } from "../../shared/components/address/model/address.model";
 import { selectSelectedAddress } from "../../shared/components/address/store/address.selector";
 import { AddressActions } from "../../shared/components/address/store/address.actions";
+import { Notifications } from "../../features/notification/notifications";
+import { selectUnreadNotificationsCount } from "../../features/notification/store/notifications.selector";
 
 @Component({
   selector: "app-header",
   standalone: true,
   imports: [
+    Notifications,
     TranslatePipe,
     AutoComplete,
     CommonModule,
@@ -90,11 +85,8 @@ import { AddressActions } from "../../shared/components/address/store/address.ac
     Popover,
     LucideStar,
     LucideBell,
-    LucideBellOff,
-    LucideCheck,
     LucideChevronDown,
     LucideClipboardList,
-    LucideEllipsisVertical,
     LucideEye,
     LucideEyeOff,
     LucideGift,
@@ -113,19 +105,17 @@ import { AddressActions } from "../../shared/components/address/store/address.ac
     LucideSearch,
     LucideShoppingCart,
     LucideSun,
-    LucideTrash,
     LucideUser,
     AddressModal,
-    NewAddress
+    NewAddress,
   ],
-  providers: [NotificationService],
   templateUrl: "./header.html",
   styleUrl: "./header.css",
 })
 export class Header implements OnInit {
   @ViewChild("userPopover") userPopover?: Popover;
   @ViewChild("loginPopover") loginPopover?: Popover;
-  @ViewChild("notificationsPopover") notificationsPopover?: Popover;
+  @ViewChild(Notifications) notificationsPanel?: Notifications;
 
   private readonly store = inject(Store);
   private readonly actions$ = inject(Actions);
@@ -133,9 +123,12 @@ export class Header implements OnInit {
   private readonly router = inject(Router);
   readonly languageService = inject(LanguageService);
   readonly themeService = inject(ThemeService);
-  readonly notificationService = inject(NotificationService);
 
   readonly searchResults = this.store.selectSignal(selectSearchResults);
+
+  readonly notificationsCount = this.store.selectSignal(
+    selectUnreadNotificationsCount,
+  );
 
   // my addresses modal
   addressModalVisibile = signal<boolean>(false);
@@ -147,7 +140,7 @@ export class Header implements OnInit {
   selectedEditAddress = signal<Address | null>(null);
 
   // Selected Address
-  selectedAddress = this.store.selectSignal(selectSelectedAddress)
+  selectedAddress = this.store.selectSignal(selectSelectedAddress);
 
   // Auth State from NgRx Store & Session
   readonly userState = this.store.selectSignal(selectUserState);
@@ -199,9 +192,6 @@ export class Header implements OnInit {
   // Mobile Drawer State
   readonly isMobileDrawerOpen = signal(false);
 
-  // Notifications Row Actions Menu
-  readonly activeRowMenuId = signal<string | null>(null);
-
   // Login Form State
   readonly loginUsername = signal("");
   readonly loginPassword = signal("");
@@ -209,11 +199,6 @@ export class Header implements OnInit {
   readonly isSubmittingLogin = signal(false);
   readonly loginError = signal<string | null>(null);
   readonly activeAuthTab = signal<"login" | "register">("login");
-
-  // Notifications State
-  readonly notifications = signal<NotificationItem[]>([]);
-  readonly unreadCount = signal(0);
-  readonly isLoadingNotifications = signal(false);
 
   // Search Query (string while typing; the Product once a suggestion is picked)
   readonly searchQuery = signal<string | Product>("");
@@ -228,7 +213,6 @@ export class Header implements OnInit {
         this.closeAllOverlays();
         this.loginUsername.set("");
         this.loginPassword.set("");
-        this.loadNotifications();
       });
 
     this.actions$
@@ -242,17 +226,10 @@ export class Header implements OnInit {
 
     this.actions$
       .pipe(ofType(userActions.logout), takeUntilDestroyed())
-      .subscribe(() => {
-        this.notifications.set([]);
-        this.unreadCount.set(0);
-        this.closeAllOverlays();
-      });
+      .subscribe(() => this.closeAllOverlays());
   }
 
   ngOnInit(): void {
-    if (this.isAuthenticated()) {
-      this.loadNotifications();
-    }
     this.store.dispatch(AddressActions.loadAddresses());
   }
 
@@ -260,8 +237,7 @@ export class Header implements OnInit {
   closeAllPopovers(): void {
     this.userPopover?.hide();
     this.loginPopover?.hide();
-    this.notificationsPopover?.hide();
-    this.activeRowMenuId.set(null);
+    this.notificationsPanel?.hide();
   }
 
   closeAllOverlays(): void {
@@ -271,14 +247,14 @@ export class Header implements OnInit {
 
   toggleUserPopover(event: Event): void {
     this.loginPopover?.hide();
-    this.notificationsPopover?.hide();
+    this.notificationsPanel?.hide();
     this.isMobileDrawerOpen.set(false);
     this.userPopover?.toggle(event);
   }
 
   toggleLoginPopover(event: Event): void {
     this.userPopover?.hide();
-    this.notificationsPopover?.hide();
+    this.notificationsPanel?.hide();
     this.isMobileDrawerOpen.set(false);
     this.loginPopover?.toggle(event);
   }
@@ -287,10 +263,7 @@ export class Header implements OnInit {
     this.userPopover?.hide();
     this.loginPopover?.hide();
     this.isMobileDrawerOpen.set(false);
-    this.notificationsPopover?.toggle(event);
-    if (this.isAuthenticated()) {
-      this.loadNotifications();
-    }
+    this.notificationsPanel?.toggle(event);
   }
 
   closeMobileMenu(): void {
@@ -307,11 +280,6 @@ export class Header implements OnInit {
     if (this.isMobileDrawerOpen()) {
       this.closeMobileMenu();
     }
-  }
-
-  toggleRowMenu(id: string, event: MouseEvent): void {
-    event.stopPropagation();
-    this.activeRowMenuId.update((current) => (current === id ? null : id));
   }
 
   // Language & Theme
@@ -356,78 +324,6 @@ export class Header implements OnInit {
     this.store.dispatch(userActions.logout());
   }
 
-  // Notification Actions
-  loadNotifications(): void {
-    if (!this.isAuthenticated()) {
-      this.notifications.set([]);
-      this.unreadCount.set(0);
-      return;
-    }
-
-    this.isLoadingNotifications.set(true);
-    this.notificationService.getNotifications().subscribe({
-      next: (items) => {
-        this.notifications.set(items);
-        this.isLoadingNotifications.set(false);
-      },
-      error: () => {
-        this.isLoadingNotifications.set(false);
-      },
-    });
-
-    this.notificationService.getUnreadCount().subscribe({
-      next: (count) => {
-        this.unreadCount.set(count);
-      },
-      error: () => {},
-    });
-  }
-
-  markAllAsRead(): void {
-    this.activeRowMenuId.set(null);
-    this.notifications.update((items) =>
-      items.map((item) => ({ ...item, isRead: true })),
-    );
-    this.unreadCount.set(0);
-    this.notificationService.markAllAsRead().subscribe();
-  }
-
-  clearAllNotifications(): void {
-    this.activeRowMenuId.set(null);
-    this.notifications.set([]);
-    this.unreadCount.set(0);
-    this.notificationService.clearAll().subscribe();
-  }
-
-  markNotificationAsRead(item: NotificationItem, event?: MouseEvent): void {
-    if (event) event.stopPropagation();
-    this.activeRowMenuId.set(null);
-    const id = item._id || item.id;
-    if (!id) return;
-
-    this.notifications.update((items) =>
-      items.map((n) => ((n._id || n.id) === id ? { ...n, isRead: true } : n)),
-    );
-    this.unreadCount.update((c) => Math.max(0, c - 1));
-    this.notificationService.markAsRead(id).subscribe();
-  }
-
-  deleteNotification(item: NotificationItem, event?: MouseEvent): void {
-    if (event) event.stopPropagation();
-    this.activeRowMenuId.set(null);
-    const id = item._id || item.id;
-    if (!id) return;
-
-    const wasUnread = !item.isRead;
-    this.notifications.update((items) =>
-      items.filter((n) => (n._id || n.id) !== id),
-    );
-    if (wasUnread) {
-      this.unreadCount.update((c) => Math.max(0, c - 1));
-    }
-    this.notificationService.deleteNotification(id).subscribe();
-  }
-
   // Enter without picking a suggestion → go to the products listing with the query.
   // (If Enter picked a suggestion, onSelect already reset searchQuery to "".)
   onSearchSubmit(): void {
@@ -440,9 +336,9 @@ export class Header implements OnInit {
     }
   }
 
-  // Show Addresses Modal 
+  // Show Addresses Modal
 
-  onAddressModalChange(visible:boolean){
+  onAddressModalChange(visible: boolean) {
     this.addressModalVisibile.set(visible);
   }
 
@@ -452,8 +348,8 @@ export class Header implements OnInit {
   }
 
   onEdit(address: Address) {
-  this.selectedEditAddress.set(address); 
-  this.addressModalVisibile.set(false);
-  this.addAddressModalVisible.set(true);
-}
+    this.selectedEditAddress.set(address);
+    this.addressModalVisibile.set(false);
+    this.addAddressModalVisible.set(true);
+  }
 }

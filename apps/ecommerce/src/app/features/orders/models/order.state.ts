@@ -1,8 +1,8 @@
 import { Checkout } from "../../checkout/checkout";
-import { Order } from "./orders";
+import { OrderMainData } from "./orders";
 
 export interface OrdersState {
-  order: Order | null;
+  order: OrderMainData | null;
   checkout: Checkout | null;
   loading: boolean;
   error: string | null;

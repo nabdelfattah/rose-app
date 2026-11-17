@@ -3,14 +3,14 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, filter, map, of, tap } from "rxjs";
 
 import * as OrdersActions from "./orders.actions";
-import { OrderService } from "../services/orders.service";
+import { OrdersService } from "../services/orders.service";
 import { CartActions } from "../../cart/store/cart.actions";
 import { Router } from "@angular/router";
 import { MessageService } from "@openng/optimus-ui/api";
 import { TranslateService } from "@ngx-translate/core";
 
 export const createOrderEffect = createEffect(
-  (actions$ = inject(Actions), orderService = inject(OrderService)) =>
+  (actions$ = inject(Actions), orderService = inject(OrdersService)) =>
     actions$.pipe(
       ofType(OrdersActions.createOrder),
 

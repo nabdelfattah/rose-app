@@ -1,0 +1,175 @@
+<li
+  class="list-none overflow-hidden rounded-lg border border-zinc-200 bg-zinc-50"
+>
+  <!-- Header -->
+  <header
+    class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 bg-maroon-600 px-3 py-2 text-white"
+  >
+    <p class="text-base sm:text-lg font-semibold">
+      {{ "orders.order" | translate }} #{{ orderNumber() }}
+    </p>
+    <p class="text-xs sm:text-sm text-zinc-100">
+      {{ "orders.created-in" | translate }}:
+      <span class="font-semibold text-white">
+        {{ item().createdAt | date: "d MMMM, y" }} {{ "orders.at" | translate }}
+        {{ item().createdAt | date: "h:mma" }}
+      </span>
+    </p>
+  </header>
+
+  <!-- Total + status -->
+  <div
+    class="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-200 px-3 py-2.5"
+  >
+    <!-- total -->
+    <div class="flex items-center gap-2.5">
+      <p class="text-base sm:text-xl text-zinc-800">
+        {{ "orders.total-price" | translate }}:
+        <span class="font-bold"
+          >{{ item().total | number: "1.0-2" }} {{ "orders.egp" | translate
+          }}</span
+        >
+      </p>
+      @if (item().paymentStatus === "DONE") {
+      <p-tag
+        [severity]="paymentSeverity()"
+        [rounded]="true"
+        [dt]="tagTokens[paymentSeverity()]"
+      >
+        <svg lucideCheck class="size-3.5"></svg>
+        {{ item().paymentStatus | titlecase }}
+      </p-tag>
+      }
+    </div>
+    <!-- status -->
+    <div class="flex items-center gap-2 text-sm">
+      <span class="font-semibold text-zinc-800"
+        >{{ "orders.status.label" | translate }}:</span
+      >
+      <p-tag
+        [severity]="statusSeverity()"
+        [value]="item().status | titlecase"
+        [rounded]="true"
+        [dt]="tagTokens[statusSeverity()]"
+      />
+    </div>
+  </div>
+
+  <!-- Details -->
+  <div class="flex flex-col gap-1.5 px-5 pt-3 pb-4 text-sm">
+    <p class="flex items-center gap-2">
+      <span class="font-medium text-zinc-800"
+        >{{ "orders.payment-method" | translate }}:</span
+      >
+      <span class="inline-flex items-center gap-1 text-zinc-500">
+        @if (isCard()) {
+        <svg lucideCreditCard class="size-4"></svg>
+        {{ "orders.credit-card" | translate }} } @else {
+        <svg lucideBanknote class="size-4"></svg>
+        {{ "orders.cash" | translate }} }
+      </span>
+    </p>
+
+    <p class="flex items-center gap-2">
+      <span class="font-medium text-zinc-800"
+        >{{ "orders.delivery-status" | translate }}:</span
+      >
+      <span
+        class="inline-flex items-center gap-1"
+        [class]="toneText[deliveryTone()]"
+      >
+        @switch (deliveryTone()) { @case ("red") {
+        <svg lucideTriangleAlert class="size-4"></svg> } @case ("emerald") {
+        <svg lucideCircleCheck class="size-4"></svg> } @default {
+        <svg lucideTruck class="size-4"></svg> } } {{ item().status | titlecase
+        }}
+      </span>
+    </p>
+
+    <p class="font-medium text-zinc-800">
+      {{ "orders.order-items" | translate }}:
+    </p>
+
+    <!-- Order items -->
+    <div class="relative mt-1 rounded-lg bg-white p-3">
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        @for (orderItem of visibleItems(); track orderItem.id) {
+        <!-- dynamic components -->
+        <ng-container
+          [ngTemplateOutlet]="productCard"
+          [ngTemplateOutletContext]="{ $implicit: orderItem }"
+        />
+        } @for (orderItem of fadedItems(); track orderItem.id) {
+        <ng-container
+          [ngTemplateOutlet]="productCard"
+          [ngTemplateOutletContext]="{ $implicit: orderItem, peek: true }"
+        />
+        }
+      </ul>
+
+      @if (hasMore()) {
+      <!-- white transparent gradient -->
+      <div
+        class="flex justify-center"
+        [class]="expanded() ? 'pt-3' : 'absolute inset-x-0 bottom-0 h-20 items-end pb-1 bg-linear-to-t from-white via-white/80 to-transparent'"
+      >
+        <button
+          type="button"
+          (click)="toggleExpanded()"
+          class="flex flex-col items-center text-sm text-maroon-600 hover:text-maroon-700 transition cursor-pointer"
+          [attr.aria-expanded]="expanded()"
+        >
+          {{ (expanded() ? "orders.show-less" : "orders.show-all") | translate
+          }}
+          <svg
+            lucideChevronDown
+            class="size-4 transition-transform"
+            [class.rotate-180]="expanded()"
+          ></svg>
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+</li>
+
+<ng-template #productCard let-orderItem let-peek="peek">
+  <li
+    class="flex gap-3 overflow-hidden rounded-lg bg-zinc-50"
+    [class.max-h-16]="peek"
+    [class.opacity-40]="peek"
+    [attr.aria-hidden]="peek ? true : null"
+  >
+    <a
+      [routerLink]="['/products', orderItem.product?.id ?? orderItem.productId]"
+      [tabindex]="peek ? -1 : 0"
+      class="shrink-0 overflow-hidden"
+    >
+      <img
+        [src]="orderItem.product?.cover"
+        [alt]="orderItem.product?.title"
+        class="size-24 object-cover object-center"
+        loading="lazy"
+      />
+    </a>
+    <div class="flex min-w-0 flex-1 flex-col justify-between py-2 pe-3">
+      <a
+        [routerLink]="['/products', orderItem.product?.id ?? orderItem.productId]"
+        [tabindex]="peek ? -1 : 0"
+        class="truncate text-base font-medium text-maroon-700 hover:text-maroon-600 transition"
+        [title]="orderItem.product?.title"
+      >
+        {{ orderItem.product?.title }}
+      </a>
+      <p class="flex items-baseline gap-1">
+        <span class="text-xs text-maroon-600">(x{{ orderItem.quantity }})</span>
+        <span class="text-xl font-bold text-zinc-700"
+          >{{ orderItem.price | number: "1.0-2" }}</span
+        >
+        <span class="text-xs text-zinc-700"
+          >{{ "orders.egp" | translate }}</span
+        >
+      </p>
+    </div>
+  </li>
+</ng-template>

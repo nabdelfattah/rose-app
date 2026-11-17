@@ -82,6 +82,17 @@
         {{ subtotal() | currency:'USD':'symbol':'1.2-2' }}
       </span>
     </div>
+    <!-- Fees -->
+     @if(isCash()){
+       <div
+         class="flex items-center justify-between text-sm sm:text-base text-zinc-600"
+       >
+         <span>{{ 'cart.fees' | translate }}</span>
+         <span class="font-semibold text-zinc-800">
+           {{ fees() | currency:'USD':'symbol':'1.2-2' }}
+         </span>
+       </div>
+     }
 
     <!-- Discount (if applicable) -->
     @if (discount() > 0) {
@@ -99,22 +110,22 @@
     >
       <span class="text-base sm:text-lg">{{ 'cart.total' | translate }}</span>
       <span class="text-xl sm:text-2xl text-maroon-600">
-        {{ total() | currency:'USD':'symbol':'1.2-2' }}
+        {{ displayTotal() | currency:'USD':'symbol':'1.2-2' }}
       </span>
     </div>
   </div>
 
   <!-- Checkout Button -->
-   @if(!isCheckoutStep()){
-     <a
-       appButton
-       variant="primary"
-       size="full"
-       [disabled]="isCheckoutDisabled()"
-       class="mt-6 w-full text-center cursor-pointer"
-       (click)="checkoutStep.emit(false)"
-     >
-       {{ 'cart.checkout' | translate }}
-     </a>
-   }
+  @if(!isCheckoutStep()){
+  <a
+    appButton
+    variant="primary"
+    size="full"
+    [disabled]="isCheckoutDisabled()"
+    class="mt-6 w-full text-center cursor-pointer"
+    (click)="checkoutStep.emit(false)"
+  >
+    {{ 'cart.checkout' | translate }}
+  </a>
+  }
 </div>

@@ -93,6 +93,7 @@ export class Cart implements OnInit {
   // payment
   currentStep = signal<number>(1);
   isCheckout = signal<boolean>(false);
+  isCash = signal<boolean>(true)
   paymentMethod = signal<"CASH_ON_DELIVERY" | "CREDIT_CARD">(
     "CASH_ON_DELIVERY",
   );
@@ -174,9 +175,11 @@ export class Cart implements OnInit {
 
   selectCredit() {
     this.paymentMethod.set("CREDIT_CARD");
+    this.isCash.set(false);
   }
   selectCash() {
     this.paymentMethod.set("CASH_ON_DELIVERY");
+    this.isCash.set(true);
   }
 
   placeOrder() {

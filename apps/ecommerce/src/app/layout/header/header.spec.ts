@@ -6,8 +6,13 @@ import { provideHttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Actions } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { LanguageService, ThemeService } from '@rose-app/ui';
+import { productsReducer } from '../../features/products/store/products.reducer';
+import { cartReducer } from '../../features/cart/store/cart.reducer';
+import { wishlistReducer } from '../../features/wishlist/store/wishlist.reducer';
+import { addressReducer } from '../../shared/components/address/store/address.reducer';
+import { notificationsReducer } from '../../features/notification/store/notifications.reducer';
 
 describe('Header', () => {
   let component: Header;
@@ -17,7 +22,15 @@ describe('Header', () => {
     await TestBed.configureTestingModule({
       imports: [Header],
       providers: [
-        provideStore({ user: () => ({ isLoading: false }) }),
+        // the header (and the notifications panel inside it) reads all of these slices
+        provideStore({
+          user: () => ({ isLoading: false }),
+          products: productsReducer,
+          cart: cartReducer,
+          wishlist: wishlistReducer,
+          address: addressReducer,
+          notifications: notificationsReducer,
+        }),
         provideRouter([]),
         provideHttpClient(),
         CookieService,
@@ -25,13 +38,8 @@ describe('Header', () => {
           provide: Actions,
           useValue: of(),
         },
-        {
-          provide: TranslateService,
-          useValue: {
-            use: () => of(),
-            get: () => of(''),
-          },
-        },
+        // real service with no loader => the pipe shows the translation keys
+        provideTranslateService({ fallbackLang: 'en' }),
         LanguageService,
         ThemeService,
       ],

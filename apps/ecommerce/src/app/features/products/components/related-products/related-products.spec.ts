@@ -2,6 +2,9 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { RelatedProducts } from "./related-products";
 import { Product } from "../../model/product";
 import { provideRouter } from "@angular/router";
+import { provideMockStore } from "@ngrx/store/testing";
+import { provideTranslateService } from "@ngx-translate/core";
+import { selectWishlistProducts } from "../../../wishlist/store/wishlist.selector";
 
 describe("RelatedProducts", () => {
   let fixture: ComponentFixture<RelatedProducts>;
@@ -15,9 +18,14 @@ describe("RelatedProducts", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RelatedProducts],
-      providers:[
-        provideRouter([])
-      ]
+      providers: [
+        provideRouter([]),
+        // RelatedProducts dispatches add-to-cart; each ProductCard reads the wishlist
+        provideMockStore({
+          selectors: [{ selector: selectWishlistProducts, value: [] }],
+        }),
+        provideTranslateService({ fallbackLang: "en" }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RelatedProducts);

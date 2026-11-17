@@ -23,6 +23,7 @@ import * as wishlistEffect from "./features/wishlist/store/wishlist.effects";
 import { ReviewsService } from "./features/products/service/reviews.service";
 import { cartReducer } from "./features/cart/store/cart.reducer";
 import * as cartEffects from "./features/cart/store/cart.effects";
+import * as notificationsEffect from "./features/notification/store/notifications.effects";
 import { CartService } from "./features/cart/service/cart.service";
 import {
   ngxSpinnerInterceptor,
@@ -37,7 +38,9 @@ import * as addressEffects from "./shared/components/address/store/address.effec
 import { AddressService } from "./shared/components/address/services/address-service/address.service";
 import { ordersReducer } from "./features/orders/store/orders.reducer";
 import * as ordersEffects from "./features/orders/store/orders.effects";
-import { OrderService } from "./features/orders/services/orders.service";
+import { NotificationsService } from "./features/notification/services/notifications.service";
+import { notificationsReducer } from "./features/notification/store/notifications.reducer";
+import { OrdersService } from "./features/orders/services/orders.service";
 
 export const appRoutes: Route[] = [
   {
@@ -62,7 +65,9 @@ export const appRoutes: Route[] = [
       ReviewsService,
       WishlistService,
       AccountService,
+      OrdersService,
       ConfirmationService,
+      NotificationsService,
       provideState({ name: "user", reducer: userReducer }),
       provideEffects(userEffects),
       provideState({ name: "products", reducer: productsReducer }),
@@ -72,12 +77,14 @@ export const appRoutes: Route[] = [
       provideState({ name: "cart", reducer: cartReducer }),
       provideEffects(cartEffects),
       provideState({ name: "address", reducer: addressReducer }),
+      provideState({ name: "address", reducer: addressReducer }),
       provideEffects(addressEffects),
       provideState({ name: "orders", reducer: ordersReducer }),
       provideEffects(ordersEffects),
+      provideState({ name: "notifications", reducer: notificationsReducer }),
+      provideEffects(notificationsEffect),
       CartService,
       AddressService,
-      OrderService,
       MessageService,
       // Translation
       provideTranslateService({
@@ -106,6 +113,7 @@ export const appRoutes: Route[] = [
           },
           {
             path: "cart",
+            canActivate: [authGuard],
             loadComponent: () =>
               import("./features/cart/cart").then((c) => c.Cart),
           },
@@ -116,6 +124,7 @@ export const appRoutes: Route[] = [
           },
           {
             path: "orders",
+            canActivate: [authGuard],
             loadComponent: () =>
               import("./features/orders/orders").then((c) => c.Orders),
           },
@@ -133,6 +142,7 @@ export const appRoutes: Route[] = [
           },
           {
             path: "wishlist",
+            canActivate: [authGuard],
             loadComponent: () =>
               import("./features/wishlist/wishlist").then((c) => c.Wishlist),
           },

@@ -83,7 +83,7 @@
   "header": {
     "nopdtFound": "No products found",
     "searchPdt": "Search products...",
-    "select-address":"Select Address"
+    "select-address": "Select Address"
   },
   "home": {
     "banners": {
@@ -212,7 +212,6 @@
       "out-of-stock": "Out of Stock",
       "available": "available",
       "currency": "EGP",
-
       "reviews": {
         "title": "Product Reviews",
         "general-rating": "General rating:",
@@ -271,6 +270,7 @@
     "coupon-min-purchase": "Minimum purchase required for this coupon",
     "coupon-limit-reached": "This coupon has reached its usage limit",
     "subtotal": "Subtotal",
+    "fees": "Fees",
     "discount": "Discount",
     "total": "Total",
     "checkout": "Checkout",
@@ -360,30 +360,30 @@
       "minLength": "Password must be at least 6 characters long."
     }
   },
-  "address":{
-    "addresses-list":{
+  "address": {
+    "addresses-list": {
       "my-addresses": "My Addresses",
       "add-address": "Add New Address"
     },
-    "confirm-modal":{
-      "message":"Are you sure you want to delete this address?",
-      "cancel":"Cancel",
-      "confirm":"Confirm"
+    "confirm-modal": {
+      "message": "Are you sure you want to delete this address?",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
     },
-    "new-address":{
-      "update-title":"Update Address Info",
-      "add-title":"Add a New Address",
-      "enter-details":"Enter Address Details",
-      "title":"Title",
-      "city":"City",
-      "address":"Address",
-      "phone":"Phone",
-      "primary":"Set as primary address",
-      "next":"Next",
-      "find-location":"Find Your Location",
-      "locating":"Locating...",
-      "find-location-btn":"Find My Location",
-      "add-address":"Add Address"
+    "new-address": {
+      "update-title": "Update Address Info",
+      "add-title": "Add a New Address",
+      "enter-details": "Enter Address Details",
+      "title": "Title",
+      "city": "City",
+      "address": "Address",
+      "phone": "Phone",
+      "primary": "Set as primary address",
+      "next": "Next",
+      "find-location": "Find Your Location",
+      "locating": "Locating...",
+      "find-location-btn": "Find My Location",
+      "add-address": "Add Address"
     },
     "toast": {
       "success": "Success",
@@ -398,31 +398,58 @@
       "deleteFailed": "Failed to delete address"
     }
   },
-  "orders":{
-      "toast": {
-        "success": "Success",
-        "created": "Your order has been placed successfully.",
-        "error": "Order Failed"
+  "checkout": {
+    "shipping-address": "Shipping Address",
+    "or": "OR",
+    "add-new": "Add a New Address",
+    "next": "Next",
+    "back": "Back",
+    "payment-method": "Payment Method",
+    "cash": "Cash on Delivery",
+    "cash-desc": "You’ll pay in cash when your order is delivered.",
+    "credit": "Credit Card",
+    "credit-desc": "You’ll be securely redirected to Stripe to complete your payment.",
+    "checkout": "Checkout",
+    "success": {
+      "title": "Order Placed Successfully!",
+      "desc": "Thank you for your purchase! Your order has been placed successfully. You can track your order status from your orders page.",
+      "view": "View My Orders",
+      "continue": "Continue Shopping"
     }
   },
-  "checkout":{
-    "shipping-address": "Shipping Address",
-    "or":"OR",
-    "add-new":"Add a New Address",
-    "next":"Next",
-    "back":"Back",
-    "payment-method":"Payment Method",
-    "cash":"Cash on Delivery",
-    "cash-desc":"You’ll pay in cash when your order is delivered.",
-    "credit":"Credit Card",
-    "credit-desc":"You’ll be securely redirected to Stripe to complete your payment.",
-    "checkout":"Checkout",
-    "success":{
-      "title": "Order Placed Successfully!",
-      "desc":"Thank you for your purchase! Your order has been placed successfully. You can track your order status from your orders page.",
-      "view": "View My Orders",
-      "continue":"Continue Shopping"
+  "notifications": {
+    "title": "Notifications",
+    "new-count": "{{count}} new",
+    "mark-all-read": "Mark All As Read",
+    "clear-all": "Clear All",
+    "loading": "Loading notifications...",
+    "empty-title": "No notifications yet",
+    "empty-desc": "Updates, orders, and offers will appear here.",
+    "options": "Notification options",
+    "mark-as-read": "Mark as read",
+    "delete": "Delete"
+  },
+  "orders": {
+    "toast": {
+      "success": "Success",
+      "created": "Your order has been placed successfully.",
+      "error": "Order Failed"
+    },
+    "title": "Orders",
+    "order": "Order",
+    "created-in": "Created in",
+    "at": "at",
+    "total-price": "Total Price",
+    "egp": "EGP",
+    "payment-method": "Payment Method",
+    "cash": "Cash",
+    "credit-card": "Credit Card",
+    "delivery-status": "Delivery Status",
+    "order-items": "Order Items",
+    "show-all": "Show All",
+    "show-less": "Show Less",
+    "status": {
+      "label": "Status"
     }
-    
   }
 }

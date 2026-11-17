@@ -1,9 +1,29 @@
-import { Component } from '@angular/core';
-
+import { Component, DestroyRef, inject, signal } from "@angular/core";
+import { OrderItem } from "./components/orderItem";
+import { Order } from "./models/orders";
+import { OrdersService } from "./services/orders.service";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { TranslatePipe } from "@ngx-translate/core";
 @Component({
-  selector: 'app-orders',
-  imports: [],
-  templateUrl: './orders.html',
-  styleUrl: './orders.css'
+  selector: "app-orders",
+  imports: [OrderItem, TranslatePipe],
+  templateUrl: "./orders.html",
 })
-export class Orders {}
+export class Orders {
+  private readonly ordersService = inject(OrdersService);
+  private destroyRef = inject(DestroyRef);
+
+  orders = signal<Order[]>([]);
+
+  ngOnInit() {
+    this.ordersService
+      .getOrders()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.orders.set(res.payload.data);
+        },
+        error: () => {},
+      });
+  }
+}

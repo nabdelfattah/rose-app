@@ -1,20 +1,24 @@
+import { CreateOrderRequest, CreateOrderResponse } from "./../models/orders";
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
-import { BASE_URL } from "../../../core/constants/apiUrl";
-import { CreateOrderRequest, CreateOrderResponse } from "../models/orders";
+import { inject, Service } from "@angular/core";
+import { environment } from "../../../../environments/environment";
 import { Observable } from "rxjs";
+import { GetOrdersResponse } from "../models/orders";
 
-@Injectable({
-  providedIn: 'root',
-})
-export class OrderService {
-  private readonly http = inject(HttpClient);
-  private readonly apiUrl = `${BASE_URL}/orders`;
+@Service()
+export class OrdersService {
+  private readonly httpClient = inject(HttpClient);
+
+  getOrders(): Observable<GetOrdersResponse> {
+    return this.httpClient.get<GetOrdersResponse>(
+      `${environment.baseUrl}orders`,
+    );
+  }
 
   createOrder(payload: CreateOrderRequest): Observable<CreateOrderResponse> {
-    return this.http.post<CreateOrderResponse>(
-      this.apiUrl,
-      payload
+    return this.httpClient.post<CreateOrderResponse>(
+      `${environment.baseUrl}orders`,
+      payload,
     );
   }
 }
