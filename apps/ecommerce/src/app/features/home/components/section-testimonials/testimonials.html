@@ -12,7 +12,7 @@
         class="testimonials-card flex flex-col items-center justify-around gap-6 relative bg-white rounded-3xl pt-13.75 pb-5 px-5 w-full max-w-85.75 min-h-62.5 shadow-[0_4px_50.5px_0_#741C211A] md:last:col-span-2 lg:last:col-span-1"
       >
         <div
-          class="image absolute top-0 inset-s-1/2 -translate-y-1/2 -translate-x-1/2 rtl:translate-x-1/2 bg-zinc-100 flex justify-center items-center size-30 rounded-full border-[3px] border-white overflow-hidden"
+          class="image absolute top-0 inset-s-1/2 -translate-y-1/2 -translate-x-1/2 rtl:translate-x-1/2 bg-maroon-50 flex justify-center items-center size-30 rounded-full border-[3px] border-white overflow-hidden"
         >
           @if (testimonial.image) {
           <img
@@ -21,7 +21,7 @@
             [alt]="testimonial.name"
           />
           } @else {
-          <p class="text-3xl text-zinc-800">
+          <p class="text-3xl text-maroon-800">
             {{ testimonial.name.charAt(0).toUpperCase() }}
           </p>
           }

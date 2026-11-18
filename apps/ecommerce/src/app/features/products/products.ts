@@ -222,13 +222,21 @@ export class Products {
   }
 
   // Select Minimum Price
-  onMinPriceChange(value: string): void {
-    this.minPrice.set(value === "" ? null : Number(value));
+  onMinPriceChange(value: string, input:HTMLInputElement): void {
+    if(value == ''){
+      this.minPrice.set(null);
+      return;
+    }
+    const price =  Math.max(0, Number(value))
+    this.minPrice.set(price);
+    input.value = String(price);
   }
 
   // Select Maximum Price
-  onMaxPriceChange(value: string): void {
-    this.maxPrice.set(value === "" ? null : Number(value));
+  onMaxPriceChange(value: string, input:HTMLInputElement): void {
+    const price = Math.min(1000000, Number(value))
+    this.maxPrice.set(price);
+    input.value = String(price)
   }
 
   // Reset Categories Filter

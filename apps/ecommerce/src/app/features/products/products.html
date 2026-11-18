@@ -6,9 +6,12 @@
         class="categories border-b border-b-zinc-100 pt-2.5 pb-5 flex flex-col gap-2.5"
       >
         <div class="categories-head flex justify-between items-center">
-          <h3 class="categories-title text-zinc-800 text-lg font-semibold">
-            {{"products.products-page.sidebar.categories"|translate}}
-          </h3>
+          <div class="categories-title flex items-center gap-2">
+            <h3 class="text-zinc-800 text-lg font-semibold">
+              {{"products.products-page.sidebar.categories"|translate}}
+            </h3>
+            <span class="text-zinc-500">({{selectedCategories().length}})</span>
+          </div>
           <button
             (click)="resetCategories()"
             type="reset"
@@ -58,9 +61,12 @@
         class="occasions border-b border-b-zinc-100 pt-2.5 pb-5 flex flex-col gap-2.5"
       >
         <div class="occasions-head flex justify-between items-center">
-          <h3 class="occasions-title text-zinc-800 text-lg font-semibold">
-            {{"products.products-page.sidebar.occasions"|translate}}
-          </h3>
+          <div class="occasions-title flex items-center gap-2">
+            <h3 class="text-zinc-800 text-lg font-semibold">
+              {{"products.products-page.sidebar.occasions"|translate}}
+            </h3>
+            <span class="text-zinc-500">({{selectedOccasions().length}})</span>
+          </div>
           <button
             (click)="resetOccasions()"
             type="reset"
@@ -145,8 +151,9 @@
               #minInput
               type="number"
               placeholder="0"
+              min="0"
               [value]="minPrice() ?? ''"
-              (input)="onMinPriceChange(minInput.value)"
+              (input)="onMinPriceChange(minInput.value, minInput)"
               class="border border-zinc-300 p-4 rounded-[10px] w-full min-w-0"
             />
           </div>
@@ -159,8 +166,10 @@
               #maxInput
               type="number"
               placeholder="1000000"
+              min="0"
+              max="1000000"
               [value]="maxPrice() ?? ''"
-              (input)="onMaxPriceChange(maxInput.value)"
+              (input)="onMaxPriceChange(maxInput.value, maxInput)"
               class="border border-zinc-300 p-4 rounded-[10px] w-full min-w-0"
             />
           </div>
