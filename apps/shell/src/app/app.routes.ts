@@ -2,6 +2,14 @@ import { loadRemoteModule } from "@angular-architects/native-federation";
 import { Route } from "@angular/router";
 
 export const appRoutes: Route[] = [
+  // Dashboard
+  {
+    path: "dashboard",
+    loadChildren: () =>
+      typeof window === "undefined"
+        ? Promise.resolve([{ path: "**", children: [] }])
+        : loadRemoteModule("dashboard", "./routes").then((m) => m.appRoutes),
+  },
   {
     path: "",
     loadChildren: () =>

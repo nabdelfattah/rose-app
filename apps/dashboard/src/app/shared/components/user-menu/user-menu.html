@@ -1,0 +1,95 @@
+<div
+  class="relative"
+  [class]="variant() === 'sidebar' ? 'flex items-center gap-3 border-t border-zinc-100 px-4 py-4' : ''"
+>
+  @if (variant() === 'sidebar') { @if (userPhoto()) {
+  <img
+    [src]="userPhoto()!"
+    alt="User Photo"
+    class="size-13.5 shrink-0 rounded-full object-cover"
+  />
+  } @else {
+  <div
+    class="flex size-13.5 shrink-0 items-center justify-center rounded-full bg-maroon-100 text-lg font-bold uppercase text-maroon-700"
+  >
+    {{ userCharacters() || 'FL'}}
+  </div>
+  }
+
+  <div class="min-w-0 flex-1">
+    <p class="text-sm font-semibold text-zinc-800">
+      {{firstName() ?? 'Firstname'}} {{lastName() ?? 'Lastname'}}
+    </p>
+    <p class="text-xs text-zinc-400">{{email() ?? 'user-email@example.com'}}</p>
+  </div>
+
+  <button
+    type="button"
+    aria-label="User menu"
+    (click)="toggleMenu()"
+    class="flex size-6 shrink-0 cursor-pointer items-center justify-center rounded text-zinc-500 hover:bg-zinc-50"
+  >
+    <svg lucideEllipsisVertical size="18"></svg>
+  </button>
+  } @else {
+  <div class="flex items-center gap-3">
+    @if (userPhoto()) {
+    <img
+      [src]="userPhoto()!"
+      alt="User Photo"
+      class="size-13.5 shrink-0 rounded-full object-cover"
+    />
+    } @else {
+    <div
+      class="flex size-13.5 shrink-0 items-center justify-center rounded-full bg-maroon-100 text-lg font-bold uppercase text-maroon-700"
+    >
+      {{ userCharacters() || 'FL'}}
+    </div>
+    }
+
+    <button
+      type="button"
+      aria-label="User menu"
+      aria-haspopup="menu"
+      [attr.aria-expanded]="menuOpen()"
+      (click)="toggleMenu()"
+      class="flex size-10 cursor-pointer items-center justify-center rounded-lg text-zinc-800 hover:bg-zinc-50"
+    >
+      @if (menuOpen()) {
+      <svg lucideX class="size-7"></svg>
+      } @else {
+      <svg lucideMenu class="size-7"></svg>
+      }
+    </button>
+  </div>
+  }
+
+  <div [attr.inert]="menuOpen() ? null : ''" [class]="panelClasses()">
+    @if (variant() === 'sidebar') {
+    <h4
+      class="border-b border-b-zinc-100 px-3 py-2 font-semibold text-maroon-700"
+    >
+      {{firstName() ?? 'Firstname'}} {{lastName() ?? 'Lastname'}}
+    </h4>
+    }
+
+    <a
+      routerLink="/dashboard/account"
+      (click)="closeMenu()"
+      class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-zinc-800 hover:bg-zinc-50"
+    >
+      <svg lucideUser class="size-5"></svg>
+      <span>Profile</span>
+    </a>
+
+    <button
+      type="button"
+      role="menuitem"
+      (click)="logout()"
+      class="flex w-full cursor-pointer items-center gap-3 rounded-b-2xl px-4 py-3 text-sm font-medium text-maroon-600 hover:bg-zinc-50"
+    >
+      <svg lucideLogOut class="size-5"></svg>
+      <span>Logout</span>
+    </button>
+  </div>
+</div>
