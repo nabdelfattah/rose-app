@@ -6,11 +6,11 @@
   <img
     [src]="userPhoto()!"
     alt="User Photo"
-    class="size-13.5 shrink-0 rounded-full object-cover"
+    class="size-10.5 md:size-13.5 shrink-0 rounded-full object-cover"
   />
   } @else {
   <div
-    class="flex size-13.5 shrink-0 items-center justify-center rounded-full bg-maroon-100 text-lg font-bold uppercase text-maroon-700"
+    class="flex size-10.5 md:size-13.5 shrink-0 items-center justify-center rounded-full bg-soft-pink-100 dark:bg-soft-pink-50 text-lg font-bold uppercase text-maroon-700"
   >
     {{ userCharacters() || 'FL'}}
   </div>
@@ -32,16 +32,16 @@
     <svg lucideEllipsisVertical size="18"></svg>
   </button>
   } @else {
-  <div class="flex items-center gap-3">
+  <div class="flex items-center gap-1.5">
     @if (userPhoto()) {
     <img
       [src]="userPhoto()!"
       alt="User Photo"
-      class="size-13.5 shrink-0 rounded-full object-cover"
+      class="size-10.5 md:size-13.5 shrink-0 rounded-full object-cover"
     />
     } @else {
     <div
-      class="flex size-13.5 shrink-0 items-center justify-center rounded-full bg-maroon-100 text-lg font-bold uppercase text-maroon-700"
+      class="flex size-10.5 md:size-13.5 shrink-0 items-center justify-center rounded-full bg-soft-pink-100 dark:bg-soft-pink-50 text-lg font-bold uppercase text-maroon-700"
     >
       {{ userCharacters() || 'FL'}}
     </div>
@@ -53,7 +53,7 @@
       aria-haspopup="menu"
       [attr.aria-expanded]="menuOpen()"
       (click)="toggleMenu()"
-      class="flex size-10 cursor-pointer items-center justify-center rounded-lg text-zinc-800 hover:bg-zinc-50"
+      class="flex size-8 cursor-pointer items-center justify-center rounded-lg text-zinc-800 hover:bg-zinc-50"
     >
       @if (menuOpen()) {
       <svg lucideX class="size-7"></svg>
@@ -79,7 +79,7 @@
       class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-zinc-800 hover:bg-zinc-50"
     >
       <svg lucideUser class="size-5"></svg>
-      <span>Profile</span>
+      <span>{{'dashboard.user-menu.profile'|translate}}</span>
     </a>
 
     <button
@@ -89,7 +89,7 @@
       class="flex w-full cursor-pointer items-center gap-3 rounded-b-2xl px-4 py-3 text-sm font-medium text-maroon-600 hover:bg-zinc-50"
     >
       <svg lucideLogOut class="size-5"></svg>
-      <span>Logout</span>
+      <span>{{'dashboard.user-menu.logout'|translate}}</span>
     </button>
   </div>
 </div>

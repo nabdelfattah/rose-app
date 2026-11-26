@@ -7,7 +7,7 @@ export const appRoutes: Route[] = [
     canActivate: [adminGuard],
     loadComponent: () =>
       import("./layout/main-layout/main-layout").then((c) => c.MainLayout),
-    data: { breadcrumb: "Dashboard" },
+    data: { breadcrumb: "dashboard.sidebar.dashboard" },
     children: [
       {
         path: "",
@@ -25,28 +25,28 @@ export const appRoutes: Route[] = [
         loadComponent: () =>
           import("./features/categories/categories").then((c) => c.Categories),
         title: "Categories",
-        data: { breadcrumb: "Categories" },
+        data: { breadcrumb: "dashboard.sidebar.categories" },
       },
       {
         path: "occasions",
         loadComponent: () =>
           import("./features/occasions/occasions").then((c) => c.Occasions),
         title: "Occasions",
-        data: { breadcrumb: "Occasions" },
+        data: { breadcrumb: "dashboard.sidebar.occasions" },
       },
       {
         path: "products",
         loadComponent: () =>
           import("./features/products/products").then((c) => c.Products),
         title: "Products",
-        data: { breadcrumb: "Products" },
+        data: { breadcrumb: "dashboard.sidebar.products" },
       },
       {
         path: "account",
         loadComponent: () =>
           import("./features/account/account").then((c) => c.Account),
         title: "Account",
-        data: { breadcrumb: "Account" },
+        data: { breadcrumb: "dashboard.sidebar.account" },
       },
     ],
   },

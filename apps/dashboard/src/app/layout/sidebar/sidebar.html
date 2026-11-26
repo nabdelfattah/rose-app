@@ -3,6 +3,7 @@
     <img src="/Logo.svg" alt="Rose" class="w-24" />
   </div>
 
+  <!-- Preview Website -->
   <a
     href="/"
     target="_blank"
@@ -31,45 +32,46 @@
         <a
           routerLink="/dashboard/overview"
           routerLinkActive="bg-maroon-50 text-maroon-600!"
-          class="flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium text-gray-900 transition hover:bg-maroon-100 md:flex-row md:gap-3 md:px-3 md:py-2.5 md:text-sm md:font-semibold"
+          class="flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium text-zinc-800 transition hover:bg-maroon-100 dark:hover:text-zinc-50 md:flex-row md:gap-3 md:px-3 md:py-2.5 md:text-sm md:font-semibold"
         >
           <svg lucideLayoutDashboard class="size-5"></svg>
-          <span>Overview</span>
+          <span>{{'dashboard.sidebar.overview'|translate}}</span>
         </a>
       </li>
       <li>
         <a
           routerLink="/dashboard/categories"
           routerLinkActive="bg-maroon-50 text-maroon-600!"
-          class="flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium text-gray-900 transition hover:bg-maroon-100 md:flex-row md:gap-3 md:px-3 md:py-2.5 md:text-sm md:font-semibold"
+          class="flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium text-zinc-800 transition hover:bg-maroon-100 dark:hover:text-zinc-50 md:flex-row md:gap-3 md:px-3 md:py-2.5 md:text-sm md:font-semibold"
         >
           <svg lucideClipboardList class="size-5"></svg>
-          <span>Categories</span>
+          <span>{{'dashboard.sidebar.categories'|translate}}</span>
         </a>
       </li>
       <li>
         <a
           routerLink="/dashboard/occasions"
           routerLinkActive="bg-maroon-50 text-maroon-600!"
-          class="flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium text-gray-900 transition hover:bg-maroon-100 md:flex-row md:gap-3 md:px-3 md:py-2.5 md:text-sm md:font-semibold"
+          class="flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium text-zinc-800 transition hover:bg-maroon-100 dark:hover:text-zinc-50 md:flex-row md:gap-3 md:px-3 md:py-2.5 md:text-sm md:font-semibold"
         >
           <svg lucideCalendarHeart class="size-5"></svg>
-          <span>Occasions</span>
+          <span>{{'dashboard.sidebar.occasions'|translate}}</span>
         </a>
       </li>
       <li>
         <a
           routerLink="/dashboard/products"
           routerLinkActive="bg-maroon-50 text-maroon-600!"
-          class="flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium text-gray-900 transition hover:bg-maroon-100 md:flex-row md:gap-3 md:px-3 md:py-2.5 md:text-sm md:font-semibold"
+          class="flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium text-zinc-800 transition hover:bg-maroon-100 dark:hover:text-zinc-50 md:flex-row md:gap-3 md:px-3 md:py-2.5 md:text-sm md:font-semibold"
         >
           <svg lucidePackage class="size-5"></svg>
-          <span>Products</span>
+          <span>{{'dashboard.sidebar.products'|translate}}</span>
         </a>
       </li>
     </ul>
   </nav>
 
+  <!-- User Menu -->
   <div class="user mt-auto">
     <app-user-menu [firstName]="user?.firstName" [lastName]="user?.lastName" [email]="user?.email" [userPhoto]="user?.profilePhoto"></app-user-menu>
   </div>

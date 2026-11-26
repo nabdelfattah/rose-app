@@ -1,8 +1,9 @@
 import { Injectable, inject } from "@angular/core";
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from "@angular/router";
 import { toSignal } from "@angular/core/rxjs-interop";
-import { filter, map, startWith } from "rxjs";
+import { filter, map, merge, startWith } from "rxjs";
 import { MenuItem } from "@openng/optimus-ui/api";
+import { TranslateService } from "@ngx-translate/core";
 
 interface Crumb {
   label: string;
@@ -11,11 +12,14 @@ interface Crumb {
 
 @Injectable({ providedIn: "root" })
 export class BreadcrumbService {
-  private router = inject(Router);
+  private readonly router = inject(Router);
+  private readonly translate = inject(TranslateService);
 
   readonly items = toSignal(
-    this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
+    merge(
+      this.router.events.pipe(filter((e) => e instanceof NavigationEnd)),
+      this.translate.onLangChange,
+    ).pipe(
       startWith(null),
       map(() =>
         this.toMenuItems(this.build(this.router.routerState.snapshot.root)),
@@ -31,9 +35,12 @@ export class BreadcrumbService {
   ): Crumb[] {
     const segment = route.url.map((s) => s.path).join("/");
     const nextUrl = segment ? `${url}/${segment}` : url;
-    const label = route.routeConfig?.data?.["breadcrumb"];
+    const labelKey = route.routeConfig?.data?.["breadcrumb"];
 
-    if (label) crumbs.push({ label, url: nextUrl || "/" });
+    if (labelKey) {
+      const label = this.translate.instant(labelKey);
+      crumbs.push({ label, url: nextUrl || "/" });
+    }
 
     return route.firstChild
       ? this.build(route.firstChild, nextUrl, crumbs)

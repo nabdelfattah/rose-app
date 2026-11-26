@@ -9,6 +9,7 @@ import {
 } from "@lucide/angular";
 import { UserMenu } from "../../shared/components/user-menu/user-menu";
 import { Session } from "../../core/services/session";
+import { TranslatePipe } from "@ngx-translate/core";
 @Component({
   selector: "app-sidebar",
   imports: [
@@ -20,6 +21,7 @@ import { Session } from "../../core/services/session";
     LucideClipboardList,
     LucideCalendarHeart,
     LucidePackage,
+    TranslatePipe
   ],
   templateUrl: "./sidebar.html",
   styleUrl: "./sidebar.css",

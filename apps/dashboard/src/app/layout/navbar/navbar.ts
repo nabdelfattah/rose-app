@@ -1,3 +1,4 @@
+import { LangButton, ThemeButtonComponent } from '@rose-app/ui';
 import { Component, inject } from '@angular/core';
 import { Breadcrumb } from './components/breadcrumb/breadcrumb';
 import { UserMenu } from '../../shared/components/user-menu/user-menu';
@@ -6,7 +7,7 @@ import { Session } from '../../core/services/session';
 
 @Component({
   selector: 'app-navbar',
-  imports: [Breadcrumb, UserMenu],
+  imports: [Breadcrumb, UserMenu, ThemeButtonComponent, LangButton],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })

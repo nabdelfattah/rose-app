@@ -15,6 +15,7 @@ import {
   LucideX,
 } from "@lucide/angular";
 import { Session } from "../../../core/services/session";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: "app-user-menu",
@@ -25,6 +26,7 @@ import { Session } from "../../../core/services/session";
     LucideEllipsisVertical,
     LucideMenu,
     LucideX,
+    TranslatePipe
   ],
   templateUrl: "./user-menu.html",
   styleUrl: "./user-menu.css",
@@ -73,7 +75,7 @@ export class UserMenu {
       "absolute z-50 rounded-2xl border border-zinc-200 bg-white shadow-lg transition duration-300 ease-out";
 
     if (this.variant() === "sidebar") {
-      return `${base} bottom-full inset-s-1/2 -translate-x-1/2 mb-2 w-[80%] origin-bottom ${
+      return `${base} bottom-full inset-s-1/2 -translate-x-1/2 rtl:translate-x-1/2 mb-2 w-[80%] origin-bottom ${
         open
           ? "translate-y-0 scale-100 opacity-100"
           : "pointer-events-none translate-y-4 scale-95 opacity-0"
