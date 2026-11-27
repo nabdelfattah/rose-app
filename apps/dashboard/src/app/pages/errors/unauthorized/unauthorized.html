@@ -1,1 +1,12 @@
-<p>unauthorized works!</p>
+<section class="min-h-dvh flex flex-col items-center justify-center gap-4">
+    <div class="image">
+        <img src="/images/lock-shield.webp" alt="Unauthoriezed" class="w-50 h-50 lg:w-90 lg:h-90 dark:invert">
+    </div>
+    <div class="text text-center">
+        <h2 class="font-semibold text-2xl md:text-[36px] text-zinc-800">{{'dashboard.unauthorized.not-authorized'|translate}}</h2>
+        <p class="font-normal text-[14px] md:text-[20px] text-zinc-400">{{'dashboard.unauthorized.contact'|translate}}</p>
+    </div>
+    <div class="go-home flex items-center justify-center py-5.25 border-t border-t-zinc-300 w-86.25 lg:w-115.75 mx-auto">
+        <button routerLink="/" class="rounded-[10px] border border-zinc-300 py-2.5 px-4 text-zinc-800 cursor-pointer">{{'dashboard.unauthorized.go-home'|translate}}</button>
+    </div>
+</section>
