@@ -465,6 +465,19 @@
     "user-menu":{
       "profile":"Profile",
       "logout":"Logout"
+    },
+    "not-found":{
+      "not-exist":"This page does not exist.",
+      "sure":"We couldn’t find the page your are looking for, please make sure you are in the right path."
+    },
+    "unauthorized":{
+      "not-authorized":"You are not authorized to access this page.",
+      "contact":"If you think this is wrong, please contact the support.",
+      "go-home":"Go To Homepage"
+    },
+    "server-error":{
+      "wrong":"Oops, something went wrong!",
+      "refresh":"Something unexpected happened, please refresh the page or try again shortly."
     }
   }
 }
