@@ -451,5 +451,20 @@
     "status": {
       "label": "Status"
     }
+  },
+  "dashboard":{
+    "sidebar":{
+      "preview":"Preview Website",
+      "dashboard":"Dashboard",
+      "overview":"Overview",
+      "categories":"Categories",
+      "occasions":"Occasions",
+      "products":"Products",
+      "account":"Account"
+    },
+    "user-menu":{
+      "profile":"Profile",
+      "logout":"Logout"
+    }
   }
 }

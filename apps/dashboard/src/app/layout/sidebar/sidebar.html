@@ -1,0 +1,78 @@
+<div class="relative flex h-full flex-col">
+  <div class="hidden justify-center px-6 pt-8 pb-6 md:flex">
+    <img src="/Logo.svg" alt="Rose" class="w-24" />
+  </div>
+
+  <!-- Preview Website -->
+  <a
+    href="/"
+    target="_blank"
+    class="mx-4 mb-4 hidden items-center justify-center gap-2 rounded-lg bg-maroon-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-maroon-700 md:flex"
+  >
+    <svg lucideFlower size="25"></svg>
+    <span>Preview Website</span>
+  </a>
+
+  <!-- Preview Website Icon in Mobile -->
+  <a
+    href="/"
+    target="_blank"
+    aria-label="Preview website"
+    class="absolute -top-5 left-1/2 z-30 flex size-14 -translate-x-1/2 items-center justify-center rounded-full bg-maroon-600 text-xl text-white shadow-lg ring-2 ring-white md:hidden"
+  >
+    <svg lucideFlower size="25"></svg>
+  </a>
+
+  <!-- Navigation -->
+  <nav class="h-full md:h-auto">
+    <ul
+      class="flex h-full items-center justify-around px-2 md:flex-col md:items-stretch md:justify-start md:gap-1 md:px-4"
+    >
+      <li>
+        <a
+          routerLink="/dashboard/overview"
+          routerLinkActive="bg-maroon-50 text-maroon-600!"
+          class="flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium text-zinc-800 transition hover:bg-maroon-100 dark:hover:text-zinc-50 md:flex-row md:gap-3 md:px-3 md:py-2.5 md:text-sm md:font-semibold"
+        >
+          <svg lucideLayoutDashboard class="size-5"></svg>
+          <span>{{'dashboard.sidebar.overview'|translate}}</span>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/dashboard/categories"
+          routerLinkActive="bg-maroon-50 text-maroon-600!"
+          class="flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium text-zinc-800 transition hover:bg-maroon-100 dark:hover:text-zinc-50 md:flex-row md:gap-3 md:px-3 md:py-2.5 md:text-sm md:font-semibold"
+        >
+          <svg lucideClipboardList class="size-5"></svg>
+          <span>{{'dashboard.sidebar.categories'|translate}}</span>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/dashboard/occasions"
+          routerLinkActive="bg-maroon-50 text-maroon-600!"
+          class="flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium text-zinc-800 transition hover:bg-maroon-100 dark:hover:text-zinc-50 md:flex-row md:gap-3 md:px-3 md:py-2.5 md:text-sm md:font-semibold"
+        >
+          <svg lucideCalendarHeart class="size-5"></svg>
+          <span>{{'dashboard.sidebar.occasions'|translate}}</span>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/dashboard/products"
+          routerLinkActive="bg-maroon-50 text-maroon-600!"
+          class="flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium text-zinc-800 transition hover:bg-maroon-100 dark:hover:text-zinc-50 md:flex-row md:gap-3 md:px-3 md:py-2.5 md:text-sm md:font-semibold"
+        >
+          <svg lucidePackage class="size-5"></svg>
+          <span>{{'dashboard.sidebar.products'|translate}}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- User Menu -->
+  <div class="user mt-auto">
+    <app-user-menu [firstName]="user?.firstName" [lastName]="user?.lastName" [email]="user?.email" [userPhoto]="user?.profilePhoto"></app-user-menu>
+  </div>
+</div>

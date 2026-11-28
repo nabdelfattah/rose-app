@@ -451,5 +451,20 @@
     "status": {
       "label": "الحالة"
     }
+  },
+  "dashboard": {
+  "sidebar": {
+    "preview": "معاينة الموقع",
+    "dashboard": "لوحة التحكم",
+    "overview": "نظرة عامة",
+    "categories": "التصنيفات",
+    "occasions": "المناسبات",
+    "products": "المنتجات",
+    "account": "الحساب"
+  },
+  "user-menu": {
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج"
   }
+}
 }
